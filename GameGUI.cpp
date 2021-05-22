@@ -20,8 +20,6 @@ Window::Window(QWidget *parent) : QWidget(parent){
     setLayout(GameGrid);
     setWindowTitle(tr("Black Jack Game"));
     resize(1200,800);
-
-
 }
 
 QGroupBox *Window::DealersBox(){
