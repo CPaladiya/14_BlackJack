@@ -9,15 +9,15 @@
 #include <QSpinBox>
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Chillin!"){
+Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
 
     QGridLayout *GameGrid = new QGridLayout;
-    GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3);
-    GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3);
-    GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1);
-    GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1);
-    GameGrid->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1);
-    GameGrid->addWidget(ActionBox(),3,3,1,1);
+    GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
+    GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
+    GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
+    GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
+    GameGrid->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1); //Adding a tile for players fund
+    GameGrid->addWidget(ActionBox(),3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
     setLayout(GameGrid);
     setWindowTitle(tr("Black Jack Game"));
@@ -44,7 +44,7 @@ void Window::SetStatus(Status StatusOfPlayer){
         Window::CurrentStatus_ = "Bust!! \n You lost!";
     }
     else if (StatusOfPlayer == Status::Playing){
-        Window::CurrentStatus_ = "Chillin!!";
+        Window::CurrentStatus_ = "Loving it!!";
     }
     else if (StatusOfPlayer == Status::YouWin){
         Window::CurrentStatus_ = "You Won!!";
@@ -69,9 +69,7 @@ QLabel *Window::SetTileTitle(QString participant, QString FontColor, int FontSiz
     }
     //setting text to label
     title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
-    title->setStyleSheet("background-color : "+ BackGroundColor+ +" ; font-weight : bold; color : " + FontColor); //setting text format
-    QFont reSize("Arial", FontSize); //setting the font size
-    title->setFont(reSize);
+    title->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor); //setting text format
 
     return title;
 }
@@ -111,13 +109,13 @@ QGroupBox *Window::WhoIsPlayingBox(){
     InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"orange",false),1,0); //Adding the name of the player
     //changing the tile color of status of player based on Bust, win or currently playing
     if(GetEnumStatus() == Window::Status::Bust){
-        InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"red",false),2,0);
+        InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"black",20,"red",false),2,0);
     }
     else if(GetEnumStatus() == Window::Status::Playing){
-        InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"gray",false),2,0);
+        InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"white",20,"blue",false),2,0);
     }
     else{
-        InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"green",false),2,0);
+        InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"black",20,"green",false),2,0);
     }
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
@@ -129,7 +127,25 @@ QGroupBox *Window::ActionBox(){
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+    InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
     
+    InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
+    
+    QPushButton *HitButton = new QPushButton("Hit");
+    HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
+    QPushButton *StayButton = new QPushButton("Stay");
+    StayButton->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
+
+    InternalBox->addWidget(HitButton,2,0,1,1); //Adding Hit Button to internal grid
+    InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
+    
+    MainBox->setLayout(InternalBox); //Adding grid to the group box
+
+    return MainBox;
+
+}
+
+/*The first bet program
     InternalBox->addWidget(SetTileTitle("First Bet of The Game!","black",15,"orange",false),0,0,1,2); //Adding info of the first bet
 
     QSpinBox *BetBox = new QSpinBox; //creating a new spin box
@@ -140,10 +156,6 @@ QGroupBox *Window::ActionBox(){
     InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
     
     QPushButton *OkButton = new QPushButton("OK");
+    OkButton->setStyleSheet("font-size : 20px; font-weight : bold; color : Green");
     InternalBox->addWidget(OkButton,2,1,1,1); //adding okay button to the grid
-    
-    MainBox->setLayout(InternalBox); //Adding grid to the group box
-
-    return MainBox;
-
-}
+    */
