@@ -46,6 +46,8 @@ private:
     QString CurrentStatus_;
     Window::Status EnumCurrentStatus_{Status::Playing};
     int CurrentBet_{100};
+    int PlayerAceValue{11};
+    int DealerAceValue{11};
 };
 
 #endif
