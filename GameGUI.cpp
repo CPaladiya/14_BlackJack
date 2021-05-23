@@ -10,8 +10,8 @@
 Window::Window(QWidget *parent) : QWidget(parent){
 
     QGridLayout *GameGrid = new QGridLayout;
-    GameGrid->addWidget(CardBox("Dealer"),0,0,2,3);
-    GameGrid->addWidget(CardBox("Player"),2,0,2,3);
+    GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3);
+    GameGrid->addWidget(CardBox("Player", "blue"),2,0,2,3);
     GameGrid->addWidget(FundBox("Dealer"),0,3,1,1);
     GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1);
     GameGrid->addWidget(FundBox("Player"),2,3,1,1);
@@ -23,13 +23,16 @@ Window::Window(QWidget *parent) : QWidget(parent){
 }
 
 //Generates main Card tiles where cards will appear for both, dealer and player
-QGroupBox *Window::CardBox(QString participant){
+QGroupBox *Window::CardBox(QString participant, QString color){
     
     QGroupBox *MainBox = new QGroupBox;  //creating a main group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    QPushButton *sampleBut1 = new QPushButton(participant); //creating first button
+    QLabel *title = new QLabel(this); //creating new title for the tile
+    title->setText(participant); //setting text to label
+    title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
+    title->setStyleSheet("background-color : white ; font-weight : bold; color : " + color); //setting text format
     QPushButton *samplebut2 = new QPushButton(participant); //creating Second button
-    InternalBox->addWidget(sampleBut1,0,0,1,1); //Adding first button to grid
+    InternalBox->addWidget(title,0,0,1,1); //Adding first button to grid
     InternalBox->addWidget(samplebut2,1,0,5,1); //Adding second button to grid
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
