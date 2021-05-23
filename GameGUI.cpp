@@ -11,10 +11,10 @@ Window::Window(QWidget *parent) : QWidget(parent){
 
     QGridLayout *GameGrid = new QGridLayout;
     GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3);
-    GameGrid->addWidget(CardBox("Player", "blue"),2,0,2,3);
-    GameGrid->addWidget(FundBox("Dealer"),0,3,1,1);
+    GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3);
+    GameGrid->addWidget(FundBox("Dealer's Fund", "red"),0,3,1,1);
     GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1);
-    GameGrid->addWidget(FundBox("Player"),2,3,1,1);
+    GameGrid->addWidget(FundBox("Player's Fund", "white"),2,3,1,1);
     GameGrid->addWidget(ActionBox(),3,3,1,1);
 
     setLayout(GameGrid);
@@ -22,17 +22,36 @@ Window::Window(QWidget *parent) : QWidget(parent){
     resize(1200,800);
 }
 
+//Formating title of the main tiles
+// 
+QLabel *Window::SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor,bool IfMainTile){
+
+    QLabel *title = new QLabel(this); //creating new title for the tile
+    //only set symbols if its a main tile
+    if(IfMainTile){
+        QString titleSymbolsLeft = " \u2660 \u2663 \u2665 \u2666 ";
+        QString titleSymbolsRight = " \u2666 \u2665 \u2663 \u2660 ";
+        title->setText(titleSymbolsLeft+participant+titleSymbolsRight); 
+    }
+    else{
+        title->setText(participant); 
+    }
+    //setting text to label
+    title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
+    title->setStyleSheet("background-color : "+ BackGroundColor+ +" ; font-weight : bold; color : " + FontColor); //setting text format
+    QFont reSize("Arial", FontSize); //setting the font size
+    title->setFont(reSize);
+
+    return title;
+}
+
 //Generates main Card tiles where cards will appear for both, dealer and player
 QGroupBox *Window::CardBox(QString participant, QString color){
     
     QGroupBox *MainBox = new QGroupBox;  //creating a main group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    QLabel *title = new QLabel(this); //creating new title for the tile
-    title->setText(participant); //setting text to label
-    title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
-    title->setStyleSheet("background-color : white ; font-weight : bold; color : " + color); //setting text format
     QPushButton *samplebut2 = new QPushButton(participant); //creating Second button
-    InternalBox->addWidget(title,0,0,1,1); //Adding first button to grid
+    InternalBox->addWidget(SetTileTitle(participant,color,25,"black",true),0,0,1,1); //Adding title
     InternalBox->addWidget(samplebut2,1,0,5,1); //Adding second button to grid
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
@@ -40,13 +59,13 @@ QGroupBox *Window::CardBox(QString participant, QString color){
 
 }
 
-QGroupBox *Window::FundBox(QString participant){
+//Generates smaller tiles on right side where fund will appear
+QGroupBox *Window::FundBox(QString participant, QString color){
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    QPushButton *sampleBut1 = new QPushButton(participant); //creating first button
     QPushButton *samplebut2 = new QPushButton(participant); //creating Second button
-    InternalBox->addWidget(sampleBut1,0,0); //Adding first button to grid
+    InternalBox->addWidget(SetTileTitle(participant,color,20,"black",false),0,0); //Adding first button to grid
     InternalBox->addWidget(samplebut2,1,0); //Adding second button to grid
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
@@ -54,6 +73,7 @@ QGroupBox *Window::FundBox(QString participant){
 
 }
 
+// Generates smaller tile on right side showing who is playing and the message
 QGroupBox *Window::WhoIsPlayingBox(){
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
@@ -68,6 +88,7 @@ QGroupBox *Window::WhoIsPlayingBox(){
 
 }
 
+//Generates smaller tile on right side where prompt will be given for user to act on
 QGroupBox *Window::ActionBox(){
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box

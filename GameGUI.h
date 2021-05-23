@@ -22,8 +22,9 @@ public:
     Window(QWidget *parent = nullptr);
 
 private:
+    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
     QGroupBox *CardBox(QString participant, QString color); //Generates main Card tiles where cards will appear for both, dealer and player
-    QGroupBox *FundBox(QString participant); //Generates smaller tiles on right side where fund will appear
+    QGroupBox *FundBox(QString participant, QString color); //Generates smaller tiles on right side where fund will appear
     QGroupBox *WhoIsPlayingBox(); // Generates smaller tile on right side showing who is playing and the message
     QGroupBox *ActionBox(); //Generates smaller tile on right side where prompt will be given for user to act on
 };
