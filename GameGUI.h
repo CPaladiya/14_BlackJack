@@ -29,6 +29,7 @@ public:
     QString GetCurrentPlayer() {return CurrentPlayer_;} //Function to know who is playying currently
     void ToggleCurrentPlayer(); //Function to toggle the current player
     QString GetStatus(){return CurrentStatus_;}; //Function to get the current status of the player
+    Status GetEnumStatus(){return EnumCurrentStatus_;} //Function to return enum status of the current game
     void SetStatus(Status StatusOfPlayer); //Function to set the current status of the player
 
 
@@ -43,6 +44,7 @@ private:
     int PlayerFund_;
     QString CurrentPlayer_;
     QString CurrentStatus_;
+    Window::Status EnumCurrentStatus_{Status::Playing};
 };
 
 #endif

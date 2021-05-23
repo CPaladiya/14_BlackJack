@@ -7,7 +7,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 
-Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Dealer"), CurrentStatus_("Chillin!!"){
+//constructor
+Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Chillin!"){
 
     QGridLayout *GameGrid = new QGridLayout;
     GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3);
@@ -105,10 +106,10 @@ QGroupBox *Window::WhoIsPlayingBox(){
     InternalBox->addWidget(SetTileTitle("Who is playing?","black",20,"gray",false),0,0); //Adding Who is playing title
     InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"gray",false),1,0); //Adding the name of the player
     //changing the tile color of status of player based on Bust, win or currently playing
-    if(GetStatus() == Window::Status::Bust){
+    if(GetEnumStatus() == Window::Status::Bust){
         InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"red",false),2,0);
     }
-    else if(GetStatus() == Window::Status::Playing){
+    else if(GetEnumStatus() == Window::Status::Playing){
         InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"gray",false),2,0);
     }
     else{
