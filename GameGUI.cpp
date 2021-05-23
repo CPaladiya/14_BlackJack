@@ -129,17 +129,7 @@ QGroupBox *Window::ActionBox(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
     
-    InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
     
-    QPushButton *HitButton = new QPushButton("Hit");
-    HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
-    QPushButton *StayButton = new QPushButton("Stay");
-    StayButton->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
-
-    InternalBox->addWidget(HitButton,2,0,1,1); //Adding Hit Button to internal grid
-    InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
-    
-    MainBox->setLayout(InternalBox); //Adding grid to the group box
 
     return MainBox;
 
@@ -158,4 +148,32 @@ QGroupBox *Window::ActionBox(){
     QPushButton *OkButton = new QPushButton("OK");
     OkButton->setStyleSheet("font-size : 20px; font-weight : bold; color : Green");
     InternalBox->addWidget(OkButton,2,1,1,1); //adding okay button to the grid
+    */
+
+/* The Hit and Miss Button Logic
+   InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
+    
+    QPushButton *HitButton = new QPushButton("Hit");
+    HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
+    QPushButton *StayButton = new QPushButton("Stay");
+    StayButton->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
+
+    InternalBox->addWidget(HitButton,2,0,1,1); //Adding Hit Button to internal grid
+    InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
+    
+    MainBox->setLayout(InternalBox); //Adding grid to the group box
+    */
+
+   /*Adding one and eleven button
+   InternalBox->addWidget(SetTileTitle("Value of Ace?","black",20,"orange",false),1,0,1,2); 
+    
+    QPushButton *oneButton = new QPushButton("1");
+    oneButton->setStyleSheet("font-size : 20px; font-weight : bold; color : black");
+    QPushButton *elevenButton = new QPushButton("11");
+    elevenButton->setStyleSheet("font-size : 20px; font-weight : bold; color : black");
+
+    InternalBox->addWidget(oneButton,2,0,1,1); //Adding Hit Button to internal grid
+    InternalBox->addWidget(elevenButton,2,1,1,1); //Adding Stay Button to internal grid
+    
+    MainBox->setLayout(InternalBox); //Adding grid to the group box
     */
