@@ -20,7 +20,7 @@ class Window : public QWidget{
 public:
     Window(QWidget *parent = nullptr);
 
-    enum Status{Playing, Bust, BlackJack, YouWin}; //status of the player
+    enum Status{Playing, Bust, BlackJack, YouWin, Reset}; //status of the player
 
     int GetDealerFund(){ return DealerFund_;} //Function to get dealers fund
     int GetPlayerFund(){ return PlayerFund_;} //Function to get players fund

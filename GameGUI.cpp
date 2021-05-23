@@ -49,6 +49,9 @@ void Window::SetStatus(Status StatusOfPlayer){
     else if (StatusOfPlayer == Status::YouWin){
         Window::CurrentStatus_ = "You Won!!";
     }
+    else{
+        Window::CurrentStatus_ = "Resetting the \n Game...";
+    }
 }
 
 //Function to form title of the tiles
@@ -128,7 +131,7 @@ QGroupBox *Window::ActionBox(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     
     InternalBox->addWidget(SetTileTitle("First Bet of The Game!","black",15,"orange",false),0,0,1,2); //Adding info of the first bet
-    
+
     QSpinBox *BetBox = new QSpinBox; //creating a new spin box
     BetBox->setRange(50,500); //setting a range of spin box
     BetBox->setSingleStep(50.0); //spin box will jump with range of 50 $
