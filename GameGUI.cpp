@@ -6,6 +6,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
+#include <QSpinBox>
 
 //constructor
 Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Chillin!"){
@@ -13,9 +14,9 @@ Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFu
     QGridLayout *GameGrid = new QGridLayout;
     GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3);
     GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3);
-    GameGrid->addWidget(FundBox("Dealer's Fund", "red", GetDealerFund()),0,3,1,1);
+    GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1);
     GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1);
-    GameGrid->addWidget(FundBox("Player's Fund", "white", GetPlayerFund()),2,3,1,1);
+    GameGrid->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1);
     GameGrid->addWidget(ActionBox(),3,3,1,1);
 
     setLayout(GameGrid);
@@ -92,7 +93,7 @@ QGroupBox *Window::FundBox(QString participant, QString FontColor, int Fund){
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetTileTitle(participant,FontColor,20,"black",false),0,0); //Adding first button to grid
-    InternalBox->addWidget(SetTileTitle(QString::number(Fund),"black",20,"yellow",false),1,0); //Adding fund
+    InternalBox->addWidget(SetTileTitle(QString::number(Fund)+" $","black",20,"yellow",false),1,0); //Adding fund
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
     return MainBox;
@@ -104,7 +105,7 @@ QGroupBox *Window::WhoIsPlayingBox(){
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetTileTitle("Who is playing?","black",20,"gray",false),0,0); //Adding Who is playing title
-    InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"gray",false),1,0); //Adding the name of the player
+    InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"orange",false),1,0); //Adding the name of the player
     //changing the tile color of status of player based on Bust, win or currently playing
     if(GetEnumStatus() == Window::Status::Bust){
         InternalBox->addWidget(SetTileTitle(GetStatus(),"black",15,"red",false),2,0);
@@ -125,10 +126,19 @@ QGroupBox *Window::ActionBox(){
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    QPushButton *sampleBut1 = new QPushButton("Player Sample1"); //creating first button
-    QPushButton *samplebut2 = new QPushButton("Player Sample2"); //creating Second button
-    InternalBox->addWidget(sampleBut1,0,0); //Adding first button to grid
-    InternalBox->addWidget(samplebut2,1,0); //Adding second button to grid
+    
+    InternalBox->addWidget(SetTileTitle("First Bet of The Game!","black",15,"orange",false),0,0,1,2); //Adding info of the first bet
+    
+    QSpinBox *BetBox = new QSpinBox; //creating a new spin box
+    BetBox->setRange(50,500); //setting a range of spin box
+    BetBox->setSingleStep(50.0); //spin box will jump with range of 50 $
+    BetBox->setValue(100);//initial value of the bet box 
+    InternalBox->addWidget(SetTileTitle("Min. 50$ and Max. 500$","black",10,"white",false),1,0,1,2);
+    InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
+    
+    QPushButton *OkButton = new QPushButton("OK");
+    InternalBox->addWidget(OkButton,2,1,1,1); //adding okay button to the grid
+    
     MainBox->setLayout(InternalBox); //Adding grid to the group box
 
     return MainBox;
