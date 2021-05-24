@@ -13,15 +13,14 @@ QTextStream out(stdout);
 //constructor
 Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
 
-    *PlayerFund_ = 5000;
     Window::GameGrid_ = new QGridLayout;
     GameGrid_->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
     GameGrid_->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
-    DealersFundBox_ = FundBox("Dealer's Fund ", "red", GetDealerFund());
-    GameGrid_->addWidget(DealersFundBox_,0,3,1,1); //Addint tile for dealers fund
+    //DealersFundBox_ = FundBox("Dealer's Fund ", "red", GetDealerFund());
+    GameGrid_->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
     GameGrid_->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
-    PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
-    GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Adding a tile for players fund
+    //PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
+    GameGrid_->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1); //Adding a tile for players fund
     StartActionBox();
     GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
@@ -165,6 +164,7 @@ QGroupBox *Window::GetFirstBet(){
 //Generates smaller tile on right side where prompt will be given for user to act "Hit" and "Stay" option
 QGroupBox *Window::GetHitNStay(){
 
+    GameGrid_->removeWidget(ActionBox_); //removing the old ActionBox Widget
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::GetBet()),"black",20,"green",false),0,0,1,2);
@@ -192,11 +192,10 @@ void Window::StartActionBox(){
         ActionBox_ = GetFirstBet();
     }
     else if (GetPromptStatus()== PromptStatus::HitNStay){
-        GameGrid_->removeWidget(PlayersFundBox_);
-        GameGrid_->removeWidget(ActionBox_); //removing the old ActionBox Widget
+        //GameGrid_->removeWidget(PlayersFundBox_);
         ActionBox_ = GetHitNStay(); //Redrawing the ActionBox
         GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a new ActionBox
-        GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Refreshing the Fund
+        //GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Refreshing the Fund
     }
     else if (GetPromptStatus() == PromptStatus::OneNEleven){
         ActionBox_ = GetOneNEleven();
