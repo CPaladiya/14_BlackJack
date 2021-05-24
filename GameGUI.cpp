@@ -126,7 +126,7 @@ QGroupBox *Window::WhoIsPlayingBox(){
 }
 
 //setting up the first bet prompt
-QGridLayout *GetFirstBet(){
+QGroupBox *GetFirstBet(){
     
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
@@ -148,20 +148,49 @@ QGridLayout *GetFirstBet(){
 
     //When pressed okay, sending signal to collect the value from BetBox to CurrentBet_
     connect(OkButton, &QPushButton::clicked, this, &Window::SetBet); 
-    //When pressed okay, after setting the SetBet value, we will then go for Hit and Miss Button once allowed
-    connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatus(PromptStatus::HitNMiss));
-    //
-    connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatus(PromptStatus::HitNMiss));
+    //When pressed okay, after setting the SetBet value, we will set status of variable CurrentPrompt_
+    connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatusHitNStay);
+     //When pressed okay, after setting the SetBet value, we will set status of variable CurrentPrompt_
+    connect(OkButton, &QPushButton::clicked, this, &Window::StartActionBox);
 
-
+    return MainBox;
 }
 
-//Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace and "Hit" and "Stay" option
-Window::StartActionBox(){
+QGroupBox *GetHitNStay(){
 
-    if (Window::CurrentPrompt_ == PromptStatus::FirstBet){
-        Actopm
+    QGroupBox *MainBox = new QGroupBox;  //creating a group box
+    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+    InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::GetBet()),"black",20,"green",false),0,0,1,2);
+    InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
+    
+    QPushButton *HitButton = new QPushButton("Hit");
+    HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
+    QPushButton *StayButton = new QPushButton("Stay");
+    StayButton->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
+
+    InternalBox->addWidget(HitButton,2,0,1,1); //Adding Hit Button to internal grid
+    InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
+    
+    MainBox->setLayout(InternalBox); //Adding grid to the group box
+    return MainBox;
+
+}
+//Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace and "Hit" and "Stay" option
+void Window::StartActionBox(){
+
+    if (GetPromptStatus() == PromptStatus::FirstBet){
+        ActionBox = GetFirstBet();
     }
+    else if (GetPromptStatus()== PromptStatus::HitNStay){
+        ActionBox = GetHitNStay();
+    }
+    else if (GetPromptStatus() == PromptStatus::OneNEleven){
+        ActionBox = GetOneNEleven();
+    }
+    else{
+        cout << "There as an prompt error!";
+    }
+    
     
 }
 
@@ -169,7 +198,7 @@ Window::StartActionBox(){
 
     */
 
-/* The Hit and Miss Button Logic
+/* The Hit and Stay Button Logic
     InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
     InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
     

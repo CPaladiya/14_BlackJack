@@ -54,28 +54,37 @@ public:
         return CurrentBet_;
     }
 
-    //Set Prompt Status
-    void SetPromptStatus (PromptStatus NewStatus){
+    //Set Prompt Status Hit N Stay
+    void SetPromptStatusHitNStay(){
         mutex.lock();
-        CurrentPrompt_ = NewStatus;
+        CurrentPrompt_ = PromptStatus::HitNStay;
+        mutex.unlock();
+    }
+    //Set Prompt Status One N Eleven
+    void SetPromptStatusOneNEleven(){
+        mutex.lock();
+        CurrentPrompt_ = PromptStatus::OneNEleven;
         mutex.unlock();
     }
     //Get Prompt Status
-    PromptStatus GetPromptStatus (){
+    PromptStatus GetPromptStatus(){
+        std::this_thread::sleep_for(chrono::microseconds(500));
         return CurrentPrompt_;
     }
+
+    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
 
 
 private:
 
-    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
+    
     QGroupBox *CardBox(QString participant, QString FontColor); //Generates main Card tiles where cards will appear for both, dealer and player
     QGroupBox *FundBox(QString participant, QString FontColor, int Fund); //Generates smaller tiles on right side where fund will appear
     QGroupBox *WhoIsPlayingBox(); // Generates smaller tile on right side showing who is playing and the message
     void StartActionBox(); //Generates smaller tile on right side where prompt will be given for user to act on
-    QGridLayout *GetFirstBet();
-    QGridLayout *GetHitNStay();
-    QGridLayout *GetOneNEleven();
+    QGroupBox *GetFirstBet();
+    QGroupBox *GetHitNStay();
+    QGroupBox *GetOneNEleven();
 
 
 
@@ -87,7 +96,7 @@ private:
     int CurrentBet_{0};
     int PlayerAceValue{11};
     int DealerAceValue{11};
-    QGridLayout *ActionBox; //Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
+    QGroupBox *ActionBox; //Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
     QSpinBox *BetBox; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
     PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
 };
