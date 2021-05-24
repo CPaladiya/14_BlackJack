@@ -33,9 +33,9 @@ public:
     std::mutex mutex;
 
     int GetDealerFund(){ return DealerFund_;} //Function to get dealers fund
-    int GetPlayerFund(){ return PlayerFund_;} //Function to get players fund
+    int GetPlayerFund(){ return *PlayerFund_;} //Function to get players fund
     void SetDealerFund(int Fund) { DealerFund_ = Fund;} //Function to set Dealers Fund
-    void SetPlayerFund(int Fund) { PlayerFund_ = Fund;} //Function to set Players Fund
+    void SetPlayerFund(int Fund) { *PlayerFund_ = Fund;} //Function to set Players Fund
     QString GetCurrentPlayer() {return CurrentPlayer_;} //Function to know who is playying currently
     void ToggleCurrentPlayer(); //Function to toggle the current player
     QString GetStatus(){return CurrentStatus_;}; //Function to get the current status of the player
@@ -46,7 +46,8 @@ public:
     void SetBet(){
         mutex.lock();
         CurrentBet_ = BetBox->value();
-        //cout << "CurrentBet Value : " << CurrentBet_;
+        cout << "CurrentBet Value : \n" << CurrentBet_;
+        *PlayerFund_ = *PlayerFund_ - CurrentBet_; //removing bet money from player's fund
         mutex.unlock();
     }
     int GetBet(){
@@ -71,8 +72,10 @@ public:
         std::this_thread::sleep_for(chrono::microseconds(500));
         return CurrentPrompt_;
     }
-
-    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
+    //set Action box to show nothing
+    void SetActionBoxNull(){
+        ActionBox = nullptr;
+    }
 
 
 private:
@@ -89,16 +92,18 @@ private:
 
 
     int DealerFund_;
-    int PlayerFund_;
+    int *PlayerFund_;
     QString CurrentPlayer_;
     QString CurrentStatus_;
     Window::Status EnumCurrentStatus_{Status::Playing};
     int CurrentBet_{0};
     int PlayerAceValue{11};
     int DealerAceValue{11};
+    QGridLayout *GameGrid;
     QGroupBox *ActionBox; //Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
-    QSpinBox *BetBox; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
     PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
+    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
+    QSpinBox *BetBox; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
 };
 
 #endif

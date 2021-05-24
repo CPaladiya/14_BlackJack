@@ -11,9 +11,10 @@
 QTextStream out(stdout);
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
+Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
 
-    QGridLayout *GameGrid = new QGridLayout;
+    *PlayerFund_ = 5000;
+    Window::GameGrid = new QGridLayout;
     GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
     GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
     GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
@@ -126,7 +127,7 @@ QGroupBox *Window::WhoIsPlayingBox(){
 }
 
 //setting up the first bet prompt
-QGroupBox *GetFirstBet(){
+QGroupBox *Window::GetFirstBet(){
     
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
@@ -150,13 +151,21 @@ QGroupBox *GetFirstBet(){
     connect(OkButton, &QPushButton::clicked, this, &Window::SetBet); 
     //When pressed okay, after setting the SetBet value, we will set status of variable CurrentPrompt_
     connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatusHitNStay);
-     //When pressed okay, after setting the SetBet value, we will set status of variable CurrentPrompt_
+    //When pressed okay, after setting the SetBet value, we will call the new start Action box
     connect(OkButton, &QPushButton::clicked, this, &Window::StartActionBox);
+    connect(OkButton, &QPushButton::clicked, this, &Window::SetActionBoxNull);
+    //When pressed okay, after setting the SetBet value, we will set status of variable CurrentPrompt_
+    
 
     return MainBox;
 }
 
-QGroupBox *GetHitNStay(){
+//Generates smaller tile on right side where prompt will be given for user to act "Hit" and "Stay" option
+QGroupBox *Window::GetHitNStay(){
+
+    GameGrid->removeWidget(ActionBox);
+
+    cout << "HitNStay working \n" << endl;
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
@@ -175,7 +184,10 @@ QGroupBox *GetHitNStay(){
     return MainBox;
 
 }
-//Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace and "Hit" and "Stay" option
+
+//Generates smaller tile //Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace 1 or 11
+QGroupBox *Window::GetOneNEleven(){}
+
 void Window::StartActionBox(){
 
     if (GetPromptStatus() == PromptStatus::FirstBet){
@@ -183,6 +195,7 @@ void Window::StartActionBox(){
     }
     else if (GetPromptStatus()== PromptStatus::HitNStay){
         ActionBox = GetHitNStay();
+        GameGrid->addWidget(ActionBox,3,3,1,1);
     }
     else if (GetPromptStatus() == PromptStatus::OneNEleven){
         ActionBox = GetOneNEleven();
@@ -193,6 +206,8 @@ void Window::StartActionBox(){
     
     
 }
+
+
 
 /*The first bet program
 
