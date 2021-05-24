@@ -14,16 +14,18 @@ QTextStream out(stdout);
 Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
 
     *PlayerFund_ = 5000;
-    Window::GameGrid = new QGridLayout;
-    GameGrid->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
-    GameGrid->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
-    GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
-    GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
-    GameGrid->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1); //Adding a tile for players fund
+    Window::GameGrid_ = new QGridLayout;
+    GameGrid_->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
+    GameGrid_->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
+    DealersFundBox_ = FundBox("Dealer's Fund ", "red", GetDealerFund());
+    GameGrid_->addWidget(DealersFundBox_,0,3,1,1); //Addint tile for dealers fund
+    GameGrid_->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
+    PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
+    GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Adding a tile for players fund
     StartActionBox();
-    GameGrid->addWidget(ActionBox,3,3,1,1); //Adding a tile for Action box where user will be asked for input
+    GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
-    setLayout(GameGrid);
+    setLayout(GameGrid_);
     setWindowTitle(tr("Black Jack Game"));
     resize(1200,800);
 }
@@ -134,13 +136,13 @@ QGroupBox *Window::GetFirstBet(){
 
     InternalBox->addWidget(SetTileTitle("First Bet of The Game!","black",15,"orange",false),0,0,1,2); //Adding info of the first bet
 
-    Window::BetBox = new QSpinBox; //creating a new spin box 
-    BetBox->setRange(50,500); //setting a range of spin box
-    BetBox->setSingleStep(50.0); //spin box will jump with range of 50 $
-    BetBox->setValue(100);//initial value of the bet box 
-    BetBox->setPrefix("$"); //setting dollar sign ahead of amount
+    Window::BetBox_ = new QSpinBox; //creating a new spin box 
+    BetBox_->setRange(50,500); //setting a range of spin box
+    BetBox_->setSingleStep(50.0); //spin box will jump with range of 50 $
+    BetBox_->setValue(100);//initial value of the bet box 
+    BetBox_->setPrefix("$"); //setting dollar sign ahead of amount
     InternalBox->addWidget(SetTileTitle("Min. 50$ and Max. 500$","black",15,"white",false),1,0,1,2);//adding information on top
-    InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
+    InternalBox->addWidget(BetBox_,2,0,1,1); //Adding second button to grid
     
     QPushButton *OkButton = new QPushButton("OK"); //adding ok button on the side
     OkButton->setStyleSheet("font-size : 18px; font-weight : bold; color : Green"); //formatting OK Button
@@ -162,10 +164,6 @@ QGroupBox *Window::GetFirstBet(){
 
 //Generates smaller tile on right side where prompt will be given for user to act "Hit" and "Stay" option
 QGroupBox *Window::GetHitNStay(){
-
-    GameGrid->removeWidget(ActionBox);
-
-    cout << "HitNStay working \n" << endl;
 
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
@@ -191,14 +189,17 @@ QGroupBox *Window::GetOneNEleven(){}
 void Window::StartActionBox(){
 
     if (GetPromptStatus() == PromptStatus::FirstBet){
-        ActionBox = GetFirstBet();
+        ActionBox_ = GetFirstBet();
     }
     else if (GetPromptStatus()== PromptStatus::HitNStay){
-        ActionBox = GetHitNStay();
-        GameGrid->addWidget(ActionBox,3,3,1,1);
+        GameGrid_->removeWidget(PlayersFundBox_);
+        GameGrid_->removeWidget(ActionBox_); //removing the old ActionBox Widget
+        ActionBox_ = GetHitNStay(); //Redrawing the ActionBox
+        GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a new ActionBox
+        GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Refreshing the Fund
     }
     else if (GetPromptStatus() == PromptStatus::OneNEleven){
-        ActionBox = GetOneNEleven();
+        ActionBox_ = GetOneNEleven();
     }
     else{
         cout << "There as an prompt error!";

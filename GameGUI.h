@@ -45,7 +45,7 @@ public:
     //setting the bet amount while making sure it is not read wrong by subsequent function
     void SetBet(){
         mutex.lock();
-        CurrentBet_ = BetBox->value();
+        CurrentBet_ = BetBox_->value();
         cout << "CurrentBet Value : \n" << CurrentBet_;
         *PlayerFund_ = *PlayerFund_ - CurrentBet_; //removing bet money from player's fund
         mutex.unlock();
@@ -74,7 +74,7 @@ public:
     }
     //set Action box to show nothing
     void SetActionBoxNull(){
-        ActionBox = nullptr;
+        ActionBox_ = nullptr;
     }
 
 
@@ -99,11 +99,13 @@ private:
     int CurrentBet_{0};
     int PlayerAceValue{11};
     int DealerAceValue{11};
-    QGridLayout *GameGrid;
-    QGroupBox *ActionBox; //Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
+    QGridLayout *GameGrid_;
+    QGroupBox *ActionBox_; //Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
+    QGroupBox *DealersFundBox_; //Box that will Fund value for Dealer
+    QGroupBox *PlayersFundBox_; //Box that will Fund value for Player
     PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
     QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
-    QSpinBox *BetBox; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
+    QSpinBox *BetBox_; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
 };
 
 #endif
