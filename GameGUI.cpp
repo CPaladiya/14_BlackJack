@@ -8,6 +8,8 @@
 #include <QtWidgets/QPushButton>
 #include <QSpinBox>
 
+QTextStream out(stdout);
+
 //constructor
 Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFund_(5000), CurrentPlayer_("Player"), CurrentStatus_("Loving it!!"){
 
@@ -17,7 +19,8 @@ Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), PlayerFu
     GameGrid->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
     GameGrid->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
     GameGrid->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1); //Adding a tile for players fund
-    GameGrid->addWidget(ActionBox(),3,3,1,1); //Adding a tile for Action box where user will be asked for input
+    StartActionBox();
+    GameGrid->addWidget(ActionBox,3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
     setLayout(GameGrid);
     setWindowTitle(tr("Black Jack Game"));
@@ -122,36 +125,53 @@ QGroupBox *Window::WhoIsPlayingBox(){
     return MainBox;
 }
 
-//Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace and "Hit" and "Stay" option
-QGroupBox *Window::ActionBox(){
-
+//setting up the first bet prompt
+QGridLayout *GetFirstBet(){
+    
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
-    
-    
 
-    return MainBox;
-
-}
-
-/*The first bet program
     InternalBox->addWidget(SetTileTitle("First Bet of The Game!","black",15,"orange",false),0,0,1,2); //Adding info of the first bet
 
-    QSpinBox *BetBox = new QSpinBox; //creating a new spin box
+    Window::BetBox = new QSpinBox; //creating a new spin box 
     BetBox->setRange(50,500); //setting a range of spin box
     BetBox->setSingleStep(50.0); //spin box will jump with range of 50 $
     BetBox->setValue(100);//initial value of the bet box 
-    InternalBox->addWidget(SetTileTitle("Min. 50$ and Max. 500$","black",10,"white",false),1,0,1,2);
+    BetBox->setPrefix("$"); //setting dollar sign ahead of amount
+    InternalBox->addWidget(SetTileTitle("Min. 50$ and Max. 500$","black",15,"white",false),1,0,1,2);//adding information on top
     InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
     
-    QPushButton *OkButton = new QPushButton("OK");
-    OkButton->setStyleSheet("font-size : 20px; font-weight : bold; color : Green");
+    QPushButton *OkButton = new QPushButton("OK"); //adding ok button on the side
+    OkButton->setStyleSheet("font-size : 18px; font-weight : bold; color : Green"); //formatting OK Button
     InternalBox->addWidget(OkButton,2,1,1,1); //adding okay button to the grid
+    MainBox->setLayout(InternalBox);
+
+    //When pressed okay, sending signal to collect the value from BetBox to CurrentBet_
+    connect(OkButton, &QPushButton::clicked, this, &Window::SetBet); 
+    //When pressed okay, after setting the SetBet value, we will then go for Hit and Miss Button once allowed
+    connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatus(PromptStatus::HitNMiss));
+    //
+    connect(OkButton, &QPushButton::clicked, this, &Window::SetPromptStatus(PromptStatus::HitNMiss));
+
+
+}
+
+//Generates smaller tile on right side where prompt will be given for user to act on to select value of Ace and "Hit" and "Stay" option
+Window::StartActionBox(){
+
+    if (Window::CurrentPrompt_ == PromptStatus::FirstBet){
+        Actopm
+    }
+    
+}
+
+/*The first bet program
+
     */
 
 /* The Hit and Miss Button Logic
-   InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
+    InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
+    InternalBox->addWidget(SetTileTitle("Make Your Move!","black",20,"orange",false),1,0,1,2); //Adding Hit and Stay Button
     
     QPushButton *HitButton = new QPushButton("Hit");
     HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
@@ -164,8 +184,9 @@ QGroupBox *Window::ActionBox(){
     MainBox->setLayout(InternalBox); //Adding grid to the group box
     */
 
-   /*Adding one and eleven button
-   InternalBox->addWidget(SetTileTitle("Value of Ace?","black",20,"orange",false),1,0,1,2); 
+/*Adding one and eleven button
+    InternalBox->addWidget(SetTileTitle("Current Bet : " + QString::number(Window::CurrentBet_),"black",20,"green",false),0,0,1,2);
+    InternalBox->addWidget(SetTileTitle("Value of Ace?","black",20,"orange",false),1,0,1,2); 
     
     QPushButton *oneButton = new QPushButton("1");
     oneButton->setStyleSheet("font-size : 20px; font-weight : bold; color : black");
