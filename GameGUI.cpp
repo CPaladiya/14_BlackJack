@@ -18,8 +18,8 @@ Window::Window(QWidget *parent) : QWidget(parent){
     DrawHitNStayPrompt();
     DrawCurrentPlayerPrompt();
     DrawOneNElevenPrompt();
-    DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black", "DealersFund");
-    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "red", "black", "PlayersFund");
+    DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black");
+    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "red", "black");
     
 
     //populating main grid with drawn widgets
@@ -102,39 +102,12 @@ QGroupBox *Window::CardBox(QString participant, QString FontColor){
 }
 */
 
-//sets basic label within dynamic heading generator
-void Window::SetBasicLable(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
-    
-    LabelToPopulate->setText(StringToShow); 
-    //setting text to label
-    LabelToPopulate->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
-    LabelToPopulate->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor); //setting text format
-}
+//Dynamic Heading  Set
+void Window::SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
 
-//setting those headings where we need to modify values as game goes on
-void Window::SetDynamicHeading(QString LabelIndicator, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
-    
-    if (LabelIndicator == "DealersFund"){
-        DealersFundInfoLabel = new QLabel();
-        SetBasicLable(DealersFundInfoLabel,StringToShow,FontColor,FontSize,BackGroundColor);
-    }
-    else if (LabelIndicator == "CurrentBet"){
-        
-        CurrentBetInfoLabel = new QLabel();
-        SetBasicLable(CurrentBetInfoLabel,StringToShow,FontColor,FontSize,BackGroundColor);
-    }
-    else if (LabelIndicator == "PlayersFund"){
-        PlayersFundInfoLabel = new QLabel();
-        SetBasicLable(PlayersFundInfoLabel,StringToShow,FontColor,FontSize,BackGroundColor);
-    }
-    else if (LabelIndicator == "CurrentPlayer"){
-        CurrentPlayerInfoLabel = new QLabel();
-        SetBasicLable(CurrentPlayerInfoLabel,StringToShow,FontColor,FontSize,BackGroundColor);
-    }
-    else if (LabelIndicator == "CurrentStatus"){
-        CurrentStatusInfoLabel = new QLabel();
-        SetBasicLable(CurrentStatusInfoLabel,StringToShow,FontColor,FontSize,BackGroundColor);
-    }
+    LabelToPopulate->setText(StringToShow); //setting text to label
+    LabelToPopulate->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label, line below setting text format
+    LabelToPopulate->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor);
 }
 
 //setting those headings which will not be need to change with game
@@ -150,14 +123,24 @@ QLabel *Window::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
 }; 
 
 //drawing the DrawFundPrompt for given variable
-QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor, QString StringIndicator){
+QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor){
 
     QGroupBox *QBoxFund = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetStaticHeading(Participant,FontColor,20,BackGroundColor),0,0); //Adding first button to grid
-    SetDynamicHeading(StringIndicator, QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
-    if(Participant == "Dealer"){ InternalBox->addWidget(DealersFundInfoLabel,1,0);} //Adding fund for dealer if dealer
-    else if(Participant == "Player"){ InternalBox->addWidget(DealersFundInfoLabel,1,0);} //Adding fund for Player if Player
+    
+    //Adding fund for dealer if dealer
+    if(Participant == "Dealer"){ 
+        DealersFundInfoLabel = new QLabel();
+        SetDynamicHeading(DealersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        InternalBox->addWidget(DealersFundInfoLabel,1,0);
+    } 
+    else if(Participant == "Dealer"){ 
+        PlayersFundInfoLabel = new QLabel();
+        SetDynamicHeading(PlayersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        InternalBox->addWidget(DealersFundInfoLabel,1,0);
+    }//Adding fund for Player if Player
+    
     QBoxFund->setLayout(InternalBox); //Adding grid to the group box
 
     return QBoxFund;
@@ -169,10 +152,12 @@ void Window::DrawCurrentPlayerPrompt(){
     CurrentPlayerPrompt_ = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetStaticHeading("Who is playing?","black",20,"gray"),0,0); //Adding Who is playing title
-    SetDynamicHeading("CurrentPlayer", CurrentPlayer_, "black",20,"gray");
+    CurrentPlayerInfoLabel = new QLabel();
+    SetDynamicHeading(CurrentPlayerInfoLabel, CurrentPlayer_, "black",20,"gray");
     InternalBox->addWidget(CurrentPlayerInfoLabel,1,0); //Adding the name of the player
     //changing the tile color of status of player based on Bust, win or currently playing
-    SetDynamicHeading("CurrentStatus", CurrentStatus_, "black",20,"gray");
+    CurrentStatusInfoLabel = new QLabel();
+    SetDynamicHeading(CurrentStatusInfoLabel, CurrentStatus_, "black",20,"gray");
     InternalBox->addWidget(CurrentStatusInfoLabel,2,0);
     CurrentPlayerPrompt_->setLayout(InternalBox); //Adding grid to the group box
 
@@ -209,7 +194,8 @@ void Window::DrawHitNStayPrompt(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
     InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);//creating static heading
-    SetDynamicHeading("CurrentBet", QString::number(CurrentBet_), "black",20,"green");//setting up CurrentBetInfoLabel dynamic label
+    CurrentBetInfoLabel = new QLabel();
+    SetDynamicHeading(CurrentBetInfoLabel, QString::number(CurrentBet_), "black",20,"green");//setting up CurrentBetInfoLabel dynamic label
     InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
 
     InternalBox->addWidget(SetStaticHeading("Make Your Move!","black",20,"orange"),1,0,1,2); //Adding Hit and Stay Button

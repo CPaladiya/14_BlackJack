@@ -31,12 +31,12 @@ public:
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
     void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
-    QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor, QString StringIndicator = "DealersFund");//draws the fund InfoLabel boxes for dealer and player
+    QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
     void DrawCurrentPlayerPrompt();//Drawing current player prompt
     //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
-    void SetDynamicHeading(QString LabelIndicator, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+    void SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
-    void SetBasicLable(QLabel *Try, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor);
+    //void SetBasicLable(QLabel *Try, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor);
 
     QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
     //Group box variables ------------
