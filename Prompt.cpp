@@ -15,6 +15,26 @@
 #include <thread>
 #include "Prompt.h"
 
+using namespace std;
+
+
+//constructor
+Prompt::Prompt(){
+
+}
+Prompt::~Prompt(){
+    cout << "Prompt destroyed" <<endl;
+}
+
+void Prompt::FirstSetUPDraw(){
+
+    DrawFirstBetPrompt();
+    DrawHitNStayPrompt();
+    DrawOneNElevenPrompt();
+    DrawFundPrompt(DealersFundPrompt_, "Dealer", DealersFundInfoLabel, "red", "black");
+    DrawFundPrompt(PlayersFundPrompt_, "Player", PlayersFundInfoLabel, "red", "black");
+    DrawCurrentPlayerPrompt();
+}
 //setting those headings where we need to modify values as game goes on
 void Prompt::SetDynamicHeading(QLabel *LabelToCreate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
 
@@ -38,18 +58,31 @@ QLabel *Prompt::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
 }; 
 
 //drawing the DrawFundPrompt for given variable
-void DrawFundPrompt(QGroupBox *QBoxFund, QString Participant, QLabel *FundLabel, QString FontColor, QString BackGroundColor){
+void Prompt::DrawFundPrompt(QGroupBox *QBoxFund, QString Participant, QLabel *FundLabel, QString FontColor, QString BackGroundColor){
 
 
     QBoxFund = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetStaticHeading(Participant,FontColor,20,BackGroundColor),0,0); //Adding first button to grid
-    SetDynamicHeading(DealersFundInfo, QString::number(DealersFund_), FontColor, BackGroundColor);
-    InternalBox->addWidget(DealersFundInfo,1,0); //Adding fund
-    QBoxFund>setLayout(InternalBox); //Adding grid to the group box
-
+    SetDynamicHeading(DealersFundInfoLabel, QString::number(DealersFund_), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+    InternalBox->addWidget(DealersFundInfoLabel,1,0); //Adding fund
+    QBoxFund->setLayout(InternalBox); //Adding grid to the group box
 }
 
+//drawing CurrentPlayerPrompt
+void Prompt::DrawCurrentPlayerPrompt(){
+
+    CurrentPlayerPrompt_ = new QGroupBox;  //creating a group box
+    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+    InternalBox->addWidget(SetStaticHeading("Who is playing?","black",20,"gray"),0,0); //Adding Who is playing title
+    SetDynamicHeading(CurrentBetInfoLabel, CurrentPlayer_, "black",20,"gray");
+    InternalBox->addWidget(CurrentBetInfoLabel,1,0); //Adding the name of the player
+    //changing the tile color of status of player based on Bust, win or currently playing
+    SetDynamicHeading(CurrentStatusInfoLabel, CurrentStatus_, "black",20,"gray");
+    InternalBox->addWidget(CurrentStatusInfoLabel,2,0);
+    CurrentPlayerPrompt_->setLayout(InternalBox); //Adding grid to the group box
+
+}
 
 //drawing First bet prompt
 void Prompt::DrawFirstBetPrompt(){
@@ -57,13 +90,13 @@ void Prompt::DrawFirstBetPrompt(){
     HitNStayPrompt_ = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
-    InternalBox->addWidget(SetStaticHeading("First Bet of The Game!","black",15,"orange"),0,0,1,2); //Adding info of the first bet
+    InternalBox->addWidget(SetStaticHeading("First Bet of The Game!","black",15,"orange"),0,0,1,2); //Adding InfoLabel of the first bet
 
     BetBox = new QSpinBox; //creating a new spin box 
     BetBox->setRange(50,500); //setting a range of spin box
     BetBox->setValue(100);//initial value of the bet box 
     BetBox->setPrefix("$"); //setting dollar sign ahead of amount
-    InternalBox->addWidget(SetStaticHeading("Min. 50$ and Max. 500$","black",15,"white"),1,0,1,2);//adding information on top
+    InternalBox->addWidget(SetStaticHeading("Min. 50$ and Max. 500$","black",15,"white"),1,0,1,2);//adding InfoLabelrmation on top
     InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
     
     OkButton = new QPushButton("OK"); //adding ok button on the side
@@ -81,8 +114,8 @@ void Prompt::DrawHitNStayPrompt(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
     InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);//creating static heading
-    SetDynamicHeading(CurrentBetInfo, QString::number(CurrentBet_), "black",20,"green");//setting up CurrentBetInfo dynamic label
-    InternalBox->addWidget(CurrentBetInfo,0,1,1,1);
+    SetDynamicHeading(CurrentBetInfoLabel, QString::number(CurrentBet_), "black",20,"green");//setting up CurrentBetInfoLabel dynamic label
+    InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
 
     InternalBox->addWidget(SetStaticHeading("Make Your Move!","black",20,"orange"),1,0,1,2); //Adding Hit and Stay Button
     HitButton = new QPushButton("Hit");
@@ -103,7 +136,7 @@ void Prompt::DrawOneNElevenPrompt(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
     InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);//creating static heading
-    InternalBox->addWidget(CurrentBetInfo,0,1,1,1);
+    InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
     InternalBox->addWidget(SetStaticHeading("Value of Ace?","black",20,"orange"),1,0,1,2); 
     
     OneButton = new QPushButton("1");

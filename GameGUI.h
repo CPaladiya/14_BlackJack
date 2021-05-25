@@ -29,26 +29,38 @@ public:
 
     Window(QWidget *parent = nullptr); //constructor
 
-    //enums to enable Status of the player and Active prompt --------------------------
-    enum Status {Playing, Bust, BlackJack, YouWin, Reset}; //status of the player
-    enum PromptStatus {FirstBet, OneNEleven, HitNStay}; //Which prompt do we have running currently
+    Prompt *ActionBox; //Adding a ActionBox variable from class prompt
+    QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
 
-    Prompt ActionBox; //Adding a ActionBox variable from class prompt
+
+    //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
+    //QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); 
+
+};
+
+#endif
+
+/*
+ //enums to enable Status of the player and Active prompt --------------------------
+    //enum Status {Playing, Bust, BlackJack, YouWin, Reset}; //status of the player
+    //enum PromptStatus {FirstBet, OneNEleven, HitNStay}; //Which prompt do we have running currently
+
+    
 
     //Mutex used to make sure the subsequent prompts are accessing and writing data in a proper manner
-    std::mutex mutex;
+    //std::mutex mutex;
 
     //Getter, Setter and Toggle functions --------------------
 
-    int GetDealerFund(){ return DealerFund_;} //Function to get dealers fund
-    int GetPlayerFund(){ return PlayerFund_;} //Function to get players fund
-    void SetDealerFund(int Fund) { DealerFund_ = Fund;} //Function to set Dealers Fund
-    void SetPlayerFund(int Fund) { PlayerFund_ = Fund;} //Function to set Players Fund
-    QString GetCurrentPlayer() {return CurrentPlayer_;} //Function to know who is playying currently
-    void ToggleCurrentPlayer(); //Function to toggle the current player
-    QString GetStatus(){return CurrentStatus_;}; //Function to get the current status of the player
-    Status GetEnumStatus(){return EnumCurrentStatus_;} //Function to return enum status of the current game
-    void SetStatus(Status StatusOfPlayer); //Function to set the current status of the player
+    //int GetDealerFund(){ return DealerFund_;} //Function to get dealers fund
+    //int GetPlayerFund(){ return PlayerFund_;} //Function to get players fund
+    //void SetDealerFund(int Fund) { DealerFund_ = Fund;} //Function to set Dealers Fund
+    //void SetPlayerFund(int Fund) { PlayerFund_ = Fund;} //Function to set Players Fund
+    //QString GetCurrentPlayer() {return CurrentPlayer_;} //Function to know who is playying currently
+    //void ToggleCurrentPlayer(); //Function to toggle the current player
+    //QString GetStatus(){return CurrentStatus_;}; //Function to get the current status of the player
+    //Status GetEnumStatus(){return EnumCurrentStatus_;} //Function to return enum status of the current game
+    //void SetStatus(Status StatusOfPlayer); //Function to set the current status of the player
     
     //setting the bet amount while making sure it is not read wrong by subsequent function
     void SetBet(){
@@ -86,8 +98,7 @@ public:
     //setting ActionBox_ to null
     void SetActionBoxNull() { ActionBox_ = nullptr; }
 
-    //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
-    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); 
+    
 
 
 private:
@@ -116,7 +127,4 @@ private:
     QGroupBox *PlayersFundBox_; //pointer to box that will Fund value for Player
     PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
     QSpinBox *BetBox_; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
-};
-
-#endif
-
+    */
