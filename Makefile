@@ -53,9 +53,10 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = BlackJack.cpp \
-		GameGUI.cpp 
+		GameGUI.cpp moc_GameGUI.cpp
 OBJECTS       = BlackJack.o \
-		GameGUI.o
+		GameGUI.o \
+		moc_GameGUI.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -345,8 +346,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_GameGUI.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_GameGUI.cpp
+moc_GameGUI.cpp: GameGUI.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/cpaladiya/My_prog_projects/14_BlackJack/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include GameGUI.h -o moc_GameGUI.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -359,17 +366,18 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-BlackJack.o: BlackJack.cpp GameGUI.h \
-		Prompt.h
+BlackJack.o: BlackJack.cpp GameGUI.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BlackJack.o BlackJack.cpp
 
-GameGUI.o: GameGUI.cpp GameGUI.h \
-		Prompt.h
+GameGUI.o: GameGUI.cpp GameGUI.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameGUI.o GameGUI.cpp
+
+moc_GameGUI.o: moc_GameGUI.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GameGUI.o moc_GameGUI.cpp
 
 ####### Install
 

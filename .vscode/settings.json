@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "qvboxlayout": "cpp",
-        "qwidget": "cpp"
+        "qwidget": "cpp",
+        "iostream": "cpp"
     }
 }
