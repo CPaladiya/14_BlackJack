@@ -16,6 +16,7 @@
 #include <mutex>
 #include <chrono>
 #include <thread>
+#include "Prompt.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ public:
     //enums to enable Status of the player and Active prompt --------------------------
     enum Status {Playing, Bust, BlackJack, YouWin, Reset}; //status of the player
     enum PromptStatus {FirstBet, OneNEleven, HitNStay}; //Which prompt do we have running currently
+
+    Prompt ActionBox; //Adding a ActionBox variable from class prompt
 
     //Mutex used to make sure the subsequent prompts are accessing and writing data in a proper manner
     std::mutex mutex;
@@ -80,6 +83,12 @@ public:
         return CurrentPrompt_;
     }
 
+    //setting ActionBox_ to null
+    void SetActionBoxNull() { ActionBox_ = nullptr; }
+
+    //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
+    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); 
+
 
 private:
 
@@ -106,7 +115,6 @@ private:
     QGroupBox *DealersFundBox_; //pointer to Box that will Fund value for Dealer
     QGroupBox *PlayersFundBox_; //pointer to box that will Fund value for Player
     PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
-    QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); //set title of main tiles
     QSpinBox *BetBox_; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
 };
 
