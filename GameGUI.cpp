@@ -9,6 +9,7 @@
 #include <QSpinBox>
 
 QTextStream out(stdout);
+using namespace std;
 
 //constructor
 Window::Window(QWidget *parent) : QWidget(parent){
@@ -31,6 +32,7 @@ Window::Window(QWidget *parent) : QWidget(parent){
     GameGrid_->addWidget(HitNStayPrompt_,2,3,1,1); //Adding a tile for players fund
     GameGrid_->addWidget(CurrentPlayerPrompt_,3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
+    //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
     setWindowTitle(tr("Black Jack Game"));
     resize(1200,800);
@@ -135,11 +137,12 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString Font
         SetDynamicHeading(DealersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(DealersFundInfoLabel,1,0);
     } 
-    else if(Participant == "Dealer"){ 
+    else if(Participant == "Player"){ 
         PlayersFundInfoLabel = new QLabel();
         SetDynamicHeading(PlayersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(DealersFundInfoLabel,1,0);
     }//Adding fund for Player if Player
+    else { cout << "There is an error at DrawFundPrompt Func!" << endl;}
     
     QBoxFund->setLayout(InternalBox); //Adding grid to the group box
 
@@ -151,14 +154,16 @@ void Window::DrawCurrentPlayerPrompt(){
 
     CurrentPlayerPrompt_ = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+    
     InternalBox->addWidget(SetStaticHeading("Who is playing?","black",20,"gray"),0,0); //Adding Who is playing title
     CurrentPlayerInfoLabel = new QLabel();
     SetDynamicHeading(CurrentPlayerInfoLabel, CurrentPlayer_, "black",20,"gray");
     InternalBox->addWidget(CurrentPlayerInfoLabel,1,0); //Adding the name of the player
-    //changing the tile color of status of player based on Bust, win or currently playing
-    CurrentStatusInfoLabel = new QLabel();
+    
+    CurrentStatusInfoLabel = new QLabel(); //Adding the current status of the game
     SetDynamicHeading(CurrentStatusInfoLabel, CurrentStatus_, "black",20,"gray");
     InternalBox->addWidget(CurrentStatusInfoLabel,2,0);
+    
     CurrentPlayerPrompt_->setLayout(InternalBox); //Adding grid to the group box
 
 }

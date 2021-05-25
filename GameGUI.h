@@ -33,12 +33,13 @@ public:
     void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
     QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
     void DrawCurrentPlayerPrompt();//Drawing current player prompt
-    //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
+    //Setting labels whose values are subject to change
     void SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
-    //void SetBasicLable(QLabel *Try, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor);
 
-    QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
+    //Main Game Grid variable that houses all the QGroupBox variables
+    QGridLayout *GameGrid_;
+
     //Group box variables ------------
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
