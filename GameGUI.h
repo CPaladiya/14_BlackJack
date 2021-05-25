@@ -23,108 +23,54 @@ using namespace std;
 //class definition of Window object
 class Window : public QWidget{
 
-    Q_OBJECT;
+    //Q_OBJECT;
 
 public:
 
     Window(QWidget *parent = nullptr); //constructor
 
-    Prompt *ActionBox; //Adding a ActionBox variable from class prompt
-    QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
-
-
+    void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
+    void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
+    void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
+    void DrawFundPrompt(QGroupBox *QBoxFund, QString Participant, QLabel *FundLabel, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
+    void DrawCurrentPlayerPrompt();//Drawing current player prompt
     //Setting title tile format - font, color, details etc. MainTiles are only where cards will appear - true for IFMainTile for those only
-    //QLabel *SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor, bool IfMainTile); 
+    void SetDynamicHeading(QLabel *LabelToCreate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+    QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+
+    QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
+    //Group box variables ------------
+    QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
+    QGroupBox *FirstBetPrompt_; //variable to store First bet option box
+    QGroupBox *OneNElevenPrompt_; //Variable to store one and eleven value for Ace box
+    QGroupBox *PlayersFundPrompt_; //variable to store Players Fund prompt
+    QGroupBox *DealersFundPrompt_; //variable to store Dealers Fund Prompt
+    QGroupBox *CurrentPlayerPrompt_;//Variable to store CurrentPlayer prompt
+
+    //buttons and spinbox variables ---------------------
+    QSpinBox *BetBox;//variable to store Betbox where user can select the bet amount
+    QPushButton *OkButton; //variable to store Ok button for the first bet option
+    QPushButton *HitButton; //variable to store hit button
+    QPushButton *StayButton; //variable to store stay button
+    QPushButton *OneButton; //variable to store "one" button for Ace value
+    QPushButton *ElevenButton; //variable to store "eleven" button for the Ace value
+
+    //Variables for label that needs to be updated dynamically -------------------
+    QLabel *WhoIsPlayingInfoLabel; //variable to store InfoLabel on who is currently playing
+    QLabel *PlayersFundInfoLabel; //Current Fund of the player
+    QLabel *DealersFundInfoLabel; //Current Fund of the Dealer
+    QLabel *StatusOfGameInfoLabel; //Current status of the game
+    QLabel *CurrentBetInfoLabel; //Current bet InfoLabel label
+    QLabel *CurrentPlayerInfoLabel;//Current player InfoLabel label
+    QLabel *CurrentStatusInfoLabel; //Current status InfoLabelr such as "bust" , "Win" , "Blackjack"
+
+    //regular variables ----------------------------
+    int CurrentBet_{0}; //variable to store current bet amount
+    int DealersFund_{100000}; //Dealers fund
+    int PlayersFund_{5000}; //Players fund
+    QString CurrentPlayer_{"Player"}; //Current player InfoLabelrmation
+    QString CurrentStatus_{"Game On!"};//Current Status of the game
 
 };
 
 #endif
-
-/*
- //enums to enable Status of the player and Active prompt --------------------------
-    //enum Status {Playing, Bust, BlackJack, YouWin, Reset}; //status of the player
-    //enum PromptStatus {FirstBet, OneNEleven, HitNStay}; //Which prompt do we have running currently
-
-    
-
-    //Mutex used to make sure the subsequent prompts are accessing and writing data in a proper manner
-    //std::mutex mutex;
-
-    //Getter, Setter and Toggle functions --------------------
-
-    //int GetDealerFund(){ return DealerFund_;} //Function to get dealers fund
-    //int GetPlayerFund(){ return PlayerFund_;} //Function to get players fund
-    //void SetDealerFund(int Fund) { DealerFund_ = Fund;} //Function to set Dealers Fund
-    //void SetPlayerFund(int Fund) { PlayerFund_ = Fund;} //Function to set Players Fund
-    //QString GetCurrentPlayer() {return CurrentPlayer_;} //Function to know who is playying currently
-    //void ToggleCurrentPlayer(); //Function to toggle the current player
-    //QString GetStatus(){return CurrentStatus_;}; //Function to get the current status of the player
-    //Status GetEnumStatus(){return EnumCurrentStatus_;} //Function to return enum status of the current game
-    //void SetStatus(Status StatusOfPlayer); //Function to set the current status of the player
-    
-    //setting the bet amount while making sure it is not read wrong by subsequent function
-    void SetBet(){
-        mutex.lock();
-        CurrentBet_ = BetBox_->value();
-        cout << "CurrentBet Value : \n" << CurrentBet_;
-        PlayerFund_ -= CurrentBet_; //removing bet money from player's fund
-        mutex.unlock();
-    }
-
-    //Getting the value of current bet amount
-    int GetBet(){
-        std::this_thread::sleep_for(chrono::microseconds(500));
-        return CurrentBet_;
-    }
-
-    //Set Prompt Status Hit N Stay
-    void SetPromptStatusHitNStay(){
-        mutex.lock();
-        CurrentPrompt_ = PromptStatus::HitNStay;
-        mutex.unlock();
-    }
-    //Set Prompt Status One N Eleven
-    void SetPromptStatusOneNEleven(){
-        mutex.lock();
-        CurrentPrompt_ = PromptStatus::OneNEleven;
-        mutex.unlock();
-    }
-    //Get Prompt Status
-    PromptStatus GetPromptStatus(){
-        std::this_thread::sleep_for(chrono::microseconds(500));
-        return CurrentPrompt_;
-    }
-
-    //setting ActionBox_ to null
-    void SetActionBoxNull() { ActionBox_ = nullptr; }
-
-    
-
-
-private:
-
-    // Private methods being used    
-    QGroupBox *CardBox(QString participant, QString FontColor); //Generates main Card tiles where cards will appear for both, dealer and player
-    QGroupBox *FundBox(QString participant, QString FontColor, int Fund); //Generates smaller tiles on right side where fund will appear
-    QGroupBox *WhoIsPlayingBox(); // Generates smaller tile on right side showing who is playing and the message
-    void StartActionBox(); //Generates smaller tile on right side where prompt will be given for user to act on
-    QGroupBox *GetFirstBet(); //Returns QGroupBox object for the First Bet prompt
-    QGroupBox *GetHitNStay(); //Returns QGroupBox object for Hit N Stay prompt
-    QGroupBox *GetOneNEleven(); //Returns QGroupBox object for One N Eleven prompt - Where user will decide value of Ace
-
-
-
-    int DealerFund_; //variable to store dealers fund
-    int PlayerFund_{5000}; //variable to store players fund
-    QString CurrentPlayer_; //Variable to store current player
-    QString CurrentStatus_; //Variable to store current status of the game I.E win, bust, etc..
-    Window::Status EnumCurrentStatus_{Status::Playing}; //Enum Variable to store current status of the game I.E win, bust, etc..
-    int CurrentBet_{0}; //Variable to store Current bet choosen by the player
-    int PlayerAceValue{11}; //Ace Value Chosen by Player
-    QGridLayout *GameGrid_; //Main pointer to variable for main window grid layout - main game window
-    QGroupBox *ActionBox_; //pointer to Box that will hold value of FirstBet, HitNStay and OneNEleven as needed
-    QGroupBox *DealersFundBox_; //pointer to Box that will Fund value for Dealer
-    QGroupBox *PlayersFundBox_; //pointer to box that will Fund value for Player
-    PromptStatus CurrentPrompt_{PromptStatus::FirstBet};
-    QSpinBox *BetBox_; //BetBox will be the one holding value for our first bet and will help assign the value of CurrentBet_
-    */
