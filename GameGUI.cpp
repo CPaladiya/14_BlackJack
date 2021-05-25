@@ -16,11 +16,11 @@ Window::Window(QWidget *parent) : QWidget(parent), DealerFund_(100000), CurrentP
     Window::GameGrid_ = new QGridLayout;
     GameGrid_->addWidget(CardBox("Dealer", "red"),0,0,2,3); //Adding a main Dealer tile
     GameGrid_->addWidget(CardBox("Player", "white"),2,0,2,3); //Adding a main Player tile
-    //DealersFundBox_ = FundBox("Dealer's Fund ", "red", GetDealerFund());
-    GameGrid_->addWidget(FundBox("Dealer's Fund ", "red", GetDealerFund()),0,3,1,1); //Addint tile for dealers fund
+    DealersFundBox_ = FundBox("Dealer's Fund ", "red", GetDealerFund());
+    GameGrid_->addWidget(DealersFundBox_,0,3,1,1); //Addint tile for dealers fund
     GameGrid_->addWidget(WhoIsPlayingBox(),1,3,1,1); //Addint tile for who is playing currently info
-    //PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
-    GameGrid_->addWidget(FundBox("Player's Fund ", "white", GetPlayerFund()),2,3,1,1); //Adding a tile for players fund
+    PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
+    GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Adding a tile for players fund
     StartActionBox();
     GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a tile for Action box where user will be asked for input
 
@@ -111,13 +111,13 @@ QGroupBox *Window::WhoIsPlayingBox(){
     QGroupBox *MainBox = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
     InternalBox->addWidget(SetTileTitle("Who is playing?","black",20,"gray",false),0,0); //Adding Who is playing title
-    InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"orange",false),1,0); //Adding the name of the player
+    InternalBox->addWidget(SetTileTitle(GetCurrentPlayer(),"black",20,"gray",false),1,0); //Adding the name of the player
     //changing the tile color of status of player based on Bust, win or currently playing
     if(GetEnumStatus() == Window::Status::Bust){
         InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"black",20,"red",false),2,0);
     }
     else if(GetEnumStatus() == Window::Status::Playing){
-        InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"white",20,"blue",false),2,0);
+        InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"white",20,"gray",false),2,0);
     }
     else{
         InternalBox->addWidget(SetTileTitle("Status : " + GetStatus(),"black",20,"green",false),2,0);
@@ -192,10 +192,13 @@ void Window::StartActionBox(){
         ActionBox_ = GetFirstBet();
     }
     else if (GetPromptStatus()== PromptStatus::HitNStay){
-        //GameGrid_->removeWidget(PlayersFundBox_);
-        ActionBox_ = GetHitNStay(); //Redrawing the ActionBox
-        GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a new ActionBox
-        //GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Refreshing the Fund
+        
+        GameGrid_->removeWidget(PlayersFundBox_); //Removing the old Fund
+        ActionBox_ = GetHitNStay(); //Redraing the new ActionBox for new prompt
+        GameGrid_->addWidget(ActionBox_,3,3,1,1); //Adding a new ActionBox instead of old
+        cout << "Adding PlayersFund";
+        PlayersFundBox_ = FundBox("Player's Fund ", "white", GetPlayerFund());
+        GameGrid_->addWidget(PlayersFundBox_,2,3,1,1); //Refreshing the Fund
     }
     else if (GetPromptStatus() == PromptStatus::OneNEleven){
         ActionBox_ = GetOneNEleven();

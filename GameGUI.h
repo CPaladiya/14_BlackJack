@@ -47,7 +47,7 @@ public:
         mutex.lock();
         CurrentBet_ = BetBox_->value();
         cout << "CurrentBet Value : \n" << CurrentBet_;
-        PlayerFund_ = PlayerFund_ - CurrentBet_; //removing bet money from player's fund
+        PlayerFund_ -= CurrentBet_; //removing bet money from player's fund
         mutex.unlock();
     }
     int GetBet(){
