@@ -28,25 +28,37 @@ public:
 
     Window(QWidget *parent = nullptr); //constructor
 
-    void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
-    void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
-    void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
-    QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
-    void DrawCurrentPlayerPrompt();//Drawing current player prompt
     //Setting labels whose values are subject to change
     void SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+
+    //Functions to draw all the boxes in GUI
+    void DrawDealersCardPrompt();//Drawing Dealers Card Prompt in GUI
+    void DrawPlayersCardPrompt();//Drawing Players Card Prompt
+    QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
+    void DrawCurrentPlayerPrompt();//Drawing current player prompt
+    void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
+    void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
+    void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
+
+
 
     //Main Game Grid variable that houses all the QGroupBox variables
     QGridLayout *GameGrid_;
 
     //Group box variables ------------
+    QGroupBox *DealersCardPrompt_; //variable to store Dealers card box
+    QGroupBox *PlayersCardPrompt_; //variable to store Players Card box
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
     QGroupBox *OneNElevenPrompt_; //Variable to store one and eleven value for Ace box
     QGroupBox *PlayersFundPrompt_; //variable to store Players Fund prompt
     QGroupBox *DealersFundPrompt_; //variable to store Dealers Fund Prompt
     QGroupBox *CurrentPlayerPrompt_;//Variable to store CurrentPlayer prompt
+
+    //Grid variables to store cards within group box
+    QGridLayout *DealersCardGrid_; //Grid to store cards in 
+    QGridLayout *PlayersCardGrid_;
 
     //buttons and spinbox variables ---------------------
     QSpinBox *BetBox;//variable to store Betbox where user can select the bet amount

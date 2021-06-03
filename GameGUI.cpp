@@ -15,6 +15,8 @@ using namespace std;
 Window::Window(QWidget *parent) : QWidget(parent){
 
     //Drawing all the required widgets
+    DrawDealersCardPrompt();
+    DrawPlayersCardPrompt();
     DrawFirstBetPrompt();
     DrawHitNStayPrompt();
     DrawCurrentPlayerPrompt();
@@ -25,12 +27,14 @@ Window::Window(QWidget *parent) : QWidget(parent){
 
     //populating main grid with drawn widgets
     GameGrid_ = new QGridLayout;
-    GameGrid_->addWidget(DealersFundPrompt_,0,0,2,3); //Adding a main Dealer tile
-    GameGrid_->addWidget(PlayersFundPrompt_,0,3,1,1); //Adding tile for dealers fund
-    GameGrid_->addWidget(FirstBetPrompt_,1,3,1,1); //Adding tile for who is playing currently info 
-    GameGrid_->addWidget(OneNElevenPrompt_,2,3,1,1);//Adding tile for one and eleven option for ace card
-    GameGrid_->addWidget(HitNStayPrompt_,2,3,1,1); //Adding a tile for players fund
-    GameGrid_->addWidget(CurrentPlayerPrompt_,3,3,1,1); //Adding a tile for Action box where user will be asked for input
+    GameGrid_->addWidget(DealersCardPrompt_,0,0,2,4); //Adding Cards Window for dealers
+    GameGrid_->addWidget(PlayersCardPrompt_,2,0,2,4); //Adding Cards Window for Players
+    GameGrid_->addWidget(DealersFundPrompt_,0,4,1,1); //Adding a main Dealer tile
+    GameGrid_->addWidget(CurrentPlayerPrompt_,1,4,1,1); //Adding a tile for Action box where user will be asked for input
+    GameGrid_->addWidget(PlayersFundPrompt_,2,4,1,1); //Adding tile for dealers fund
+    GameGrid_->addWidget(FirstBetPrompt_,3,4,1,1); //Adding tile for who is playing currently info 
+    GameGrid_->addWidget(OneNElevenPrompt_,3,4,1,1);//Adding tile for one and eleven option for ace card
+    GameGrid_->addWidget(HitNStayPrompt_,3,4,1,1); //Adding a tile for players fund
 
     //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
@@ -124,6 +128,36 @@ QLabel *Window::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
     return title;
 }; 
 
+//Drawing the Crads window for Dealer
+void Window::DrawDealersCardPrompt(){
+    DealersCardPrompt_ = new QGroupBox; //creating a groupbox
+    DealersCardGrid_ = new QGridLayout; //creating a grid layout
+    QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/1C.png"); //loading the image
+    QLabel *NewImage = new QLabel();//creating a new label
+    int LabelHeight = NewImage->height();
+    int LabelWidth = NewImage->width();
+    NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    DealersCardGrid_->addWidget(NewImage);
+    DealersCardPrompt_->setLayout(DealersCardGrid_);
+    
+}
+
+//Drawing the Crads window for Dealer
+void Window::DrawPlayersCardPrompt(){
+    PlayersCardPrompt_ = new QGroupBox; //creating a groupbox
+    PlayersCardGrid_ = new QGridLayout; //creating a grid layout
+    QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/00.png"); //loading the image
+    QLabel *NewImage = new QLabel();//creating a new label
+    int LabelHeight = NewImage->height();
+    int LabelWidth = NewImage->width();
+    NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    PlayersCardGrid_->addWidget(NewImage);
+    PlayersCardPrompt_->setLayout(PlayersCardGrid_);
+    
+}
+
 //drawing the DrawFundPrompt for given variable
 QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor){
 
@@ -179,7 +213,9 @@ void Window::DrawFirstBetPrompt(){
 
     BetBox = new QSpinBox; //creating a new spin box 
     BetBox->setRange(50,500); //setting a range of spin box
+    BetBox->setSingleStep(50);//setting a step of 50 to increase with up and down arrow
     BetBox->setValue(100);//initial value of the bet box 
+    //set the steps here
     BetBox->setPrefix("$"); //setting dollar sign ahead of amount
     InternalBox->addWidget(SetStaticHeading("Min. 50$ and Max. 500$","black",15,"white"),1,0,1,2);//adding InfoLabelrmation on top
     InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
