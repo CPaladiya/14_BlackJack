@@ -41,7 +41,7 @@ Window::Window(QWidget *parent) : QWidget(parent){
     //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
     setWindowTitle(tr("Black Jack Game"));
-    resize(1200,800);
+    resize(1000,600);
 }
 
 /*
@@ -140,17 +140,27 @@ void Window::DrawDealersCardPrompt(){
     int LabelWidth = NewImage->width();
     NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
-    NewImage->setGraphicsEffect(eff);
-    QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
-    a->setDuration(2000);
-    a->setStartValue(0);
-    a->setEndValue(1);
-    a->setEasingCurve(QEasingCurve::InBack);
-    a->start(QPropertyAnimation::DeleteWhenStopped);
+    //QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+    //NewImage->setGraphicsEffect(eff);
+    //QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
+    //a->setDuration(2000);
+    //a->setStartValue(0);
+    //a->setEndValue(1);
+    //a->setEasingCurve(QEasingCurve::InBack);
+    //a->start(QPropertyAnimation::DeleteWhenStopped);
 
-    DealersCardGrid_->addWidget(NewImage);
+    QPixmap loadedImage2("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/2C.png"); //loading the image
+    QLabel *NewImage2 = new QLabel();//creating a new label
+
+    DealersCardGrid_->addWidget(NewImage,0,0,1,1);
+    DealersCardGrid_->addWidget(NewImage2,0,1,1,1);
+    DealersCardGrid_->addWidget(NewImage,0,2,1,1);
+    DealersCardGrid_->addWidget(NewImage,0,3,1,1);
+    DealersCardGrid_->addWidget(NewImage,0,4,1,1);
     DealersCardPrompt_->setLayout(DealersCardGrid_);
+    int LabelHeight2 = NewImage2->height();
+    int LabelWidth2 = NewImage2->width();
+    NewImage2->setPixmap(loadedImage2.scaled(LabelWidth2/4,LabelHeight2, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     
 }
 
