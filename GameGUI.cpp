@@ -7,6 +7,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 #include <QSpinBox>
+#include <QtWidgets/QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 
 QTextStream out(stdout);
 using namespace std;
@@ -137,6 +139,15 @@ void Window::DrawDealersCardPrompt(){
     int LabelHeight = NewImage->height();
     int LabelWidth = NewImage->width();
     NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+    NewImage->setGraphicsEffect(eff);
+    QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
+    a->setDuration(2000);
+    a->setStartValue(0);
+    a->setEndValue(1);
+    a->setEasingCurve(QEasingCurve::InBack);
+    a->start(QPropertyAnimation::DeleteWhenStopped);
 
     DealersCardGrid_->addWidget(NewImage);
     DealersCardPrompt_->setLayout(DealersCardGrid_);
