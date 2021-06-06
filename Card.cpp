@@ -10,29 +10,29 @@
 
 using namespace std;
 
-Card::Card(QWidget *parent = nullptr) : QLabel(parent), CardName_("TT"){
+Card::Card(QWidget *parent = nullptr) : QLabel(parent), CardName_("00"), CardValue_(0){
 
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
-    CardImage_ = new QLabel();//creating a new label
-    int LabelHeight = CardImage_->height();
-    int LabelWidth = CardImage_->width();
-    CardImage_->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    CardImageQLabel_ = new QLabel();//creating a new label
+    int LabelHeight = CardImageQLabel_->height();
+    int LabelWidth = CardImageQLabel_->width();
+    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 }
 
 void Card::ReloadTrueCard (QString NewCardQString){
 
     //clearing the previous content of the blank image label and setting the newCard instead
-    CardImage_->clear();
+    CardImageQLabel_->clear();
     CardName_ = NewCardQString;
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
-    int LabelHeight = CardImage_->height();
-    int LabelWidth = CardImage_->width();
-    CardImage_->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    int LabelHeight = CardImageQLabel_->height();
+    int LabelWidth = CardImageQLabel_->width();
+    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     //animating the new card for fade-in effect
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
-    CardImage_->setGraphicsEffect(effect);
+    CardImageQLabel_->setGraphicsEffect(effect);
     QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity");
     aniamteCard->setDuration(1000);
     aniamteCard->setStartValue(0);
@@ -52,6 +52,9 @@ void Card::RefreshCardValue(){
 
     if (CardName_[0] == "1"){
         CardValue_ = 11; //if ace we will set card value to 11
+    }
+    else if (CardName_[0] == "T"){
+        CardValue_ = 0;
     }
     else if(count(CardValueNumber.begin(),CardValueNumber.end(), CardName_[0])){
         CardValue_ = CardName_[0].digitValue(); //converting Qstring char to int
