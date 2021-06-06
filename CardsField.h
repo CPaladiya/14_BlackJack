@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include "Card.h"
 
+QTextStream out(stdout);
 using namespace std;
 
 class CardsField : public QGroupBox{
