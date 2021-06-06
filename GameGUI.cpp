@@ -22,7 +22,7 @@ Window::Window(QWidget *parent) : QWidget(parent){
     DrawFirstBetPrompt();
     DrawHitNStayPrompt();
     DrawCurrentPlayerPrompt();
-    DrawOneNElevenPrompt();
+    //DrawOneNElevenPrompt();
     DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black");
     PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "red", "black");
     
@@ -35,7 +35,7 @@ Window::Window(QWidget *parent) : QWidget(parent){
     GameGrid_->addWidget(CurrentPlayerPrompt_,1,4,1,1); //Adding a tile for Action box where user will be asked for input
     GameGrid_->addWidget(PlayersFundPrompt_,2,4,1,1); //Adding tile for dealers fund
     GameGrid_->addWidget(FirstBetPrompt_,3,4,1,1); //Adding tile for who is playing currently info 
-    GameGrid_->addWidget(OneNElevenPrompt_,3,4,1,1);//Adding tile for one and eleven option for ace card
+    //GameGrid_->addWidget(OneNElevenPrompt_,3,4,1,1);//Adding tile for one and eleven option for ace card
     GameGrid_->addWidget(HitNStayPrompt_,3,4,1,1); //Adding a tile for players fund
 
     //Setting the grid, its title and Size of the window
@@ -273,6 +273,7 @@ void Window::DrawHitNStayPrompt(){
 
 }
 
+/*
 void Window::DrawOneNElevenPrompt(){
 
     OneNElevenPrompt_= new QGroupBox;  //creating a group box
@@ -291,4 +292,4 @@ void Window::DrawOneNElevenPrompt(){
     InternalBox->addWidget(ElevenButton,2,1,1,1); //Adding Stay Button to internal grid
     
     OneNElevenPrompt_->setLayout(InternalBox); //Adding grid to the group box
-}
+} */

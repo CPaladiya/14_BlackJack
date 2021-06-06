@@ -39,7 +39,7 @@ public:
     void DrawCurrentPlayerPrompt();//Drawing current player prompt
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
-    void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
+    //void DrawOneNElevenPrompt(); //draws groupbox and stores it to variable OneNElevenPrompt_
 
 
 
@@ -51,7 +51,7 @@ public:
     QGroupBox *PlayersCardPrompt_; //variable to store Players Card box
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
-    QGroupBox *OneNElevenPrompt_; //Variable to store one and eleven value for Ace box
+    //QGroupBox *OneNElevenPrompt_; //Variable to store one and eleven value for Ace box
     QGroupBox *PlayersFundPrompt_; //variable to store Players Fund prompt
     QGroupBox *DealersFundPrompt_; //variable to store Dealers Fund Prompt
     QGroupBox *CurrentPlayerPrompt_;//Variable to store CurrentPlayer prompt
@@ -65,8 +65,8 @@ public:
     QPushButton *OkButton; //variable to store Ok button for the first bet option
     QPushButton *HitButton; //variable to store hit button
     QPushButton *StayButton; //variable to store stay button
-    QPushButton *OneButton; //variable to store "one" button for Ace value
-    QPushButton *ElevenButton; //variable to store "eleven" button for the Ace value
+    //QPushButton *OneButton; //variable to store "one" button for Ace value
+    //QPushButton *ElevenButton; //variable to store "eleven" button for the Ace value
 
     //Variables for label that needs to be updated dynamically -------------------
     QLabel *WhoIsPlayingInfoLabel; //variable to store InfoLabel on who is currently playing

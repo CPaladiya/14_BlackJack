@@ -2,6 +2,7 @@
     "files.associations": {
         "qvboxlayout": "cpp",
         "qwidget": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "vector": "cpp"
     }
 }
