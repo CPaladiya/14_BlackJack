@@ -25,11 +25,4 @@ public:
 
 };
 
-#endif //CARD_H
-
-    //Func of the Card class
-    //void AnimateCard_FadeIn(); //Func to "Fade-in" animate current instance
-    //void AnimateCard_FadeOut(); //Func to "Fade-out" animate current instance
-    //void SetAceOne(); //Setting ACE card value to 1
-    //void SetAceEleven(); //Setting ACE card value to 11
-    //bool IsItAce_; //will store if the card is Ace
+#endif

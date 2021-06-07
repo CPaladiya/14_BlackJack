@@ -10,33 +10,27 @@
 #include <QtWidgets/QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 
-QTextStream out(stdout);
 using namespace std;
 
 //constructor
 Window::Window(QWidget *parent) : QWidget(parent){
 
     //Drawing all the required widgets
-    DrawDealersCardPrompt();
-    DrawPlayersCardPrompt();
     DrawFirstBetPrompt();
     DrawHitNStayPrompt();
-    DrawCurrentPlayerPrompt();
-    //DrawOneNElevenPrompt();
     DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black");
     PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "red", "black");
     
 
     //populating main grid with drawn widgets
     GameGrid_ = new QGridLayout;
-    GameGrid_->addWidget(DealersCardPrompt_,0,0,2,4); //Adding Cards Window for dealers
-    GameGrid_->addWidget(PlayersCardPrompt_,2,0,2,4); //Adding Cards Window for Players
-    GameGrid_->addWidget(DealersFundPrompt_,0,4,1,1); //Adding a main Dealer tile
-    GameGrid_->addWidget(CurrentPlayerPrompt_,1,4,1,1); //Adding a tile for Action box where user will be asked for input
-    GameGrid_->addWidget(PlayersFundPrompt_,2,4,1,1); //Adding tile for dealers fund
-    GameGrid_->addWidget(FirstBetPrompt_,3,4,1,1); //Adding tile for who is playing currently info 
-    //GameGrid_->addWidget(OneNElevenPrompt_,3,4,1,1);//Adding tile for one and eleven option for ace card
-    GameGrid_->addWidget(HitNStayPrompt_,3,4,1,1); //Adding a tile for players fund
+    GameGrid_->addWidget(Dealer_.CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
+    GameGrid_->addWidget(Player_.CardsFieldQGroupBoxVar_,2,0,4,4); //Adding Cards Window for Players
+    GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding a main Dealer tile
+    //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); //Adding a main Dealer tile
+    GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
+    GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding tile for who is playing currently info 
+    GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding a tile for players fund
 
     //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
@@ -45,36 +39,6 @@ Window::Window(QWidget *parent) : QWidget(parent){
 }
 
 /*
-//Function to set current player
-void Window::ToggleCurrentPlayer() {
-        if(Window::CurrentPlayer_ == "Dealer"){
-            Window::CurrentPlayer_ = "Player";
-        }
-        else{
-            Window::CurrentPlayer_ = "Dealer";
-        }
-    }
-
-//Function to set status of the player in game
-void Window::SetStatus(Status StatusOfPlayer){
-
-    if (StatusOfPlayer == Status::BlackJack){
-        Window::CurrentStatus_ = "Black Jack!! \n You Won!";
-    }
-    else if (StatusOfPlayer == Status::Bust){
-        Window::CurrentStatus_ = "Bust!! \n You lost!";
-    }
-    else if (StatusOfPlayer == Status::Playing){
-        Window::CurrentStatus_ = "Loving it!!";
-    }
-    else if (StatusOfPlayer == Status::YouWin){
-        Window::CurrentStatus_ = "You Won!!";
-    }
-    else{
-        Window::CurrentStatus_ = "Resetting the \n Game...";
-    }
-}
-
 //Function to form title of the tiles
 QLabel *Window::SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor,bool IfMainTile){
 
@@ -93,20 +57,6 @@ QLabel *Window::SetTileTitle(QString participant, QString FontColor, int FontSiz
     title->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor); //setting text format
 
     return title;
-}
-
-//Generates main Card tiles where cards will appear for both, dealer and player
-QGroupBox *Window::CardBox(QString participant, QString FontColor){
-    
-    QGroupBox *MainBox = new QGroupBox;  //creating a main group box
-    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    QPushButton *samplebut2 = new QPushButton(participant); //creating Second button
-    InternalBox->addWidget(SetTileTitle(participant,FontColor,25,"black",true),0,0,1,1); //Adding title
-    InternalBox->addWidget(samplebut2,1,0,5,1); //Adding second button to grid
-    MainBox->setLayout(InternalBox); //Adding grid to the group box
-
-    return MainBox;
-
 }
 */
 
@@ -130,54 +80,6 @@ QLabel *Window::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
     return title;
 }; 
 
-//Drawing the Crads window for Dealer
-void Window::DrawDealersCardPrompt(){
-    DealersCardPrompt_ = new QGroupBox; //creating a groupbox
-    DealersCardGrid_ = new QGridLayout; //creating a grid layout
-    QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/1C.png"); //loading the image
-    QLabel *NewImage = new QLabel();//creating a new label
-    int LabelHeight = NewImage->height();
-    int LabelWidth = NewImage->width();
-    NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
-    //QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
-    //NewImage->setGraphicsEffect(eff);
-    //QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
-    //a->setDuration(2000);
-    //a->setStartValue(0);
-    //a->setEndValue(1);
-    //a->setEasingCurve(QEasingCurve::InBack);
-    //a->start(QPropertyAnimation::DeleteWhenStopped);
-
-    QPixmap loadedImage2("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/2C.png"); //loading the image
-    QLabel *NewImage2 = new QLabel();//creating a new label
-
-    DealersCardGrid_->addWidget(NewImage,0,0,1,1);
-    DealersCardGrid_->addWidget(NewImage2,0,1,1,1);
-    DealersCardGrid_->addWidget(NewImage,0,2,1,1);
-    DealersCardGrid_->addWidget(NewImage,0,3,1,1);
-    DealersCardGrid_->addWidget(NewImage,0,4,1,1);
-    DealersCardPrompt_->setLayout(DealersCardGrid_);
-    int LabelHeight2 = NewImage2->height();
-    int LabelWidth2 = NewImage2->width();
-    NewImage2->setPixmap(loadedImage2.scaled(LabelWidth2/4,LabelHeight2, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    
-}
-
-//Drawing the Crads window for Dealer
-void Window::DrawPlayersCardPrompt(){
-    PlayersCardPrompt_ = new QGroupBox; //creating a groupbox
-    PlayersCardGrid_ = new QGridLayout; //creating a grid layout
-    QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/00.png"); //loading the image
-    QLabel *NewImage = new QLabel();//creating a new label
-    int LabelHeight = NewImage->height();
-    int LabelWidth = NewImage->width();
-    NewImage->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
-    PlayersCardGrid_->addWidget(NewImage);
-    PlayersCardPrompt_->setLayout(PlayersCardGrid_);
-    
-}
 
 //drawing the DrawFundPrompt for given variable
 QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor){
@@ -202,25 +104,6 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString Font
     QBoxFund->setLayout(InternalBox); //Adding grid to the group box
 
     return QBoxFund;
-}
-
-//drawing CurrentPlayerPrompt
-void Window::DrawCurrentPlayerPrompt(){
-
-    CurrentPlayerPrompt_ = new QGroupBox;  //creating a group box
-    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-    
-    InternalBox->addWidget(SetStaticHeading("Who is playing?","black",20,"gray"),0,0); //Adding Who is playing title
-    CurrentPlayerInfoLabel = new QLabel();
-    SetDynamicHeading(CurrentPlayerInfoLabel, CurrentPlayer_, "black",20,"gray");
-    InternalBox->addWidget(CurrentPlayerInfoLabel,1,0); //Adding the name of the player
-    
-    CurrentStatusInfoLabel = new QLabel(); //Adding the current status of the game
-    SetDynamicHeading(CurrentStatusInfoLabel, CurrentStatus_, "black",20,"gray");
-    InternalBox->addWidget(CurrentStatusInfoLabel,2,0);
-    
-    CurrentPlayerPrompt_->setLayout(InternalBox); //Adding grid to the group box
-
 }
 
 //drawing First bet prompt
@@ -272,24 +155,3 @@ void Window::DrawHitNStayPrompt(){
     HitNStayPrompt_->setLayout(InternalBox); //Adding grid to the group box
 
 }
-
-/*
-void Window::DrawOneNElevenPrompt(){
-
-    OneNElevenPrompt_= new QGroupBox;  //creating a group box
-    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
-
-    InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);//creating static heading
-    InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
-    InternalBox->addWidget(SetStaticHeading("Value of Ace?","black",20,"orange"),1,0,1,2); 
-    
-    OneButton = new QPushButton("1");
-    OneButton->setStyleSheet("font-size : 20px; font-weight : bold; color : black");
-    ElevenButton = new QPushButton("11");
-    ElevenButton->setStyleSheet("font-size : 20px; font-weight : bold; color : black");
-
-    InternalBox->addWidget(OneButton,2,0,1,1); //Adding Hit Button to internal grid
-    InternalBox->addWidget(ElevenButton,2,1,1,1); //Adding Stay Button to internal grid
-    
-    OneNElevenPrompt_->setLayout(InternalBox); //Adding grid to the group box
-} */

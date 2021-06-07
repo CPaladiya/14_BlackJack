@@ -1,4 +1,5 @@
 #include <QtWidgets/QApplication>
+#include <iostream>
 #include <QtWidgets/QWidget>
 #include <QLabel>
 #include <vector>
@@ -8,10 +9,12 @@
 #include <QtWidgets/QGridLayout>
 #include "CardsField.h"
 
+using namespace std;
 
-CardsField::CardsField(const QString Participant, QWidget *parent = nullptr): WhoIsIt(participant), QGroupBox(parent){
+CardsField::CardsField(QWidget *parent = nullptr): QGroupBox(parent){
 
     LoadCards();//loading the blank cards
+    cout << "We are reaching here" << endl;
 
     CardsFieldQGroupBoxVar_ = new QGroupBox; //creating a groupbox
     QGridLayout *ParticipantCardGrid_ = new QGridLayout; //creating a grid layout

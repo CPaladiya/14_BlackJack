@@ -9,7 +9,6 @@
 #include <QGroupBox>
 #include "Card.h"
 
-QTextStream out(stdout);
 using namespace std;
 
 class CardsField : public QGroupBox{
@@ -17,7 +16,7 @@ class CardsField : public QGroupBox{
     Q_OBJECT
 
 public:
-    explicit CardsField(const QString Participant, QWidget *parent = nullptr);
+    explicit CardsField(QWidget *parent = nullptr);
 
     //func
     void LoadCards();//loading first blank cards in ParticipantCards_ vector
