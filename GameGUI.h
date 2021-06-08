@@ -31,15 +31,16 @@ public:
     ~Window();
 
     //Setting labels whose values are subject to change
-    void SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+    void SetDynamicHeading(QLabel *LabelToPopulate, int &FundVariable, QString FontColor, int FontSize, QString BackGroundColor);
+    //Setting labels whose values are static 
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
 
     //Functions to draw all the boxes in GUI
-    QGroupBox *DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
+    void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
+    void AddPromptToWindow(); //method to add all drawn prompts to game window
+    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
-
-
 
     //Main Game Grid variable that houses all the QGroupBox variables
     QGridLayout *GameGrid_;

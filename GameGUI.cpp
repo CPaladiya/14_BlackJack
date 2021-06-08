@@ -13,42 +13,54 @@
 using namespace std;
 
 //constructor
-Window::Window(QWidget *parent) : 
-    QWidget(parent),CurrentBet_ (0), DealersFund_(100000),PlayersFund_(5000){
+Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (0), DealersFund_(100000),PlayersFund_(5000){
 
-    //Drawing all the required widgets
-    DrawFirstBetPrompt();
-    DrawHitNStayPrompt();
-    DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black");
-    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "white", "black");
+    //Drawing all the prompts required for game. 
+    //i.e prompt means here, main QGroupBox widgets required for game
+    DrawAllPrompts(); 
     
+    //Once we have all the widgets drawn, 
+    //Total of six QGroupBox widgets are added to the QGridLayout Widget that is one main window here
+    AddPromptToWindow();
 
-    //populating main grid with drawn widgets
-    GameGrid_ = new QGridLayout;
-    Dealer_ = new CardsField("Dealer");
-    Player_ = new CardsField("Player");
+}
+
+Window::~Window(){}
+
+//Drawing all the required widgets
+void Window::DrawAllPrompts(){
+
+    GameGrid_ = new QGridLayout; //Starting main game grid that will hold all the prompts
+    DrawFirstBetPrompt(); // Draw First bet prompt
+    DrawHitNStayPrompt(); //Draw Hit and Stay button prompt
+    DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black"); //Draw Dealers Fund prompt and add it to variable
+    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "white", "black"); //Draw Players Fund prompt and add it to variable
+    Dealer_ = new CardsField("Dealer"); //Start Dealer_ instance of the CardsField class, that will hold all cards for Dealer_
+    Player_ = new CardsField("Player"); //Start Player_ instance of the CardsField class, that will hold all cards for Player_
+}
+
+//Adding all the widgets to GameGrid_ which is the main window of the game
+void Window::AddPromptToWindow(){
 
     GameGrid_->addWidget(Dealer_->CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
     GameGrid_->addWidget(Player_->CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
-    GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding a main Dealer tile
-    //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); //Adding a main Dealer tile
-    GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
-    //GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
-    GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding tile for who is playing currently info 
-    GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding a tile for players fund
+    GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding Dealers Fund box
+    //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); 
+    GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding Players Fund box
+    GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding First bet prompt
+    GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding Hit and Stay prompt
 
     //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
     setWindowTitle(tr("Black Jack Game"));
     resize(1000,600);
+
 }
 
-Window::~Window(){}
-
 //Dynamic Heading  Set
-void Window::SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
+void Window::SetDynamicHeading(QLabel *LabelToPopulate, int &StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
 
-    LabelToPopulate->setText(StringToShow); //setting text to label
+    LabelToPopulate->setNum(StringToShow); //setting text to label
     LabelToPopulate->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label, line below setting text format
     LabelToPopulate->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor);
 }
@@ -67,7 +79,7 @@ QLabel *Window::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
 
 
 //drawing the DrawFundPrompt for given variable
-QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString FontColor, QString BackGroundColor){
+QGroupBox *Window::DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor){
 
     QGroupBox *QBoxFund = new QGroupBox;  //creating a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
@@ -76,12 +88,12 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString Font
     //Adding fund for dealer if dealer
     if(Participant == "Dealer"){ 
         DealersFundInfoLabel = new QLabel();
-        SetDynamicHeading(DealersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        SetDynamicHeading(DealersFundInfoLabel,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(DealersFundInfoLabel,1,0);
     } 
     else if(Participant == "Player"){ 
         PlayersFundInfoLabel = new QLabel();
-        SetDynamicHeading(PlayersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        SetDynamicHeading(PlayersFundInfoLabel,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(PlayersFundInfoLabel,1,0);
     }//Adding fund for Player if Player
     else { cout << "There is an error at DrawFundPrompt Func!" << endl;}
@@ -120,15 +132,18 @@ void Window::DrawFirstBetPrompt(){
 void Window::DrawHitNStayPrompt(){
 
 
-    HitNStayPrompt_ = new QGroupBox;  //creating a group box
+    HitNStayPrompt_ = new QGroupBox;  //starting a group box
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
-    InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);//creating static heading
+    //creating static heading to show current bet while deciding hit or stay
+    InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);
     CurrentBetInfoLabel = new QLabel();
-    SetDynamicHeading(CurrentBetInfoLabel, QString::number(CurrentBet_), "black",20,"green");//setting up CurrentBetInfoLabel dynamic label
+    //setting up CurrentBetInfoLabel dynamic label
+    SetDynamicHeading(CurrentBetInfoLabel, CurrentBet_, "black",20,"green");
     InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
 
-    InternalBox->addWidget(SetStaticHeading("Make Your Move!","black",20,"orange"),1,0,1,2); //Adding Hit and Stay Button
+    //Adding Hit and Stay Button
+    InternalBox->addWidget(SetStaticHeading("Make Your Move!","black",20,"orange"),1,0,1,2); 
     HitButton = new QPushButton("Hit");
     HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
     StayButton = new QPushButton("Stay");
@@ -138,5 +153,4 @@ void Window::DrawHitNStayPrompt(){
     InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
     
     HitNStayPrompt_->setLayout(InternalBox); //Adding grid to the group box
-
 }
