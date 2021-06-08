@@ -45,8 +45,8 @@ public:
     QGridLayout *GameGrid_;
 
     //CardsField Class two instances for each player and dealer
-    CardsField Player_;
-    CardsField Dealer_;
+    CardsField *Player_;
+    CardsField *Dealer_;
 
     //Group box variables ------------
     QGroupBox *DealersCardPrompt_; //variable to store Dealers card box
@@ -68,9 +68,9 @@ public:
     QLabel *CurrentBetInfoLabel; //Current bet InfoLabel label
 
     //regular variables ----------------------------
-    int CurrentBet_{0}; //variable to store current bet amount
-    int DealersFund_{100000}; //Dealers fund
-    int PlayersFund_{5000}; //Players fund
+    int CurrentBet_; //variable to store current bet amount
+    int DealersFund_; //Dealers fund
+    int PlayersFund_; //Players fund
 
 };
 

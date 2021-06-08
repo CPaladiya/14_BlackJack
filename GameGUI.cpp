@@ -13,23 +13,27 @@
 using namespace std;
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent){
+Window::Window(QWidget *parent) : 
+    QWidget(parent),CurrentBet_ (0), DealersFund_(100000),PlayersFund_(5000){
 
     //Drawing all the required widgets
     DrawFirstBetPrompt();
     DrawHitNStayPrompt();
     DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black");
-    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "red", "black");
+    PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "white", "black");
     
 
     //populating main grid with drawn widgets
     GameGrid_ = new QGridLayout;
-    GameGrid_->addWidget(Dealer_.CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
-    GameGrid_->addWidget(Player_.CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
+    Dealer_ = new CardsField("Dealer");
+    Player_ = new CardsField("Player");
+
+    GameGrid_->addWidget(Dealer_->CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
+    GameGrid_->addWidget(Player_->CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
     GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding a main Dealer tile
     //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); //Adding a main Dealer tile
-    GameGrid_->addWidget(PlayersFundPrompt_,2,4,2,1); //Adding tile for dealers fund
     GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
+    //GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
     GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding tile for who is playing currently info 
     GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding a tile for players fund
 
@@ -40,28 +44,6 @@ Window::Window(QWidget *parent) : QWidget(parent){
 }
 
 Window::~Window(){}
-
-/*
-//Function to form title of the tiles
-QLabel *Window::SetTileTitle(QString participant, QString FontColor, int FontSize, QString BackGroundColor,bool IfMainTile){
-
-    QLabel *title = new QLabel(this); //creating new title for the tile
-    //only set symbols if its a main tile
-    if(IfMainTile){
-        QString titleSymbolsLeft = " \u2660 \u2663 \u2665 \u2666 ";
-        QString titleSymbolsRight = " \u2666 \u2665 \u2663 \u2660 ";
-        title->setText(titleSymbolsLeft+participant+titleSymbolsRight); //adding symbols around the name of the participants
-    }
-    else{
-        title->setText(participant); 
-    }
-    //setting text to label
-    title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
-    title->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor); //setting text format
-
-    return title;
-}
-*/
 
 //Dynamic Heading  Set
 void Window::SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
@@ -100,7 +82,7 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int FundVar, QString Font
     else if(Participant == "Player"){ 
         PlayersFundInfoLabel = new QLabel();
         SetDynamicHeading(PlayersFundInfoLabel,QString::number(FundVar), FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
-        InternalBox->addWidget(DealersFundInfoLabel,1,0);
+        InternalBox->addWidget(PlayersFundInfoLabel,1,0);
     }//Adding fund for Player if Player
     else { cout << "There is an error at DrawFundPrompt Func!" << endl;}
     
