@@ -19,11 +19,11 @@ CardsField::CardsField(QString Participant,QWidget *parent):
     CardsFieldQGroupBoxVar_ = new QGroupBox; //creating a groupbox
     QGridLayout *ParticipantCardGrid_ = new QGridLayout; //creating a grid layout
     
-    if (WhoIsIt_ == "Dealer"){ TileTitle = SetTileTitle("red", 22, "black");}
-    else{TileTitle = SetTileTitle("white", 22, "black");}
+    if (WhoIsIt_ == "Dealer"){ TileTitle_ = SetTileTitle("red", 22, "black");}
+    else{TileTitle_ = SetTileTitle("white", 22, "black");}
     
 
-    ParticipantCardGrid_->addWidget(TileTitle,0,0,1,5);
+    ParticipantCardGrid_->addWidget(TileTitle_,0,0,1,5);
     ParticipantCardGrid_->addWidget(ParticipantCards_[0]->CardImageQLabel_,1,0,7,1);
     ParticipantCardGrid_->addWidget(ParticipantCards_[1]->CardImageQLabel_,1,1,7,1);
     ParticipantCardGrid_->addWidget(ParticipantCards_[2]->CardImageQLabel_,1,2,7,1);

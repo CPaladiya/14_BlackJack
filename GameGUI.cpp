@@ -77,7 +77,6 @@ QLabel *Window::SetStaticHeading(QString StringToShow, QString FontColor, int Fo
     return title;
 }; 
 
-
 //drawing the DrawFundPrompt for given variable
 QGroupBox *Window::DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor){
 
@@ -87,14 +86,14 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int &FundVar, QString Fon
     
     //Adding fund for dealer if dealer
     if(Participant == "Dealer"){ 
-        DealersFundInfoLabel = new QLabel();
-        SetDynamicHeading(DealersFundInfoLabel,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
-        InternalBox->addWidget(DealersFundInfoLabel,1,0);
+        DealersFundInfoLabel_ = new QLabel();
+        SetDynamicHeading(DealersFundInfoLabel_,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        InternalBox->addWidget(DealersFundInfoLabel_,1,0);
     } 
     else if(Participant == "Player"){ 
-        PlayersFundInfoLabel = new QLabel();
-        SetDynamicHeading(PlayersFundInfoLabel,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
-        InternalBox->addWidget(PlayersFundInfoLabel,1,0);
+        PlayersFundInfoLabel_ = new QLabel();
+        SetDynamicHeading(PlayersFundInfoLabel_,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        InternalBox->addWidget(PlayersFundInfoLabel_,1,0);
     }//Adding fund for Player if Player
     else { cout << "There is an error at DrawFundPrompt Func!" << endl;}
     
@@ -112,18 +111,18 @@ void Window::DrawFirstBetPrompt(){
 
     InternalBox->addWidget(SetStaticHeading("First Bet of The Game!","black",15,"orange"),0,0,1,2); //Adding InfoLabel of the first bet
 
-    BetBox = new QSpinBox; //creating a new spin box 
-    BetBox->setRange(50,500); //setting a range of spin box
-    BetBox->setSingleStep(50);//setting a step of 50 to increase with up and down arrow
-    BetBox->setValue(100);//initial value of the bet box 
+    BetBox_ = new QSpinBox; //creating a new spin box 
+    BetBox_->setRange(50,500); //setting a range of spin box
+    BetBox_->setSingleStep(50);//setting a step of 50 to increase with up and down arrow
+    BetBox_->setValue(100);//initial value of the bet box 
     //set the steps here
-    BetBox->setPrefix("$"); //setting dollar sign ahead of amount
+    BetBox_->setPrefix("$"); //setting dollar sign ahead of amount
     InternalBox->addWidget(SetStaticHeading("Min. 50$ and Max. 500$","black",15,"white"),1,0,1,2);//adding InfoLabelrmation on top
-    InternalBox->addWidget(BetBox,2,0,1,1); //Adding second button to grid
+    InternalBox->addWidget(BetBox_,2,0,1,1); //Adding second button to grid
     
-    OkButton = new QPushButton("OK"); //adding ok button on the side
-    OkButton->setStyleSheet("font-size : 18px; font-weight : bold; color : Green"); //formatting OK Button
-    InternalBox->addWidget(OkButton,2,1,1,1); //adding okay button to the grid
+    OkButton_ = new QPushButton("OK"); //adding ok button on the side
+    OkButton_->setStyleSheet("font-size : 18px; font-weight : bold; color : Green"); //formatting OK Button
+    InternalBox->addWidget(OkButton_,2,1,1,1); //adding okay button to the grid
     FirstBetPrompt_->setLayout(InternalBox);
 
 }
@@ -136,21 +135,21 @@ void Window::DrawHitNStayPrompt(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
     //creating static heading to show current bet while deciding hit or stay
-    InternalBox->addWidget(SetStaticHeading("Current Bet : ","black",20,"green"),0,0,1,1);
-    CurrentBetInfoLabel = new QLabel();
+    InternalBox->addWidget(SetStaticHeading("Current Bet","white",20,"black"),0,0,1,1);
+    CurrentBetInfoLabel_ = new QLabel();
     //setting up CurrentBetInfoLabel dynamic label
-    SetDynamicHeading(CurrentBetInfoLabel, CurrentBet_, "black",20,"green");
-    InternalBox->addWidget(CurrentBetInfoLabel,0,1,1,1);
+    SetDynamicHeading(CurrentBetInfoLabel_, CurrentBet_, "white",20,"black");
+    InternalBox->addWidget(CurrentBetInfoLabel_,0,1,1,1);
 
     //Adding Hit and Stay Button
     InternalBox->addWidget(SetStaticHeading("Make Your Move!","black",20,"orange"),1,0,1,2); 
-    HitButton = new QPushButton("Hit");
-    HitButton->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
-    StayButton = new QPushButton("Stay");
-    StayButton->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
+    HitButton_ = new QPushButton("Hit");
+    HitButton_->setStyleSheet("font-size : 20px; font-weight : bold; color : green");
+    StayButton_ = new QPushButton("Stay");
+    StayButton_->setStyleSheet("font-size : 20px; font-weight : bold; color : red");
 
-    InternalBox->addWidget(HitButton,2,0,1,1); //Adding Hit Button to internal grid
-    InternalBox->addWidget(StayButton,2,1,1,1); //Adding Stay Button to internal grid
+    InternalBox->addWidget(HitButton_,2,0,1,1); //Adding Hit Button to internal grid
+    InternalBox->addWidget(StayButton_,2,1,1,1); //Adding Stay Button to internal grid
     
     HitNStayPrompt_->setLayout(InternalBox); //Adding grid to the group box
 }

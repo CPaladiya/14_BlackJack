@@ -33,7 +33,7 @@ public:
     int TotalCardInCurrentDeck_; //number of total card remaining in current deck. At the beginning it will be 44
     int TotalScore_; // will store the total score of the card for instance
     int ParticipantLatestCardIndex_; //card index for currently latest card shown on screen
-    QLabel *TileTitle; //stores the tile title layout
+    QLabel *TileTitle_; //stores the tile title layout
     
 };
 

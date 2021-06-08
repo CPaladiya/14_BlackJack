@@ -60,15 +60,15 @@ public:
 
 
     //buttons and spinbox variables ---------------------
-    QSpinBox *BetBox;//variable to store Betbox where user can select the bet amount
-    QPushButton *OkButton; //variable to store Ok button for the first bet option
-    QPushButton *HitButton; //variable to store hit button
-    QPushButton *StayButton; //variable to store stay button
+    QSpinBox *BetBox_;//variable to store Betbox where user can select the bet amount
+    QPushButton *OkButton_; //variable to store Ok button for the first bet option
+    QPushButton *HitButton_; //variable to store hit button
+    QPushButton *StayButton_; //variable to store stay button
 
     //Variables for label that needs to be updated dynamically -------------------
-    QLabel *PlayersFundInfoLabel; //Current Fund of the player
-    QLabel *DealersFundInfoLabel; //Current Fund of the Dealer
-    QLabel *CurrentBetInfoLabel; //Current bet InfoLabel label
+    QLabel *PlayersFundInfoLabel_; //Current Fund of the player
+    QLabel *DealersFundInfoLabel_; //Current Fund of the Dealer
+    QLabel *CurrentBetInfoLabel_; //Current bet InfoLabel label
 
     //regular variables ----------------------------
     int CurrentBet_; //variable to store current bet amount
