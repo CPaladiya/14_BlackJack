@@ -11,7 +11,7 @@
 
 using namespace std;
 
-CardsField::CardsField(QWidget *parent = nullptr): QGroupBox(parent){
+CardsField::CardsField(QWidget *parent): QGroupBox(parent){
 
     LoadCards();//loading the blank cards
     cout << "We are reaching here" << endl;
@@ -19,14 +19,16 @@ CardsField::CardsField(QWidget *parent = nullptr): QGroupBox(parent){
     CardsFieldQGroupBoxVar_ = new QGroupBox; //creating a groupbox
     QGridLayout *ParticipantCardGrid_ = new QGridLayout; //creating a grid layout
     
-    ParticipantCardGrid_->addWidget(ParticipantCards_[0].CardImageQLabel_,0,0,1,1);
-    ParticipantCardGrid_->addWidget(ParticipantCards_[1].CardImageQLabel_,0,1,1,1);
-    ParticipantCardGrid_->addWidget(ParticipantCards_[2].CardImageQLabel_,0,2,1,1);
-    ParticipantCardGrid_->addWidget(ParticipantCards_[3].CardImageQLabel_,0,3,1,1);
-    ParticipantCardGrid_->addWidget(ParticipantCards_[4].CardImageQLabel_,0,4,1,1);
+    ParticipantCardGrid_->addWidget(ParticipantCards_[0]->CardImageQLabel_,0,0,1,1);
+    ParticipantCardGrid_->addWidget(ParticipantCards_[1]->CardImageQLabel_,0,1,1,1);
+    ParticipantCardGrid_->addWidget(ParticipantCards_[2]->CardImageQLabel_,0,2,1,1);
+    ParticipantCardGrid_->addWidget(ParticipantCards_[3]->CardImageQLabel_,0,3,1,1);
+    ParticipantCardGrid_->addWidget(ParticipantCards_[4]->CardImageQLabel_,0,4,1,1);
     CardsFieldQGroupBoxVar_->setLayout(ParticipantCardGrid_);
 
 }
+
+CardsField::~CardsField(){}
 
 //Defining a vector of CardDeck_
 vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","2C","2D","2H","2S",
@@ -39,8 +41,8 @@ vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","2C","2D","2H","2S",
 
 //l0ading 5 blank cards for the player
 void CardsField::LoadCards(){
-    for(int i=0; i++; i<5){
-        ParticipantCards_.push_back(Card());
+    for(int i=0; i<5; i++){
+        ParticipantCards_.emplace_back(new Card());
     }
 }
 
@@ -55,21 +57,21 @@ void CardsField::RevealNextCard(){
 
     //setting a newcard string for the next card----------
     QString NewCard = CardDeck_[CardDeckRandomIndex];
-    ParticipantCards_[ParticipantLatestCardIndex_].ReloadTrueCard(NewCard);
+    ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
     //removing the card being used from current deck since its already used
     CardDeck_.erase(CardDeck_.begin()+CardDeckRandomIndex);
     //next card to reveal would be the next one so moving latest card index by one
     ParticipantLatestCardIndex_++;
 
     //updating the latest score of the player-----------
-    TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_].CardValue_;
+    TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
 }
 
 void CardsField::ResetCards(){
 
     //clearing all the QLable and its old cards and inserting blank cards
-    for (int i=0; i++; i<5){
-        ParticipantCards_[i].ReloadTrueCard("TT"); //TT is the name of blank image
+    for (int i=0; i<5; i++){
+        ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image
     }
     TotalScore_ = 0; //setting total card score of participant to 0
     TotalCardInCurrentDeck_ = 52; //setting total cards in deck to 52 again

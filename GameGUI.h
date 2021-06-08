@@ -28,6 +28,7 @@ class Window : public QWidget{
 public:
 
     Window(QWidget *parent = nullptr); //constructor
+    ~Window();
 
     //Setting labels whose values are subject to change
     void SetDynamicHeading(QLabel *LabelToPopulate, QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 

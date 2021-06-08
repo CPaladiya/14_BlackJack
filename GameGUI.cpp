@@ -25,9 +25,10 @@ Window::Window(QWidget *parent) : QWidget(parent){
     //populating main grid with drawn widgets
     GameGrid_ = new QGridLayout;
     GameGrid_->addWidget(Dealer_.CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
-    GameGrid_->addWidget(Player_.CardsFieldQGroupBoxVar_,2,0,4,4); //Adding Cards Window for Players
+    GameGrid_->addWidget(Player_.CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
     GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding a main Dealer tile
     //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); //Adding a main Dealer tile
+    GameGrid_->addWidget(PlayersFundPrompt_,2,4,2,1); //Adding tile for dealers fund
     GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding tile for dealers fund
     GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding tile for who is playing currently info 
     GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding a tile for players fund
@@ -37,6 +38,8 @@ Window::Window(QWidget *parent) : QWidget(parent){
     setWindowTitle(tr("Black Jack Game"));
     resize(1000,600);
 }
+
+Window::~Window(){}
 
 /*
 //Function to form title of the tiles

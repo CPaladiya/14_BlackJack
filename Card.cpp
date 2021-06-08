@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Card::Card(QWidget *parent = nullptr) : QLabel(parent), CardName_("00"), CardValue_(0){
+Card::Card(QWidget *parent) : QLabel(parent), CardName_("00"), CardValue_(0){
 
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
     CardImageQLabel_ = new QLabel();//creating a new label
@@ -19,6 +19,8 @@ Card::Card(QWidget *parent = nullptr) : QLabel(parent), CardName_("00"), CardVal
     CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 }
+
+Card::~Card(){}
 
 void Card::ReloadTrueCard (QString NewCardQString){
 

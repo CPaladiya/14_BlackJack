@@ -53,10 +53,18 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = BlackJack.cpp \
-		GameGUI.cpp moc_GameGUI.cpp
+		GameGUI.cpp \
+		Card.cpp \
+		CardsField.cpp moc_GameGUI.cpp \
+		moc_Card.cpp \
+		moc_CardsField.cpp
 OBJECTS       = BlackJack.o \
 		GameGUI.o \
-		moc_GameGUI.o
+		Card.o \
+		CardsField.o \
+		moc_GameGUI.o \
+		moc_Card.o \
+		moc_CardsField.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -132,8 +140,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		14_BlackJack.pro GameGUI.h BlackJack.cpp \
-		GameGUI.cpp
+		14_BlackJack.pro GameGUI.h \
+		Card.h \
+		CardsField.h BlackJack.cpp \
+		GameGUI.cpp \
+		Card.cpp \
+		CardsField.cpp
 QMAKE_TARGET  = 14_BlackJack
 DESTDIR       = 
 TARGET        = 14_BlackJack
@@ -313,8 +325,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents GameGUI.h $(DISTDIR)/
-	$(COPY_FILE) --parents BlackJack.cpp GameGUI.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents GameGUI.h Card.h CardsField.h $(DISTDIR)/
+	$(COPY_FILE) --parents BlackJack.cpp GameGUI.cpp Card.cpp CardsField.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -346,15 +358,26 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_GameGUI.cpp
+compiler_moc_header_make_all: moc_GameGUI.cpp moc_Card.cpp moc_CardsField.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_GameGUI.cpp
+	-$(DEL_FILE) moc_GameGUI.cpp moc_Card.cpp moc_CardsField.cpp
 moc_GameGUI.cpp: GameGUI.h \
 		CardsField.h \
 		Card.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/cpaladiya/My_prog_projects/14_BlackJack/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include GameGUI.h -o moc_GameGUI.cpp
+
+moc_Card.cpp: Card.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/cpaladiya/My_prog_projects/14_BlackJack/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Card.h -o moc_Card.cpp
+
+moc_CardsField.cpp: CardsField.h \
+		Card.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/cpaladiya/My_prog_projects/14_BlackJack/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/home/cpaladiya/My_prog_projects/14_BlackJack -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include CardsField.h -o moc_CardsField.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -382,8 +405,21 @@ GameGUI.o: GameGUI.cpp GameGUI.h \
 		Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameGUI.o GameGUI.cpp
 
+Card.o: Card.cpp Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card.o Card.cpp
+
+CardsField.o: CardsField.cpp CardsField.h \
+		Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardsField.o CardsField.cpp
+
 moc_GameGUI.o: moc_GameGUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GameGUI.o moc_GameGUI.cpp
+
+moc_Card.o: moc_Card.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Card.o moc_Card.cpp
+
+moc_CardsField.o: moc_CardsField.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CardsField.o moc_CardsField.cpp
 
 ####### Install
 
