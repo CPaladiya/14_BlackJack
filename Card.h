@@ -18,6 +18,8 @@ public:
 
     void ReloadTrueCard(QString NewCardQString); //Func to store new card and remove the old blank image
     void RefreshCardValue();//refreshing the card value as per new CardName_
+    void FadeInAnimation();//Animation for Card to Fade-in the window
+    void FadeOutAnimation();//Animation for Card to Fade-out the window 
     
     //Var of the Card class
     QLabel *CardImageQLabel_; //Main QLabel of the instance

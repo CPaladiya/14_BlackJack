@@ -33,18 +33,37 @@ void Card::ReloadTrueCard (QString NewCardQString){
     int LabelWidth = CardImageQLabel_->width();
     CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    //animating the new card for fade-in effect
-    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
-    CardImageQLabel_->setGraphicsEffect(effect);
-    QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity");
-    aniamteCard->setDuration(1000);
-    aniamteCard->setStartValue(0);
-    aniamteCard->setEndValue(1);
-    aniamteCard->setEasingCurve(QEasingCurve::InBack);
-    aniamteCard->start(QPropertyAnimation::DeleteWhenStopped);
-
+    FadeInAnimation();
     //refreshing the card value as per new card
     RefreshCardValue();
+
+}
+
+//animating the new card for fade-in effect
+void Card::FadeInAnimation(){
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this); //Adding new opacity effect
+    CardImageQLabel_->setGraphicsEffect(effect); //Setting that effect to the card image
+    QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity"); //adding new animation property and its effect
+    aniamteCard->setDuration(1000); //Setting how long will be the effect in ms
+    aniamteCard->setStartValue(0);//amount of opacity at start
+    aniamteCard->setEndValue(1); //amount of opacity at end
+    aniamteCard->setEasingCurve(QEasingCurve::InBack); //smoothness of the transition
+    aniamteCard->start(QPropertyAnimation::DeleteWhenStopped); //Deleting Animation property once used
+
+}
+
+//animating the new card for fade-out effect
+void Card::FadeOutAnimation(){
+
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);//Adding new opacity effect
+    CardImageQLabel_->setGraphicsEffect(effect); //Setting that effect to the card image
+    QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity");//adding new animation property and its effect
+    aniamteCard->setDuration(1000); //Setting how long will be the effect in ms
+    aniamteCard->setStartValue(1); //amount of opacity at start
+    aniamteCard->setEndValue(0); //amount of opacity at end
+    aniamteCard->setEasingCurve(QEasingCurve::InBack); //smoothness of the transition
+    aniamteCard->start(QPropertyAnimation::DeleteWhenStopped); //Deleting Animation property once used
 
 }
 

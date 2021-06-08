@@ -52,10 +52,12 @@ public:
     //Group box variables ------------
     QGroupBox *DealersCardPrompt_; //variable to store Dealers card box
     QGroupBox *PlayersCardPrompt_; //variable to store Players Card box
-    QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
-    QGroupBox *FirstBetPrompt_; //variable to store First bet option box
     QGroupBox *PlayersFundPrompt_; //variable to store Players Fund prompt
     QGroupBox *DealersFundPrompt_; //variable to store Dealers Fund Prompt
+    QGroupBox *ScoreBoard_; //Blackjack score board for current game
+    QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
+    QGroupBox *FirstBetPrompt_; //variable to store First bet option box
+
 
     //buttons and spinbox variables ---------------------
     QSpinBox *BetBox;//variable to store Betbox where user can select the bet amount
