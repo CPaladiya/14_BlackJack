@@ -23,6 +23,9 @@ Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (0), DealersFund_(
     //Total of six QGroupBox widgets are added to the QGridLayout Widget that is one main window here
     AddPromptToWindow();
 
+    //Once all the widgets are drawn we will start the game now
+    StartFirstGame();
+
 }
 
 Window::~Window(){}
@@ -110,14 +113,14 @@ void Window::DrawScoreBoard(){
     QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
 
     //creating static heading to show current score of the player
-    InternalBox->addWidget(SetStaticHeading("Dealer's Score","red",20,"black"),0,0,1,3);
+    InternalBox->addWidget(SetStaticHeading("Dealer's Score","red",16,"black"),0,0,1,3);
     QLabel *PlayerScore = new QLabel();
     //setting up PlayerScore label
     SetDynamicHeading(PlayerScore, Player_->TotalScore_, "red",20,"black");
     InternalBox->addWidget(PlayerScore,0,3,1,1);
 
     //Creating static heading to show current score of the dealer
-    InternalBox->addWidget(SetStaticHeading("Your Score","white",20,"black"),1,0,1,3);
+    InternalBox->addWidget(SetStaticHeading("Your Score","white",16,"black"),1,0,1,3);
     QLabel *DealerScore = new QLabel();
     //setting up DealerScore label
     SetDynamicHeading(DealerScore, Player_->TotalScore_, "white",20,"black");

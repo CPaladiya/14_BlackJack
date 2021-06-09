@@ -44,6 +44,15 @@ public:
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
 
+    //GameLogic Functions - Functions implemented to run the game
+    void ChangeBet(int NewBetValue);//Changing the current bet value using Betbox QSpinbox button
+    void ReducePlayersFundForBet();//Reducing players fund by some amount
+    void StartFirstGame();
+    void StartTableSetUp();
+    void RevealPlayersCard();
+    void EndGame();
+    void ResetGame();
+
     //Main Game Grid variable that houses all the QGroupBox variables
     QGridLayout *GameGrid_;
 

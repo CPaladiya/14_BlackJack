@@ -21,4 +21,4 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += GameGUI.h Card.h CardsField.h
-SOURCES += BlackJack.cpp GameGUI.cpp Card.cpp CardsField.cpp
+SOURCES += BlackJack.cpp GameGUI.cpp Card.cpp CardsField.cpp GameLogic.cpp
