@@ -38,7 +38,9 @@ public:
     //Functions to draw all the boxes in GUI
     void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
     void AddPromptToWindow(); //method to add all drawn prompts to game window
-    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);//draws the fund InfoLabel boxes for dealer and player
+    //draws the fund InfoLabel boxes for dealer and player
+    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);
+    void DrawScoreBoard();//draws the score board for current game
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
 
@@ -54,7 +56,7 @@ public:
     QGroupBox *PlayersCardPrompt_; //variable to store Players Card box
     QGroupBox *PlayersFundPrompt_; //variable to store Players Fund prompt
     QGroupBox *DealersFundPrompt_; //variable to store Dealers Fund Prompt
-    QGroupBox *ScoreBoard_; //Blackjack score board for current game
+    QGroupBox *ScoreBoardPrompt_; //Blackjack score board for current game
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
 

@@ -33,6 +33,7 @@ void Window::DrawAllPrompts(){
     GameGrid_ = new QGridLayout; //Starting main game grid that will hold all the prompts
     DrawFirstBetPrompt(); // Draw First bet prompt
     DrawHitNStayPrompt(); //Draw Hit and Stay button prompt
+    DrawScoreBoard();//Draw the score board for the current game
     DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black"); //Draw Dealers Fund prompt and add it to variable
     PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "white", "black"); //Draw Players Fund prompt and add it to variable
     Dealer_ = new CardsField("Dealer"); //Start Dealer_ instance of the CardsField class, that will hold all cards for Dealer_
@@ -45,8 +46,8 @@ void Window::AddPromptToWindow(){
     GameGrid_->addWidget(Dealer_->CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
     GameGrid_->addWidget(Player_->CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
     GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding Dealers Fund box
-    //GameGrid_->addWidget(GameScorePrompt_,2,4,2,1); 
-    GameGrid_->addWidget(PlayersFundPrompt_,4,4,2,1); //Adding Players Fund box
+    GameGrid_->addWidget(PlayersFundPrompt_,2,4,2,1); //Adding Players Fund box
+    GameGrid_->addWidget(ScoreBoardPrompt_,4,4,2,1); //Adding ScoreBoard Box for current game
     GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding First bet prompt
     GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding Hit and Stay prompt
 
@@ -100,6 +101,29 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int &FundVar, QString Fon
     QBoxFund->setLayout(InternalBox); //Adding grid to the group box
 
     return QBoxFund;
+}
+
+//drawing score board for current game for dealer and player i.e who's score near to 21 for the current game
+void Window::DrawScoreBoard(){
+
+    ScoreBoardPrompt_ = new QGroupBox;  //starting a group box
+    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+
+    //creating static heading to show current score of the player
+    InternalBox->addWidget(SetStaticHeading("Dealer's Score","red",20,"black"),0,0,1,3);
+    QLabel *PlayerScore = new QLabel();
+    //setting up PlayerScore label
+    SetDynamicHeading(PlayerScore, Player_->TotalScore_, "red",20,"black");
+    InternalBox->addWidget(PlayerScore,0,3,1,1);
+
+    //Creating static heading to show current score of the dealer
+    InternalBox->addWidget(SetStaticHeading("Your Score","white",20,"black"),1,0,1,3);
+    QLabel *DealerScore = new QLabel();
+    //setting up DealerScore label
+    SetDynamicHeading(DealerScore, Player_->TotalScore_, "white",20,"black");
+    InternalBox->addWidget(DealerScore,1,3,1,1);   
+    
+    ScoreBoardPrompt_->setLayout(InternalBox); //Adding grid to the group box
 }
 
 //drawing First bet prompt
