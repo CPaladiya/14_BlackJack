@@ -87,10 +87,10 @@ public:
 
     void ChangeBet(int NewBetValue);//Changing the current bet value using Betbox QSpinbox button
     void ReducePlayersFundForBet();//Reducing players fund by some amount
-    void HideHitNStayPrompt();
-    void ShowHitNStayPrompt();
-    void HideFirstBetPrompt();
-    void ShowFirstBetPrompt();
+    void HideHitNStayPrompt(); //Hiding the Hit and stay prompt
+    void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
+    void HideFirstBetPrompt(); //Hide First Bet prompt
+    void ShowFirstBetPrompt(); //Showing the first bet prompt
 
 };
 
