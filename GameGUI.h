@@ -43,10 +43,8 @@ public:
     void DrawScoreBoard();//draws the score board for current game
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
-
+    
     //GameLogic Functions - Functions implemented to run the game
-    void ChangeBet(int NewBetValue);//Changing the current bet value using Betbox QSpinbox button
-    void ReducePlayersFundForBet();//Reducing players fund by some amount
     void StartFirstGame();
     void StartTableSetUp();
     void RevealPlayersCard();
@@ -69,13 +67,6 @@ public:
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
 
-
-    //buttons and spinbox variables ---------------------
-    QSpinBox *BetBox_;//variable to store Betbox where user can select the bet amount
-    QPushButton *OkButton_; //variable to store Ok button for the first bet option
-    QPushButton *HitButton_; //variable to store hit button
-    QPushButton *StayButton_; //variable to store stay button
-
     //Variables for label that needs to be updated dynamically -------------------
     QLabel *PlayersFundInfoLabel_; //Current Fund of the player
     QLabel *DealersFundInfoLabel_; //Current Fund of the Dealer
@@ -85,6 +76,21 @@ public:
     int CurrentBet_; //variable to store current bet amount
     int DealersFund_; //Dealers fund
     int PlayersFund_; //Players fund
+
+    //buttons and spinbox variables ---------------------
+    QSpinBox *BetBox_;//variable to store Betbox where user can select the bet amount
+    QPushButton *OkButton_; //variable to store Ok button for the first bet option
+    QPushButton *HitButton_; //variable to store hit button
+    QPushButton *StayButton_; //variable to store stay button
+
+    public slots:
+
+    void ChangeBet(int NewBetValue);//Changing the current bet value using Betbox QSpinbox button
+    void ReducePlayersFundForBet();//Reducing players fund by some amount
+    void HideHitNStayPrompt();
+    void ShowHitNStayPrompt();
+    void HideFirstBetPrompt();
+    void ShowFirstBetPrompt();
 
 };
 
