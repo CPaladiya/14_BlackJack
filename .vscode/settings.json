@@ -3,6 +3,7 @@
         "qvboxlayout": "cpp",
         "qwidget": "cpp",
         "iostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "thread": "cpp"
     }
 }

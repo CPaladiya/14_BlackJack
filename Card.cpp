@@ -11,7 +11,7 @@
 using namespace std;
 
 Card::Card(QWidget *parent) : 
-    QLabel(parent), CardName_("00"), CardValue_(0) {
+    QLabel(parent), CardName_("TT"), CardValue_(0) {
 
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
     CardImageQLabel_ = new QLabel();//creating a new label
@@ -33,7 +33,7 @@ void Card::ReloadTrueCard (QString NewCardQString){
     //Defining variables to resize the image according to the size of the label itself
     int LabelHeight = CardImageQLabel_->height();
     int LabelWidth = CardImageQLabel_->width();
-    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     FadeInAnimation();
     //refreshing the card value as per new card

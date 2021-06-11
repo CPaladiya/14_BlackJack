@@ -5,6 +5,7 @@
 #include <QtWidgets/QWidget>
 #include <QLabel>
 #include <QTextStream>
+#include <QThread>
 
 //QTextStream out(stdout);
 

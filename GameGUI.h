@@ -13,9 +13,8 @@
 #include <QSpinBox>
 #include <iostream>
 #include <QTextStream>
-#include <mutex>
-#include <chrono>
-#include <thread>
+#include <QThread>
+#include <QTimer>
 #include "CardsField.h"
 
 using namespace std;
@@ -46,7 +45,7 @@ public:
     
     //GameLogic Functions - Functions implemented to run the game
     void StartFirstGame();
-    void StartTableSetUp();
+    //void StartTableSetUp();
     void RevealPlayersCard();
     void EndGame();
     void ResetGame();
@@ -91,6 +90,10 @@ public:
     void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
     void HideFirstBetPrompt(); //Hide First Bet prompt
     void ShowFirstBetPrompt(); //Showing the first bet prompt
+    void ShowPlayersCard();//Showing next card of the player
+    void ShowDealersCard();//Showing next card of the dealer
+    void StartTableSetupPlayer();//Setting up first two cards for player
+    void StartTableSetupDealer();//Setting up first two cards for Dealer
 
 };
 

@@ -7,6 +7,7 @@
 #include <vector>
 #include <QTextStream>
 #include <QGroupBox>
+#include <QMutex>
 #include "Card.h"
 
 using namespace std;
@@ -34,7 +35,7 @@ public:
     int TotalScore_; // will store the total score of the card for the instance
     int ParticipantLatestCardIndex_; //card index for currently latest card shown on screen
     QLabel *TileTitle_; //stores the tile title layout
-    
+    QMutex mutex;
 };
 
 

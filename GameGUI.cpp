@@ -13,7 +13,7 @@
 using namespace std;
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (0), DealersFund_(100000),PlayersFund_(5000){
+Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000){
 
     //Drawing all the prompts required for game. 
     //i.e prompt means here, main QGroupBox widgets required for game

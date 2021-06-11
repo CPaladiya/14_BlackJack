@@ -6,10 +6,12 @@
 #include <QTextStream>
 #include <QGroupBox>
 #include <random>
+#include <QThread>
 #include <QtWidgets/QGridLayout>
 #include "CardsField.h"
 
 using namespace std;
+QTextStream out(stdout);
 
 CardsField::CardsField(QString Participant,QWidget *parent): 
     QGroupBox(parent),WhoIsIt_(Participant), TotalCardInCurrentDeck_(44),TotalScore_(0),ParticipantLatestCardIndex_(0){
@@ -70,8 +72,8 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
 }
 
 void CardsField::RevealNextCard(){
-
-    //obtaining random index for new next card--------
+    
+    //obtaining random index for new next card-------
     random_device rd; //obtaining a random number from hardware
     mt19937 generator(rd()); // seed the generator
     uniform_int_distribution<> distribution(0,TotalCardInCurrentDeck_);
@@ -80,6 +82,7 @@ void CardsField::RevealNextCard(){
 
     //setting a newcard string for the next card----------
     QString NewCard = CardDeck_[CardDeckRandomIndex];
+    out << NewCard << endl;
     ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
     //removing the card being used from current deck since its already used
     CardDeck_.erase(CardDeck_.begin()+CardDeckRandomIndex);
@@ -88,6 +91,7 @@ void CardsField::RevealNextCard(){
 
     //updating the latest score of the player-----------
     TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
+
 }
 
 void CardsField::ResetCards(){

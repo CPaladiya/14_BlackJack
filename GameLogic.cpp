@@ -11,20 +11,47 @@ void Window::ReducePlayersFundForBet(){
     PlayersFundInfoLabel_->setNum(PlayersFund_);
 }
 
+//Hiding the first best prompt
 void Window::HideFirstBetPrompt(){
     FirstBetPrompt_->setVisible(false);
 }
 
+//showing first bet prompt
 void Window::ShowFirstBetPrompt(){
     FirstBetPrompt_->setVisible(true);
 }
 
+//Hide Hit and Stay prompt
 void Window::HideHitNStayPrompt(){
     HitNStayPrompt_->setVisible(false);
 }
 
+//Show Hit and Stay prompt
 void Window::ShowHitNStayPrompt(){
     HitNStayPrompt_->setVisible(true);
+}
+
+//Show players card
+void Window::ShowPlayersCard(){
+    Player_->RevealNextCard();
+}
+
+//Show dealers card
+void Window::ShowDealersCard(){
+    Dealer_->RevealNextCard();
+}
+
+//Setting up table and revealing two cards
+void Window::StartTableSetupPlayer(){
+    ShowPlayersCard();
+    QTimer::singleShot(500,this,&Window::ShowPlayersCard);
+    QTimer::singleShot(1000,this,&Window::StartTableSetupDealer);
+}
+
+//Setting up 
+void Window::StartTableSetupDealer(){
+    ShowDealersCard();
+    QTimer::singleShot(500,this,&Window::ShowDealersCard);
 }
 
 void Window::StartFirstGame(){
@@ -38,4 +65,7 @@ void Window::StartFirstGame(){
     connect(OkButton_,&QPushButton::clicked, this, &Window::ReducePlayersFundForBet);
     connect(OkButton_,&QPushButton::clicked, this, &Window::HideFirstBetPrompt);
     connect(OkButton_,&QPushButton::clicked, this, &Window::ShowHitNStayPrompt);
+    connect(HitButton_,&QPushButton::clicked, this, &Window::StartTableSetupPlayer);
+
+    //timer to time the first table setup of the game
 }
