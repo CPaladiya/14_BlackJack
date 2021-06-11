@@ -25,7 +25,9 @@ public:
     //Set the title of the tile for relevant player
     QLabel *SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor);
     void RevealNextCard();//Getttin the random QString for next card
-    void ResetCards();//Resetting the card images to blank and getting new batch of 52 cards
+    void ResetCards();//Resetting the card images to blank and getting new batch of 44 cards
+    int GetRandomCardIndex(); //Getting random index out of all the number of cards available 
+    //i.e random number between 0 to 41. Later on 0 to however many card is available
 
     QGroupBox *CardsFieldQGroupBoxVar_; //QGroupBox variable of the instance
     vector<Card*> ParticipantCards_; //the cards of player/dealer is stored here

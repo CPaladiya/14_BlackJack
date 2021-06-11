@@ -48,7 +48,7 @@ void Window::StartTableSetupPlayer(){
     QTimer::singleShot(1000,this,&Window::StartTableSetupDealer);
 }
 
-//Setting up 
+//Setting up table and revealing first and booking second closed card
 void Window::StartTableSetupDealer(){
     ShowDealersCard();
     QTimer::singleShot(500,this,&Window::ShowDealersCard);
@@ -65,7 +65,7 @@ void Window::StartFirstGame(){
     connect(OkButton_,&QPushButton::clicked, this, &Window::ReducePlayersFundForBet);
     connect(OkButton_,&QPushButton::clicked, this, &Window::HideFirstBetPrompt);
     connect(OkButton_,&QPushButton::clicked, this, &Window::ShowHitNStayPrompt);
-    connect(HitButton_,&QPushButton::clicked, this, &Window::StartTableSetupPlayer);
-
+    connect(OkButton_,&QPushButton::clicked, this, &Window::StartTableSetupPlayer);
+    connect(HitButton_,&QPushButton::clicked, this, &Window::ShowPlayersCard);
     //timer to time the first table setup of the game
 }

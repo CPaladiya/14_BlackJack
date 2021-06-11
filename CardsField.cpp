@@ -71,26 +71,34 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
     return title;
 }
 
-void CardsField::RevealNextCard(){
-    
-    //obtaining random index for new next card-------
+int CardsField::GetRandomCardIndex(){
+        
+    //1.obtaining random index for new next card-------
     random_device rd; //obtaining a random number from hardware
     mt19937 generator(rd()); // seed the generator
     uniform_int_distribution<> distribution(0,TotalCardInCurrentDeck_);
     int CardDeckRandomIndex = distribution(generator);
     TotalCardInCurrentDeck_--;//one card used so reduce the qty by 1
+    return CardDeckRandomIndex;
+}
 
-    //setting a newcard string for the next card----------
-    QString NewCard = CardDeck_[CardDeckRandomIndex];
+void CardsField::RevealNextCard(){
+    
+    //1.Reloading the new random card
+    QString NewCard = CardDeck_[GetRandomCardIndex()];
     out << NewCard << endl;
     ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
-    //removing the card being used from current deck since its already used
-    CardDeck_.erase(CardDeck_.begin()+CardDeckRandomIndex);
-    //next card to reveal would be the next one so moving latest card index by one
-    ParticipantLatestCardIndex_++;
+    
+    //4.Removing the card being used from current deck since its already used
+    CardDeck_.erase(CardDeck_.begin()+GetRandomCardIndex());
 
-    //updating the latest score of the player-----------
+    //5.updating the latest score of the player-----------
     TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
+
+    //6.next card to reveal would be on the next position
+    // so moving latest card index by one
+    if (ParticipantLatestCardIndex_<4) {ParticipantLatestCardIndex_++;}
+    else{cout << "Participant index is more than 4!";}
 
 }
 
