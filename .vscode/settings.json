@@ -4,6 +4,7 @@
         "qwidget": "cpp",
         "iostream": "cpp",
         "vector": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "qgraphicsopacityeffect": "cpp"
     }
 }

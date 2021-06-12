@@ -1,5 +1,43 @@
 #include "GameGUI.h"
 
+//Will set tile to yellow color background to player score
+void Window::PlayerScoreYellowTile(){
+    PlayerScore_->setStyleSheet("background-color : yellow ; font-size : 22 px; font-weight : bold; color : black");
+}
+
+//Func will set tile to green color background to player score
+void Window::PlayerScoreDefaultTile(){
+    PlayerScore_->setStyleSheet("background-color : black ; font-size : 20 px; font-weight : bold; color : white");
+}
+
+//Will set tile to yellow color background to dealer score
+void Window::DealerScoreYellowTile(){
+    DealerScore_->setStyleSheet("background-color : yellow ; font-size : 22 px; font-weight : bold; color : black");
+}
+
+//Func will set tile to green color background to dealer score
+void Window::DealerScoreDefaultTile(){
+    DealerScore_->setStyleSheet("background-color : black ; font-size : 20 px; font-weight : bold; color : red");
+}
+
+//Func to blink score tile when player's score is updated
+void Window::PlayerScoreUpdateBlink(){
+    PlayerScoreYellowTile();
+    QTimer::singleShot(300,this,&Window::PlayerScoreDefaultTile);
+    QTimer::singleShot(600,this,&Window::PlayerScoreYellowTile);
+    QTimer::singleShot(900,this,&Window::PlayerScoreDefaultTile);
+
+}
+
+//Func to blink score tile when dealer's score is updated
+void Window::DealerScoreUpdateBlink(){
+    DealerScoreYellowTile();
+    QTimer::singleShot(300,this,&Window::DealerScoreDefaultTile);
+    QTimer::singleShot(600,this,&Window::DealerScoreYellowTile);
+    QTimer::singleShot(900,this,&Window::DealerScoreDefaultTile);
+
+}
+
 //Func to change Current bet as the value of spin box being changed
 void Window::ChangeBet(int NewBetValue){
     Window::CurrentBet_ = NewBetValue;
@@ -106,10 +144,10 @@ void Window::ShowMessageBoxPrompt(){
 void Window::ShowPlayersCard(){
     
     Player_->RevealNextCard(); //first revealing the new card
-    RefreshPlayerScore(); //Refreshing the score value shown in window
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::RefreshPlayerScore);//Refreshing the score value shown in window
     //If now score is more than 21 Player is burst
-    if ((Player_->TotalScore_) > 21){
-        PlayerLost(); //Player loses if the score is more than 21 and resets the game
+    if ((Player_->TotalScore_) > 21){//Player loses if the score is more than 21 and resets the game
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerLost); 
     }
 }
 
@@ -117,13 +155,13 @@ void Window::ShowPlayersCard(){
 void Window::ShowDealersCard(){
     
     Dealer_->RevealNextCard();//First revealing the new card
-    RefreshDealerScore(); //Refreshing the score value shown in window
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::RefreshDealerScore); //Refreshing the score value shown in window
     }
 
 //Check if first two cards dealt has black jack for player, if not move on the game
 void Window::CheckIfBlackJack(){
     if(Player_->TotalScore_ ==21){
-        PlayerHasBlackJack();
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerHasBlackJack);
     }
     else{
         StartTableSetupDealer();
@@ -147,17 +185,14 @@ void Window::StartTableSetupDealer(){
 
 //Compare delaer and palyer score and declare win/lose
 void Window::CompareScoresAndMoveOn(){
-    if ((Dealer_->TotalScore_) > 21){
-        PlayerWon();
-        }
-    else if((Dealer_->TotalScore_)<(Player_->TotalScore_)){
-        PlayerWon();
+    if ((Dealer_->TotalScore_) > 21 || (Dealer_->TotalScore_)<(Player_->TotalScore_)){
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerWon);
         }
     else if((Dealer_->TotalScore_)>(Player_->TotalScore_)){
-        PlayerLost();
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerLost);
         }
     else if((Dealer_->TotalScore_)==(Player_->TotalScore_)){
-        GameDraw();
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::GameDraw);
         }
 }
 //Func to reset game once the game is done
@@ -170,8 +205,10 @@ void Window::ResetGame(){
     RefreshPlayerScore();
 }
 
+//Turning the close card of the dealer
 void Window::TurnDealersSecondCard(){
     Dealer_->FlipDealersCard();
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::RefreshDealerScore); //Refreshing the score value shown in window
 }
 
 //Ending the game when player press "Stay" button
@@ -180,7 +217,6 @@ void Window::TurnDealersSecondCard(){
 //After that we compare the scores
 void Window::DealersTurn(){
     TurnDealersSecondCard();
-    RefreshDealerScore();
     QTimer::singleShot(TimeInBetweenCards_*2.5,this,&Window::EndGame);
 }
 
@@ -188,12 +224,9 @@ void Window::EndGame(){
     if(Dealer_->TotalScore_<= 16){
         while(Dealer_->TotalScore_<= 16){
             ShowDealersCard();
-            RefreshDealerScore();
             }
         }
-    CompareScoresAndMoveOn();
-    RefreshDealerScore();
-    RefreshPlayerScore();
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::CompareScoresAndMoveOn);
 }
     
 void Window::StartFirstGame(){

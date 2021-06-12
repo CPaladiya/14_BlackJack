@@ -84,39 +84,54 @@ public:
     //################## ------------  GUI Slots and functions ------------ ############# //
 
     //GameLogic Functions - Functions implemented to run the game
-    void Delay(int TimeInMS); //Adding time delay to hold function at that point
+    void CheckIfBlackJack(); //After dealing the first two cards we will check if its a blackjack, if not move on the game
     void StartFirstGame(); //Starting the game with showing first two cards for players
-    void RevealPlayersCard(); //Reveal first two players card and check for blackjack
+    void StartTableSetupPlayer(); //Setting up first two cards for player
+    void StartTableSetupDealer(); //Setting up first two cards for Dealer
+    void ShowPlayersCard(); //Showing next card of the player
+    void ShowDealersCard(); //Showing next card of the dealer
+    void DealersTurn();//Now dealer will count his score
+    void TurnDealersSecondCard(); //Turning dealers second card at the end of the game
+    void EndGame(); //Ending the game once player has pressed "Stay"
+    void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
+    void ResetGame(); //Resetting the game once the game is over
+    
+    //Refresh value function to update socors/Fund as game moves on
+    void ChangeBet(int NewBetValue); //Changing the current bet value using Betbox QSpinbox button
+    void ReducePlayersFundForBet(); //Reducing players fund by some amount
     void RefreshPlayersFund(); //Refreshing the fund shown in window for player
     void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
     void RefreshCurrentBet(); //Refresh the current bet shown in window
-    void RefreshPlayerScore();//Refresh the score being shown in window for player
-    void RefreshDealerScore();//Refresh the score being shown in window for dealer
-    void EndGame(); //Ending the game once player has pressed "Stay"
-    void ResetGame(); //Resetting the game once the game is over
+    void RefreshPlayerScore(); //Refresh the score being shown in window for player
+    void RefreshDealerScore(); //Refresh the score being shown in window for dealer
+
+    //Blinking animation func for various tiles
+    void PlayerScoreYellowTile(); //Tile to blink with yellow color backgound
+    void PlayerScoreDefaultTile(); //Tile to blink with Red color background
+    void DealerScoreYellowTile(); //Tile to blink with yellow color backgound
+    void DealerScoreDefaultTile(); //Tile to blink with Red color background
+    void MessgaePromptGreenTile(); //Tile to blink with green color background
+    void MessgaePromptRedTile(); //Tile to blink with green color background
+    void MessgaePromptDefaultTile(); //Tile to blink with green color background
+    void PlayerScoreUpdateBlink(); //Player score update blink
+    void DealerScoreUpdateBlink(); //Dealer score update blink
+    void PlayerWonBlink(); //Player winning status blink
+    void PlayerLostBlink(); //Player loosing status blink
+    void GameDrawBlink(); //Game draw blink
+
+    //Game status functions
     void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
     void PlayerWon(); //Changing funds of player and dealer if player won
     void PlayerLost(); //Changing funds of player and dealer if player won
-    void GameDraw();//Game draw if player and dealer has the same score
-    void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
-    void TurnDealersSecondCard(); //Turning dealers second card at the end of the game
-    void DealersTurn();//Now dealer will count his score
+    void GameDraw(); //Game draw if player and dealer has the same score
 
-    public slots:
-
-    void ChangeBet(int NewBetValue);//Changing the current bet value using Betbox QSpinbox button
-    void ReducePlayersFundForBet();//Reducing players fund by some amount
+    //Hide and show various prompts
     void HideHitNStayPrompt(); //Hiding the Hit and stay prompt
     void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
     void HideFirstBetPrompt(); //Hide First Bet prompt
     void ShowFirstBetPrompt(); //Showing the first bet prompt
-    void HideMessageBoxPrompt();//Hide message box showing messages on game status
-    void ShowMessageBoxPrompt();//show message box showing messages on game status
-    void ShowPlayersCard();//Showing next card of the player
-    void ShowDealersCard();//Showing next card of the dealer
-    void StartTableSetupPlayer();//Setting up first two cards for player
-    void StartTableSetupDealer();//Setting up first two cards for Dealer
-    void CheckIfBlackJack();//After dealing the first two cards we will check if its a blackjack, if not move on the game
+    void HideMessageBoxPrompt(); //Hide message box showing messages on game status
+    void ShowMessageBoxPrompt(); //show message box showing messages on game status
 
 };
 

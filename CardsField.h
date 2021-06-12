@@ -22,8 +22,8 @@ public:
 
     //func
     void LoadCards();//loading first blank cards in ParticipantCards_ vector
-    //Set the title of the tile for relevant player
-    QLabel *SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor);
+    QLabel *SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor);//Set the title of the tile for relevant player
+    void AnimateTitle(); //Animating the title of the cards field
     void RevealNextCard();//Getttin the random QString for next card
     void FlipDealersCard();//Turning Dealers second card
     void ResetCards();//Resetting the card images to blank and getting new batch of 44 cards
