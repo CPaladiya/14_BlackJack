@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <random>
 #include <QThread>
+#include <QTimer>
 #include <QtWidgets/QGridLayout>
 #include "CardsField.h"
 
@@ -107,18 +108,21 @@ void CardsField::RevealNextCard(){
     //else{cout << "Participant index is more than 4!"<<endl;}
 }
 
+void CardsField::ReloadBlankCards(){
+
+    for (int i=0; i<5; i++){
+        ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image
+    }
+
+}
+
 void CardsField::ResetCards(){
 
     //Fading out all the cards shown in screen
     for (int i=ParticipantLatestCardIndex_; i>=0; i--){
         ParticipantCards_[i]->FadeOutAnimation();
     }
-    QThread::sleep(1);//Making the thread sleep for 2 seconds
 
-    //clearing all the QLable and its old cards and inserting blank cards
-    for (int i=0; i<5; i++){
-        ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image
-    }
     TotalScore_ = 0; //setting total card score of participant to 0
     TotalCardInCurrentDeck_ = 44; //setting total cards in deck to 44 again
     ParticipantLatestCardIndex_ = 0; //moving latest showing card to 0
@@ -133,5 +137,8 @@ void CardsField::ResetCards(){
                               "KC","KD","KH","KS"};
     CardDeck_.clear();
     CardDeck_ = NewDeck_;
+
+    //loading the blank Card now after cards faded out
+    QTimer::singleShot(1000,this,&CardsField::ReloadBlankCards);
 
 }

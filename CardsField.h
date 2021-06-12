@@ -26,6 +26,7 @@ public:
     QLabel *SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor);
     void RevealNextCard();//Getttin the random QString for next card
     void ResetCards();//Resetting the card images to blank and getting new batch of 44 cards
+    void ReloadBlankCards();//Reloading the blank images into card
     int GetRandomCardIndex(); //Getting random index out of all the number of cards available 
     //i.e random number between 0 to 41. Later on 0 to however many card is available
 

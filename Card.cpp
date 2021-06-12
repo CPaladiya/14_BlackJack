@@ -27,6 +27,7 @@ Card::~Card(){}
 void Card::ReloadTrueCard (QString NewCardQString){
 
     //clearing the previous content of the blank image label and setting the newCard instead
+
     CardImageQLabel_->clear();
     CardName_ = NewCardQString;
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
