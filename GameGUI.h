@@ -81,7 +81,7 @@ public:
     QPushButton *HitButton_; //variable to store hit button
     QPushButton *StayButton_; //variable to store stay button
 
-    //################## ------------  GUI Slots and functions ------------ ############# //
+    //################## ------------  part of GameLogic.cpp ----- GUI Slots and functions ------------ ############# //
 
     //GameLogic Functions - Functions implemented to run the game
     void CheckIfBlackJack(); //After dealing the first two cards we will check if its a blackjack, if not move on the game
@@ -105,20 +105,6 @@ public:
     void RefreshPlayerScore(); //Refresh the score being shown in window for player
     void RefreshDealerScore(); //Refresh the score being shown in window for dealer
 
-    //Blinking animation func for various tiles
-    void PlayerScoreYellowTile(); //Tile to blink with yellow color backgound
-    void PlayerScoreDefaultTile(); //Tile to blink with Red color background
-    void DealerScoreYellowTile(); //Tile to blink with yellow color backgound
-    void DealerScoreDefaultTile(); //Tile to blink with Red color background
-    void MessgaePromptGreenTile(); //Tile to blink with green color background
-    void MessgaePromptRedTile(); //Tile to blink with green color background
-    void MessgaePromptDefaultTile(); //Tile to blink with green color background
-    void PlayerScoreUpdateBlink(); //Player score update blink
-    void DealerScoreUpdateBlink(); //Dealer score update blink
-    void PlayerWonBlink(); //Player winning status blink
-    void PlayerLostBlink(); //Player loosing status blink
-    void GameDrawBlink(); //Game draw blink
-
     //Game status functions
     void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
     void PlayerWon(); //Changing funds of player and dealer if player won
@@ -132,6 +118,22 @@ public:
     void ShowFirstBetPrompt(); //Showing the first bet prompt
     void HideMessageBoxPrompt(); //Hide message box showing messages on game status
     void ShowMessageBoxPrompt(); //show message box showing messages on game status
+
+    //################## ------------  part of Blink.cpp ----- Blinking animations on score update ------------ ############# //
+
+    //Blinking animation func for various tiles
+    void PlayerScoreYellowTile(); //Tile to blink with yellow color backgound
+    void PlayerScoreDefaultTile(); //Tile to blink with Red color background
+    void DealerScoreYellowTile(); //Tile to blink with yellow color backgound
+    void DealerScoreDefaultTile(); //Tile to blink with Red color background
+    void MessgaePromptGreenTile(); //Tile to blink with green color background
+    void MessgaePromptRedTile(); //Tile to blink with green color background
+    void MessgaePromptDefaultTile(); //Tile to blink with green color background
+    void PlayerScoreUpdateBlink(); //Player score update blink
+    void DealerScoreUpdateBlink(); //Dealer score update blink
+    void PlayerWonBlink(); //Player winning status blink
+    void PlayerLostBlink(); //Player loosing status blink
+    void GameDrawBlink(); //Game draw blink
 
 };
 
