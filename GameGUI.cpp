@@ -13,7 +13,7 @@
 using namespace std;
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000){
+Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000), TimeInBetweenCards_(1000){
 
     //Drawing all the prompts required for game. 
     //i.e prompt means here, main QGroupBox widgets required for game
@@ -64,7 +64,7 @@ void Window::AddPromptToWindow(){
 }
 
 //Dynamic Heading  Set
-void Window::SetDynamicHeading(QLabel *LabelToPopulate, int &StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
+void Window::SetDynamicHeading(QLabel *LabelToPopulate, int StringToShow, QString FontColor, int FontSize, QString BackGroundColor){
 
     LabelToPopulate->setNum(StringToShow); //setting text to label
     LabelToPopulate->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label, line below setting text format

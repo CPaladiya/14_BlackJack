@@ -8,7 +8,22 @@ void Window::ChangeBet(int NewBetValue){
 //Func to reduce the players fund once bet has been placed
 void Window::ReducePlayersFundForBet(){
     PlayersFund_-= CurrentBet_;
-    PlayersFundInfoLabel_->setNum(PlayersFund_);
+    RefreshPlayersFund();
+}
+
+//Func to refresh the current bet shown in window
+void Window::RefreshCurrentBet(){
+    CurrentBetInfoLabel_->setNum(CurrentBet_);
+}
+
+//Func to refresh the current score of dealer shown in window
+void Window::RefreshDealerScore(){
+    DealerScore_->setNum(Dealer_->TotalScore_);
+}
+
+//Func to refresh the current score of dealer shown in window
+void Window::RefreshPlayerScore(){
+    PlayerScore_->setNum(Player_->TotalScore_);
 }
 
 //Refreshing Player Fund shown in the window
@@ -91,7 +106,7 @@ void Window::ShowMessageBoxPrompt(){
 void Window::ShowPlayersCard(){
     
     Player_->RevealNextCard(); //first revealing the new card
-    PlayerScore_->setNum(Player_->TotalScore_); //Refreshing the score value shown in window
+    RefreshPlayerScore(); //Refreshing the score value shown in window
     //If now score is more than 21 Player is burst
     if ((Player_->TotalScore_) > 21){
         PlayerLost(); //Player loses if the score is more than 21 and resets the game
@@ -102,7 +117,7 @@ void Window::ShowPlayersCard(){
 void Window::ShowDealersCard(){
     
     Dealer_->RevealNextCard();//First revealing the new card
-    DealerScore_->setNum(Dealer_->TotalScore_); //Refreshing the score value shown in window
+    RefreshDealerScore(); //Refreshing the score value shown in window
     if ((Dealer_->TotalScore_) > 21){
         PlayerWon(); //Player wins if the dealers score is more than 21 and resets the game
     }
@@ -122,15 +137,15 @@ void Window::CheckIfBlackJack(){
 void Window::StartTableSetupPlayer(){
     
     ShowPlayersCard();//Showing players first two cards
-    QTimer::singleShot(700,this,&Window::ShowPlayersCard);
-    QTimer::singleShot(1700,this,&Window::CheckIfBlackJack);
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowPlayersCard);
+    QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::CheckIfBlackJack);
     //Checking if player has black jack!
 }
 
 //Setting up table and revealing first and booking second closed card
 void Window::StartTableSetupDealer(){
     ShowDealersCard();
-    QTimer::singleShot(500,this,&Window::ShowDealersCard);
+    QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowDealersCard);
 }
 
 //Compare delaer and palyer score and declare win/lose
@@ -154,8 +169,8 @@ void Window::ResetGame(){
     Player_->ResetCards();
     HideHitNStayPrompt();
     ShowFirstBetPrompt();
-    PlayerScore_->setNum(Player_->TotalScore_);
-    DealerScore_->setNum(Dealer_->TotalScore_);
+    RefreshDealerScore();
+    RefreshPlayerScore();
 }
 
 //Ending the game when player press "Stay" button
@@ -166,13 +181,13 @@ void Window::EndGame(){
 
     if(Dealer_->TotalScore_<= 16){
         while(Dealer_->TotalScore_<= 16){
-            Dealer_->RevealNextCard();
+            ShowDealersCard();
+            RefreshDealerScore();
             }
-        CompareScoresAndMoveOn();
-    }
-    else{
-        CompareScoresAndMoveOn();
-    }
+        }
+    CompareScoresAndMoveOn();
+    RefreshDealerScore();
+    RefreshPlayerScore();
 }
 
 void Window::StartFirstGame(){
@@ -183,11 +198,15 @@ void Window::StartFirstGame(){
 
     //now we will connect the spin box to the current bet so that changing it will change currentBet variable
     connect(BetBox_, qOverload<int>(&QSpinBox::valueChanged), this, &Window::ChangeBet);
+    
     //Next we will connect okay button where we will show Players fund reduced when bet is placed
     connect(OkButton_,&QPushButton::clicked, this, &Window::ReducePlayersFundForBet);
+    connect(OkButton_,&QPushButton::clicked, this, &Window::RefreshCurrentBet);
     connect(OkButton_,&QPushButton::clicked, this, &Window::HideFirstBetPrompt);
     connect(OkButton_,&QPushButton::clicked, this, &Window::ShowHitNStayPrompt);
     connect(OkButton_,&QPushButton::clicked, this, &Window::StartTableSetupPlayer);
+
+    //Hit and stay button
     connect(HitButton_,&QPushButton::clicked, this, &Window::ShowPlayersCard);
     connect(StayButton_,&QPushButton::clicked, this, &Window::EndGame);
     //timer to time the first table setup of the game

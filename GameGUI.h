@@ -30,7 +30,7 @@ public:
     ~Window();
 
     //Setting labels whose values are subject to change
-    void SetDynamicHeading(QLabel *LabelToPopulate, int &FundVariable, QString FontColor, int FontSize, QString BackGroundColor);
+    void SetDynamicHeading(QLabel *LabelToPopulate, int FundVariable, QString FontColor, int FontSize, QString BackGroundColor);
     //Setting labels whose values are static 
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
 
@@ -73,6 +73,7 @@ public:
     int CurrentBet_; //variable to store current bet amount
     int DealersFund_; //Dealers fund
     int PlayersFund_; //Players fund
+    int TimeInBetweenCards_; //setting time in beetween cards to showup in ms
 
     //buttons and spinbox variables ---------------------
     QSpinBox *BetBox_;//variable to store Betbox where user can select the bet amount
@@ -87,6 +88,9 @@ public:
     void RevealPlayersCard(); //Reveal first two players card and check for blackjack
     void RefreshPlayersFund(); //Refreshing the fund shown in window for player
     void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
+    void RefreshCurrentBet(); //Refresh the current bet shown in window
+    void RefreshPlayerScore();//Refresh the score being shown in window for player
+    void RefreshDealerScore();//Refresh the score being shown in window for dealer
     void EndGame(); //Ending the game once player has pressed "Stay"
     void ResetGame(); //Resetting the game once the game is over
     void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
