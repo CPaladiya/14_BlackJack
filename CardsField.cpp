@@ -14,7 +14,7 @@ using namespace std;
 QTextStream out(stdout);
 
 CardsField::CardsField(QString Participant,QWidget *parent): 
-    QGroupBox(parent),WhoIsIt_(Participant), TotalCardInCurrentDeck_(44),TotalScore_(0),ParticipantLatestCardIndex_(0){
+    QGroupBox(parent),WhoIsIt_(Participant),TotalScore_(0),ParticipantLatestCardIndex_(0){
 
     LoadCards();//loading the blank cards
 
@@ -48,6 +48,8 @@ vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","4C","4D","4H","4S",
                                        "9C","9D","9H","9S","XC","XD","XH","XS",
                                        "JC","JD","JH","JS","QC","QD","QH","QS",
                                        "KC","KD","KH","KS"};
+//Static variable to store number of cards in the current deck
+int CardsField::TotalCardInCurrentDeck_{44};
 
 //l0ading 5 blank cards for the player
 void CardsField::LoadCards(){
@@ -76,7 +78,9 @@ int CardsField::GetRandomCardIndex(){
     //1.obtaining random index for new next card-------
     random_device rd; //obtaining a random number from hardware
     mt19937 generator(rd()); // seed the generator
-    uniform_int_distribution<> distribution(0,TotalCardInCurrentDeck_);
+    int LastIndexOfCardDeck = TotalCardInCurrentDeck_-1;
+    out << "Last index of the card deck : " << TotalCardInCurrentDeck_<< endl;
+    uniform_int_distribution<> distribution(0,LastIndexOfCardDeck);
     int CardDeckRandomIndex = distribution(generator);
     TotalCardInCurrentDeck_--;//one card used so reduce the qty by 1
     return CardDeckRandomIndex;
@@ -85,22 +89,22 @@ int CardsField::GetRandomCardIndex(){
 void CardsField::RevealNextCard(){
     
     //1.Reloading the new random card
-    QString NewCard = CardDeck_[GetRandomCardIndex()];
+    int RandomCardIndexForNewCard = GetRandomCardIndex();
+    QString NewCard = CardDeck_[RandomCardIndexForNewCard];
     out << NewCard << endl;
     ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
     
-    //4.Removing the card being used from current deck since its already used
-    CardDeck_.erase(CardDeck_.begin()+GetRandomCardIndex());
-
-    //5.updating the latest score of the player-----------
+    //2.Removing the card being used from current deck since its already used
+    CardDeck_.erase(CardDeck_.begin()+RandomCardIndexForNewCard);
+    
+    //3.updating the latest score of the player-----------
     TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
-    out << "Players current score :" <<TotalScore_<<endl; 
+    out <<  WhoIsIt_<<"'s current score :" <<TotalScore_<<endl; 
 
-    //6.next card to reveal would be on the next position
-    // so moving latest card index by one
+    //4.next card to reveal would be on the next position
+    //so moving latest card index by one
     if (ParticipantLatestCardIndex_<4) {ParticipantLatestCardIndex_++;}
-    else{cout << "Participant index is more than 4!";}
-
+    //else{cout << "Participant index is more than 4!"<<endl;}
 }
 
 void CardsField::ResetCards(){

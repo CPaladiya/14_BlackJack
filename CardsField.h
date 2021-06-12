@@ -33,7 +33,7 @@ public:
     vector<Card*> ParticipantCards_; //the cards of player/dealer is stored here
     QString WhoIsIt_; //who is this instance belongs to? "Player" or "Dealer"
     static vector<QString> CardDeck_; //static variable that will hold cards in current deck being used
-    int TotalCardInCurrentDeck_; //number of total card remaining in current deck. At the beginning it will be 44
+    static int TotalCardInCurrentDeck_; //number of total card remaining in current deck. At the beginning it will be 44
     int TotalScore_; // will store the total score of the card for the instance
     int ParticipantLatestCardIndex_; //card index for currently latest card shown on screen
     QLabel *TileTitle_; //stores the tile title layout
