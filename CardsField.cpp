@@ -113,6 +113,7 @@ void CardsField::ResetCards(){
     for (int i=ParticipantLatestCardIndex_; i>=0; i--){
         ParticipantCards_[i]->FadeOutAnimation();
     }
+    QThread::sleep(1);//Making the thread sleep for 2 seconds
 
     //clearing all the QLable and its old cards and inserting blank cards
     for (int i=0; i<5; i++){

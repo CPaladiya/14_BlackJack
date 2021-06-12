@@ -89,6 +89,11 @@ public:
     void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
     void EndGame(); //Ending the game once player has pressed "Stay"
     void ResetGame(); //Resetting the game once the game is over
+    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
+    void PlayerWon(); //Changing funds of player and dealer if player won
+    void PlayerLost(); //Changing funds of player and dealer if player won
+    void GameDraw();//Game draw if player and dealer has the same score
+    void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
 
     public slots:
 
@@ -104,10 +109,7 @@ public:
     void ShowDealersCard();//Showing next card of the dealer
     void StartTableSetupPlayer();//Setting up first two cards for player
     void StartTableSetupDealer();//Setting up first two cards for Dealer
-    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
-    void PlayerWon(); //Changing funds of player and dealer if player won
-    void PlayerLost(); //Changing funds of player and dealer if player won
-    void GameDraw();//Game draw if player and dealer has the same score
+    void CheckIfBlackJack();//After dealing the first two cards we will check if its a blackjack, if not move on the game
 
 };
 

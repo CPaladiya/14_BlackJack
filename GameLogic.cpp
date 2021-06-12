@@ -108,19 +108,23 @@ void Window::ShowDealersCard(){
     }
 }
 
-//Setting up table and revealing two cards
-void Window::StartTableSetupPlayer(){
-    
-    ShowPlayersCard();//Showing players first two cards
-    QTimer::singleShot(2000,this,&Window::ShowPlayersCard);
-
-    //Checking if player has black jack!
+//Check if first two cards dealt has black jack for player, if not move on the game
+void Window::CheckIfBlackJack(){
     if(Player_->TotalScore_ ==21){
         PlayerHasBlackJack();
     }
     else{
-        QTimer::singleShot(1000,this,&Window::StartTableSetupDealer);
+        StartTableSetupDealer();
     }
+}
+
+//Setting up table and revealing two cards
+void Window::StartTableSetupPlayer(){
+    
+    ShowPlayersCard();//Showing players first two cards
+    QTimer::singleShot(700,this,&Window::ShowPlayersCard);
+    QTimer::singleShot(1700,this,&Window::CheckIfBlackJack);
+    //Checking if player has black jack!
 }
 
 //Setting up table and revealing first and booking second closed card
@@ -129,27 +133,45 @@ void Window::StartTableSetupDealer(){
     QTimer::singleShot(500,this,&Window::ShowDealersCard);
 }
 
+//Compare delaer and palyer score and declare win/lose
+void Window::CompareScoresAndMoveOn(){
+    if ((Dealer_->TotalScore_) > 21){
+        PlayerWon();
+        }
+    else if((Dealer_->TotalScore_)<(Player_->TotalScore_)){
+        PlayerWon();
+        }
+    else if((Dealer_->TotalScore_)>(Player_->TotalScore_)){
+        PlayerLost();
+        }
+    else if((Dealer_->TotalScore_)==(Player_->TotalScore_)){
+        GameDraw();
+        }
+}
+//Func to reset game once the game is done
 void Window::ResetGame(){
     Dealer_->ResetCards();
     Player_->ResetCards();
+    HideHitNStayPrompt();
+    ShowFirstBetPrompt();
+    PlayerScore_->setNum(Player_->TotalScore_);
+    DealerScore_->setNum(Dealer_->TotalScore_);
 }
 
 //Ending the game when player press "Stay" button
+//We will first Check if the Dealers point is 17 or above
+//if not than we reveal next cards untill we reach above 16
+//After that we compare the scores
 void Window::EndGame(){
-    while(Dealer_->TotalScore_<= 16){
-        Dealer_->RevealNextCard();
-        if ((Dealer_->TotalScore_) > 21){
-            PlayerWon();
-        }
-        else if((Dealer_->TotalScore_)<(Player_->TotalScore_)){
-            PlayerWon();
-        }
-        else if((Dealer_->TotalScore_)>(Player_->TotalScore_)){
-            PlayerLost();
-        }
-        else if((Dealer_->TotalScore_)==(Player_->TotalScore_)){
-            GameDraw();
-        }
+
+    if(Dealer_->TotalScore_<= 16){
+        while(Dealer_->TotalScore_<= 16){
+            Dealer_->RevealNextCard();
+            }
+        CompareScoresAndMoveOn();
+    }
+    else{
+        CompareScoresAndMoveOn();
     }
 }
 
