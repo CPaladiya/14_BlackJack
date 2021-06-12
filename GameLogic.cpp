@@ -31,6 +31,16 @@ void Window::ShowHitNStayPrompt(){
     HitNStayPrompt_->setVisible(true);
 }
 
+//Hide message box from the main window
+void Window::HideMessageBoxPrompt(){
+    MessageBoxPrompt_->setVisible(false);
+}
+
+//show message box on the main window
+void Window::ShowMessageBoxPrompt(){
+    MessageBoxPrompt_->setVisible(true);
+}
+
 //Show players card
 void Window::ShowPlayersCard(){
     Player_->RevealNextCard();
@@ -57,6 +67,7 @@ void Window::StartTableSetupDealer(){
 void Window::StartFirstGame(){
 
     Window::HideHitNStayPrompt(); //Hiding the Hit and Stay prompt, 
+    Window::HideMessageBoxPrompt(); //Hiding the Message box showing winning and loosing of the game
     //we only need first bet while we ask user for the bet they want to put
 
     //now we will connect the spin box to the current bet so that changing it will change currentBet variable

@@ -94,6 +94,7 @@ void CardsField::RevealNextCard(){
 
     //5.updating the latest score of the player-----------
     TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
+    out << "Players current score :" <<TotalScore_<<endl; 
 
     //6.next card to reveal would be on the next position
     // so moving latest card index by one

@@ -30,12 +30,13 @@ Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund
 
 Window::~Window(){}
 
-//Drawing all the required widgets
+//Drawing all the required widgets and storing it in respective QGroupBox variables
 void Window::DrawAllPrompts(){
 
     GameGrid_ = new QGridLayout; //Starting main game grid that will hold all the prompts
     DrawFirstBetPrompt(); // Draw First bet prompt
     DrawHitNStayPrompt(); //Draw Hit and Stay button prompt
+    DrawMessageBoxPrompt(); //Draw message box prompts
     DrawScoreBoard();//Draw the score board for the current game
     DealersFundPrompt_ = DrawFundPrompt("Dealer", DealersFund_, "red", "black"); //Draw Dealers Fund prompt and add it to variable
     PlayersFundPrompt_ = DrawFundPrompt("Player", PlayersFund_, "white", "black"); //Draw Players Fund prompt and add it to variable
@@ -43,7 +44,7 @@ void Window::DrawAllPrompts(){
     Player_ = new CardsField("Player"); //Start Player_ instance of the CardsField class, that will hold all cards for Player_
 }
 
-//Adding all the widgets to GameGrid_ which is the main window of the game
+//Adding all the widgets/QGroupBox variables to GameGrid_ which is the main window of the game
 void Window::AddPromptToWindow(){
 
     GameGrid_->addWidget(Dealer_->CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
@@ -53,6 +54,7 @@ void Window::AddPromptToWindow(){
     GameGrid_->addWidget(ScoreBoardPrompt_,4,4,2,1); //Adding ScoreBoard Box for current game
     GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding First bet prompt
     GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding Hit and Stay prompt
+    GameGrid_->addWidget(MessageBoxPrompt_,6,4,2,1); //Adding message box prompt
 
     //Setting the grid, its title and Size of the window
     setLayout(GameGrid_);
@@ -178,4 +180,21 @@ void Window::DrawHitNStayPrompt(){
     InternalBox->addWidget(StayButton_,2,2,1,2); //Adding Stay Button to internal grid
     
     HitNStayPrompt_->setLayout(InternalBox); //Adding grid to the group box
+}
+
+//Drawing the message box prompt that shows the message on winning and loosing
+void Window::DrawMessageBoxPrompt(){
+    
+    MessageBoxPrompt_ = new QGroupBox;  //starting a group box
+    QGridLayout *InternalBox = new QGridLayout; //creating a grid to put within the box
+
+    MessageLabel_ = new QLabel();
+    MessageLabel_->setText("Game on!");
+    MessageLabel_->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label, line below setting text format
+    MessageLabel_->setStyleSheet("background-color : black ; font-size : 20 px; font-weight : bold; color : black");
+
+    //setting up CurrentBetInfoLabel dynamic label
+    InternalBox->addWidget(MessageLabel_);
+    MessageBoxPrompt_->setLayout(InternalBox); //Adding grid to the group box
+
 }

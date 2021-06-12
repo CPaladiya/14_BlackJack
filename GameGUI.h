@@ -42,6 +42,7 @@ public:
     void DrawScoreBoard();//draws the score board for current game
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
+    void DrawMessageBoxPrompt(); //draws the message box showing winning or loosing status of player
     
     //GameLogic Functions - Functions implemented to run the game
     void StartFirstGame();
@@ -65,11 +66,13 @@ public:
     QGroupBox *ScoreBoardPrompt_; //Blackjack score board for current game
     QGroupBox *HitNStayPrompt_; //variable to store Hit and Stay option box QGroupBox
     QGroupBox *FirstBetPrompt_; //variable to store First bet option box
+    QGroupBox *MessageBoxPrompt_; //variable to store message of "Won"/"Lost"
 
     //Variables for label that needs to be updated dynamically -------------------
     QLabel *PlayersFundInfoLabel_; //Current Fund of the player
     QLabel *DealersFundInfoLabel_; //Current Fund of the Dealer
     QLabel *CurrentBetInfoLabel_; //Current bet InfoLabel label
+    QLabel *MessageLabel_;//Message box variable will fetch this QLabel
 
     //regular variables ----------------------------
     int CurrentBet_; //variable to store current bet amount
@@ -90,6 +93,8 @@ public:
     void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
     void HideFirstBetPrompt(); //Hide First Bet prompt
     void ShowFirstBetPrompt(); //Showing the first bet prompt
+    void HideMessageBoxPrompt();//Hide message box showing messages on game status
+    void ShowMessageBoxPrompt();//show message box showing messages on game status
     void ShowPlayersCard();//Showing next card of the player
     void ShowDealersCard();//Showing next card of the dealer
     void StartTableSetupPlayer();//Setting up first two cards for player
