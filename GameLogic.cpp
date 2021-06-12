@@ -40,8 +40,8 @@ void Window::RefreshDealersFund(){
 void Window::PlayerHasBlackJack(){
     //since we have already reduced the bet amount from player if, it won
     // we will have to add 2.5 times of it
-    PlayersFund_+= (CurrentBet_ * 2.5);
-    DealersFund_-= (CurrentBet_*1.5);
+    PlayersFund_+= CurrentBet_*2.5;
+    DealersFund_-= CurrentBet_*1.5;
     RefreshPlayersFund();
     RefreshDealersFund();
     QTimer::singleShot(1000,this,&Window::ResetGame);
@@ -49,8 +49,8 @@ void Window::PlayerHasBlackJack(){
 
 //Update the fund for player and dealer if player won
 void Window::PlayerWon(){
-    PlayersFund_+= (CurrentBet_ * 2);
-    DealersFund_-= (CurrentBet_);
+    PlayersFund_+= CurrentBet_*2;
+    DealersFund_-= CurrentBet_;
     RefreshPlayersFund();
     RefreshDealersFund();
     QTimer::singleShot(1000,this,&Window::ResetGame);
@@ -59,7 +59,7 @@ void Window::PlayerWon(){
 //Update the fund for player and dealer if player lost
 void Window::PlayerLost(){
     //we have already taken money from dealer so no need to deduct it anymore
-    DealersFund_+= (CurrentBet_);
+    DealersFund_+= CurrentBet_;
     RefreshPlayersFund();
     RefreshDealersFund();
     QTimer::singleShot(1000,this,&Window::ResetGame);
@@ -118,10 +118,7 @@ void Window::ShowDealersCard(){
     
     Dealer_->RevealNextCard();//First revealing the new card
     RefreshDealerScore(); //Refreshing the score value shown in window
-    if ((Dealer_->TotalScore_) > 21){
-        PlayerWon(); //Player wins if the dealers score is more than 21 and resets the game
     }
-}
 
 //Check if first two cards dealt has black jack for player, if not move on the game
 void Window::CheckIfBlackJack(){
@@ -139,7 +136,7 @@ void Window::StartTableSetupPlayer(){
     ShowPlayersCard();//Showing players first two cards
     QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowPlayersCard);
     QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::CheckIfBlackJack);
-    //Checking if player has black jack!
+    //Checking if player has black jack if not move on to set up table for dealer!
 }
 
 //Setting up table and revealing first and booking second closed card
@@ -198,7 +195,7 @@ void Window::StartFirstGame(){
 
     //now we will connect the spin box to the current bet so that changing it will change currentBet variable
     connect(BetBox_, qOverload<int>(&QSpinBox::valueChanged), this, &Window::ChangeBet);
-    
+
     //Next we will connect okay button where we will show Players fund reduced when bet is placed
     connect(OkButton_,&QPushButton::clicked, this, &Window::ReducePlayersFundForBet);
     connect(OkButton_,&QPushButton::clicked, this, &Window::RefreshCurrentBet);
