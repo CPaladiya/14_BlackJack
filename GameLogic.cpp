@@ -22,11 +22,10 @@ void Window::DealerScoreDefaultTile(){
 
 //Func to blink score tile when player's score is updated
 void Window::PlayerScoreUpdateBlink(){
-    PlayerScoreYellowTile();
-    QTimer::singleShot(300,this,&Window::PlayerScoreDefaultTile);
-    QTimer::singleShot(600,this,&Window::PlayerScoreYellowTile);
-    QTimer::singleShot(900,this,&Window::PlayerScoreDefaultTile);
-
+    for (int i=0; i<2; i++){
+    QTimer::singleShot(250,this,&Window::PlayerYellowScoreTile);
+    QTimer::singleShot(250,this,&Window::PlayerDefaultScoreTile);
+    }
 }
 
 //Func to blink score tile when dealer's score is updated
