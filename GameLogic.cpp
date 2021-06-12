@@ -11,6 +11,52 @@ void Window::ReducePlayersFundForBet(){
     PlayersFundInfoLabel_->setNum(PlayersFund_);
 }
 
+//Refreshing Player Fund shown in the window
+void Window::RefreshPlayersFund(){
+    PlayersFundInfoLabel_->setNum(PlayersFund_);
+}
+
+//Refreshing Dealers Fund shown in the window
+void Window::RefreshDealersFund(){
+    DealersFundInfoLabel_->setNum(DealersFund_);
+}
+
+//Update the fund for player and dealer if player has blackjack
+void Window::PlayerHasBlackJack(){
+    //since we have already reduced the bet amount from player if, it won
+    // we will have to add 2.5 times of it
+    PlayersFund_+= (CurrentBet_ * 2.5);
+    DealersFund_-= (CurrentBet_*1.5);
+    RefreshPlayersFund();
+    RefreshDealersFund();
+    QTimer::singleShot(1000,this,&Window::ResetGame);
+}
+
+//Update the fund for player and dealer if player won
+void Window::PlayerWon(){
+    PlayersFund_+= (CurrentBet_ * 2);
+    DealersFund_-= (CurrentBet_);
+    RefreshPlayersFund();
+    RefreshDealersFund();
+    QTimer::singleShot(1000,this,&Window::ResetGame);
+}
+
+//Update the fund for player and dealer if player lost
+void Window::PlayerLost(){
+    //we have already taken money from dealer so no need to deduct it anymore
+    DealersFund_+= (CurrentBet_);
+    RefreshPlayersFund();
+    RefreshDealersFund();
+    QTimer::singleShot(1000,this,&Window::ResetGame);
+}
+
+//Update the fund for player and dealer if game is draw
+void Window::GameDraw(){
+    PlayersFund_+= (CurrentBet_);
+    RefreshPlayersFund();
+    QTimer::singleShot(1000,this,&Window::ResetGame);
+}
+
 //Hiding the first best prompt
 void Window::HideFirstBetPrompt(){
     FirstBetPrompt_->setVisible(false);
@@ -41,27 +87,70 @@ void Window::ShowMessageBoxPrompt(){
     MessageBoxPrompt_->setVisible(true);
 }
 
-//Show players card
+//Show players card and check the score if its nore more than 21, if it is reset the game
 void Window::ShowPlayersCard(){
-    Player_->RevealNextCard();
+    
+    Player_->RevealNextCard(); //first revealing the new card
+    PlayerScore_->setNum(Player_->TotalScore_); //Refreshing the score value shown in window
+    //If now score is more than 21 Player is burst
+    if ((Player_->TotalScore_) > 21){
+        PlayerLost(); //Player loses if the score is more than 21 and resets the game
+    }
 }
 
-//Show dealers card
+//Show dealers card and check if its not more than 21, if it is reset the game
 void Window::ShowDealersCard(){
-    Dealer_->RevealNextCard();
+    
+    Dealer_->RevealNextCard();//First revealing the new card
+    DealerScore_->setNum(Dealer_->TotalScore_); //Refreshing the score value shown in window
+    if ((Dealer_->TotalScore_) > 21){
+        PlayerWon(); //Player wins if the dealers score is more than 21 and resets the game
+    }
 }
 
 //Setting up table and revealing two cards
 void Window::StartTableSetupPlayer(){
-    ShowPlayersCard();
-    QTimer::singleShot(500,this,&Window::ShowPlayersCard);
-    QTimer::singleShot(1000,this,&Window::StartTableSetupDealer);
+    
+    ShowPlayersCard();//Showing players first two cards
+    QTimer::singleShot(2000,this,&Window::ShowPlayersCard);
+
+    //Checking if player has black jack!
+    if(Player_->TotalScore_ ==21){
+        PlayerHasBlackJack();
+    }
+    else{
+        QTimer::singleShot(1000,this,&Window::StartTableSetupDealer);
+    }
 }
 
 //Setting up table and revealing first and booking second closed card
 void Window::StartTableSetupDealer(){
     ShowDealersCard();
     QTimer::singleShot(500,this,&Window::ShowDealersCard);
+}
+
+void Window::ResetGame(){
+    Dealer_->ResetCards();
+    Player_->ResetCards();
+}
+
+//Ending the game when player press "Stay" button
+void Window::EndGame(){
+    while(Dealer_->TotalScore_<= 16){
+        Dealer_->RevealNextCard();
+        if ((Dealer_->TotalScore_) > 21){
+            PlayerWon();
+        }
+        else if((Dealer_->TotalScore_)<(Player_->TotalScore_)){
+            PlayerWon();
+        }
+        else if((Dealer_->TotalScore_)>(Player_->TotalScore_)){
+            PlayerLost();
+        }
+        else if((Dealer_->TotalScore_)==(Player_->TotalScore_)){
+            GameDraw();
+        }
+    }
 }
 
 void Window::StartFirstGame(){
@@ -78,5 +167,6 @@ void Window::StartFirstGame(){
     connect(OkButton_,&QPushButton::clicked, this, &Window::ShowHitNStayPrompt);
     connect(OkButton_,&QPushButton::clicked, this, &Window::StartTableSetupPlayer);
     connect(HitButton_,&QPushButton::clicked, this, &Window::ShowPlayersCard);
+    connect(StayButton_,&QPushButton::clicked, this, &Window::EndGame);
     //timer to time the first table setup of the game
 }

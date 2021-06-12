@@ -109,6 +109,11 @@ void CardsField::RevealNextCard(){
 
 void CardsField::ResetCards(){
 
+    //Fading out all the cards shown in screen
+    for (int i=ParticipantLatestCardIndex_; i>=0; i--){
+        ParticipantCards_[i]->FadeOutAnimation();
+    }
+
     //clearing all the QLable and its old cards and inserting blank cards
     for (int i=0; i<5; i++){
         ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image

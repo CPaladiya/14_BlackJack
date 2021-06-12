@@ -43,13 +43,6 @@ public:
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
     void DrawMessageBoxPrompt(); //draws the message box showing winning or loosing status of player
-    
-    //GameLogic Functions - Functions implemented to run the game
-    void StartFirstGame();
-    //void StartTableSetUp();
-    void RevealPlayersCard();
-    void EndGame();
-    void ResetGame();
 
     //Main Game Grid variable that houses all the QGroupBox variables
     QGridLayout *GameGrid_;
@@ -73,6 +66,8 @@ public:
     QLabel *DealersFundInfoLabel_; //Current Fund of the Dealer
     QLabel *CurrentBetInfoLabel_; //Current bet InfoLabel label
     QLabel *MessageLabel_;//Message box variable will fetch this QLabel
+    QLabel *PlayerScore_;//Player Score QLabel
+    QLabel *DealerScore_;//Dealer Score QLabel
 
     //regular variables ----------------------------
     int CurrentBet_; //variable to store current bet amount
@@ -84,6 +79,16 @@ public:
     QPushButton *OkButton_; //variable to store Ok button for the first bet option
     QPushButton *HitButton_; //variable to store hit button
     QPushButton *StayButton_; //variable to store stay button
+
+    //################## ------------  GUI Slots and functions ------------ ############# //
+
+    //GameLogic Functions - Functions implemented to run the game
+    void StartFirstGame(); //Starting the game with showing first two cards for players
+    void RevealPlayersCard(); //Reveal first two players card and check for blackjack
+    void RefreshPlayersFund(); //Refreshing the fund shown in window for player
+    void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
+    void EndGame(); //Ending the game once player has pressed "Stay"
+    void ResetGame(); //Resetting the game once the game is over
 
     public slots:
 
@@ -99,6 +104,10 @@ public:
     void ShowDealersCard();//Showing next card of the dealer
     void StartTableSetupPlayer();//Setting up first two cards for player
     void StartTableSetupDealer();//Setting up first two cards for Dealer
+    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
+    void PlayerWon(); //Changing funds of player and dealer if player won
+    void PlayerLost(); //Changing funds of player and dealer if player won
+    void GameDraw();//Game draw if player and dealer has the same score
 
 };
 
