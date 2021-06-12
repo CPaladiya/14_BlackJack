@@ -84,6 +84,7 @@ public:
     //################## ------------  GUI Slots and functions ------------ ############# //
 
     //GameLogic Functions - Functions implemented to run the game
+    void Delay(int TimeInMS); //Adding time delay to hold function at that point
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void RevealPlayersCard(); //Reveal first two players card and check for blackjack
     void RefreshPlayersFund(); //Refreshing the fund shown in window for player
@@ -98,6 +99,8 @@ public:
     void PlayerLost(); //Changing funds of player and dealer if player won
     void GameDraw();//Game draw if player and dealer has the same score
     void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
+    void TurnDealersSecondCard(); //Turning dealers second card at the end of the game
+    void DealersTurn();//Now dealer will count his score
 
     public slots:
 

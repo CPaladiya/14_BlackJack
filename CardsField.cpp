@@ -89,12 +89,20 @@ int CardsField::GetRandomCardIndex(){
 
 void CardsField::RevealNextCard(){
     
-    //1.Reloading the new random card
     int RandomCardIndexForNewCard = GetRandomCardIndex();
-    QString NewCard = CardDeck_[RandomCardIndexForNewCard];
-    out << NewCard << endl;
-    ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
-    
+
+    //1.Cheching if its dealers second card then it wold be closed card otherwise
+    //Reloading the new random card
+    if(WhoIsIt_ == "Dealer" && ParticipantLatestCardIndex_ == 1){
+        DealerSecondCard_ = CardDeck_[RandomCardIndexForNewCard];
+        out << DealerSecondCard_ <<"Dealers Second Card" << endl;
+        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard("00");
+    }
+    else{
+        QString NewCard = CardDeck_[RandomCardIndexForNewCard];
+        out << NewCard << endl;
+        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
+    }
     //2.Removing the card being used from current deck since its already used
     CardDeck_.erase(CardDeck_.begin()+RandomCardIndexForNewCard);
     
@@ -106,6 +114,12 @@ void CardsField::RevealNextCard(){
     //so moving latest card index by one
     if (ParticipantLatestCardIndex_<4) {ParticipantLatestCardIndex_++;}
     //else{cout << "Participant index is more than 4!"<<endl;}
+}
+
+void CardsField::FlipDealersCard(){
+    ParticipantCards_[1]->FadeOutAnimation();
+    ParticipantCards_[1]->ReloadTrueCard(DealerSecondCard_);
+    TotalScore_ += ParticipantCards_[1]->CardValue_;
 }
 
 void CardsField::ReloadBlankCards(){
@@ -139,6 +153,6 @@ void CardsField::ResetCards(){
     CardDeck_ = NewDeck_;
 
     //loading the blank Card now after cards faded out
-    QTimer::singleShot(1000,this,&CardsField::ReloadBlankCards);
+    QTimer::singleShot(1500,this,&CardsField::ReloadBlankCards);
 
 }

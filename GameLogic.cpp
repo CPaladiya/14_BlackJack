@@ -170,12 +170,21 @@ void Window::ResetGame(){
     RefreshPlayerScore();
 }
 
+void Window::TurnDealersSecondCard(){
+    Dealer_->FlipDealersCard();
+}
+
 //Ending the game when player press "Stay" button
 //We will first Check if the Dealers point is 17 or above
 //if not than we reveal next cards untill we reach above 16
 //After that we compare the scores
-void Window::EndGame(){
+void Window::DealersTurn(){
+    TurnDealersSecondCard();
+    RefreshDealerScore();
+    QTimer::singleShot(TimeInBetweenCards_*2.5,this,&Window::EndGame);
+}
 
+void Window::EndGame(){
     if(Dealer_->TotalScore_<= 16){
         while(Dealer_->TotalScore_<= 16){
             ShowDealersCard();
@@ -186,9 +195,8 @@ void Window::EndGame(){
     RefreshDealerScore();
     RefreshPlayerScore();
 }
-
+    
 void Window::StartFirstGame(){
-
     Window::HideHitNStayPrompt(); //Hiding the Hit and Stay prompt, 
     Window::HideMessageBoxPrompt(); //Hiding the Message box showing winning and loosing of the game
     //we only need first bet while we ask user for the bet they want to put
@@ -205,6 +213,6 @@ void Window::StartFirstGame(){
 
     //Hit and stay button
     connect(HitButton_,&QPushButton::clicked, this, &Window::ShowPlayersCard);
-    connect(StayButton_,&QPushButton::clicked, this, &Window::EndGame);
+    connect(StayButton_,&QPushButton::clicked, this, &Window::DealersTurn);
     //timer to time the first table setup of the game
 }

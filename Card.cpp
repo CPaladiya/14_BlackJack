@@ -48,7 +48,7 @@ void Card::FadeInAnimation(){
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this); //Adding new opacity effect
     CardImageQLabel_->setGraphicsEffect(effect); //Setting that effect to the card image
     QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity"); //adding new animation property and its effect
-    aniamteCard->setDuration(1000); //Setting how long will be the effect in ms
+    aniamteCard->setDuration(1200); //Setting how long will be the effect in ms
     aniamteCard->setStartValue(0);//amount of opacity at start
     aniamteCard->setEndValue(1); //amount of opacity at end
     aniamteCard->setEasingCurve(QEasingCurve::InBack); //smoothness of the transition
@@ -62,7 +62,7 @@ void Card::FadeOutAnimation(){
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);//Adding new opacity effect
     CardImageQLabel_->setGraphicsEffect(effect); //Setting that effect to the card image
     QPropertyAnimation *aniamteCard = new QPropertyAnimation(effect,"opacity");//adding new animation property and its effect
-    aniamteCard->setDuration(1000); //Setting how long will be the effect in ms
+    aniamteCard->setDuration(1200); //Setting how long will be the effect in ms
     aniamteCard->setStartValue(1); //amount of opacity at start
     aniamteCard->setEndValue(0); //amount of opacity at end
     aniamteCard->setEasingCurve(QEasingCurve::InBack); //smoothness of the transition
@@ -78,7 +78,7 @@ void Card::RefreshCardValue(){
     if (CardName_[0] == "1"){
         CardValue_ = 11; //if ace we will set card value to 11
     }
-    else if (CardName_[0] == "T"){
+    else if (CardName_[0] == "T" || CardName_[0] == "0" ){
         CardValue_ = 0;
     }
     else if(count(CardValueNumber.begin(),CardValueNumber.end(), CardName_[0])){
