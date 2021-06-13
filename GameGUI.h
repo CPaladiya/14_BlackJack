@@ -30,10 +30,11 @@ public:
     Window(QWidget *parent = nullptr); //constructor
     ~Window();
 
-    //Setting labels whose values are subject to change
-    void SetDynamicHeading(QLabel *LabelToPopulate, int FundVariable, QString FontColor, int FontSize, QString BackGroundColor);
-    //Setting labels whose values are static 
-    QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); 
+    ////################## ------------  part of GameGUI.cpp -----Func to Draw GUI ------------ ############# //
+
+    //Drawing labels
+    void SetDynamicHeading(QLabel *LabelToPopulate, int FundVariable, QString FontColor, int FontSize, QString BackGroundColor); //Setting labels whose values are subject to change
+    QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); //Setting labels whose values are static 
 
     //Functions to draw all the boxes in GUI
     void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
@@ -106,9 +107,9 @@ public:
     //GameLogic Functions - Functions implemented to run the game
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void StartTableSetupPlayer(); //Setting up first two cards for player
+    void ShowPlayersCard(); //Showing next card of the player
     void CheckIfBlackJackOrBurst(); //After dealing the first two cards we will check if its a blackjack or burst, if not move on the game
     void StartTableSetupDealer(); //Setting up first two cards for Dealer
-    void ShowPlayersCard(); //Showing next card of the player
     void ShowDealersCard(); //Showing next card of the dealer
     void DealersTurn();//Now dealer will count his score
     void TurnDealersSecondCard(); //Turning dealers second card at the end of the game

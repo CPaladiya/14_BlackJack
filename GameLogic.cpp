@@ -104,6 +104,17 @@ void Window::StartTableSetupPlayer(){
     //Checking if player has black jack if not move on to set up table for dealer!
 }
 
+//Show players card and check the score if its nore more than 21, if it is reset the game
+void Window::ShowPlayersCard(){
+    
+    Player_->RevealNextCard(); //first revealing the new card
+    QTimer::singleShot(BlinkDelay_,this,&Window::RefreshPlayerScore);//Refreshing the score value shown in window
+    //If now score is more than 21 Player is burst
+    if ((Player_->TotalScore_) > 21){//Player loses if the score is more than 21 and resets the game
+        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerLost); 
+    }
+}
+
 //Check if first two cards dealt has black jack for player, if not move on the game
 void Window::CheckIfBlackJackOrBurst(){
     if(Player_->TotalScore_ ==21){
@@ -122,17 +133,6 @@ void Window::StartTableSetupDealer(){
     ShowDealersCard(); //Showing dealers first card
     QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowDealersCard);//Showing Deakers Second card - closed
     QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::ShowHitNStayPrompt);//Showing Hit and stay button after the table has been setup
-}
-
-//Show players card and check the score if its nore more than 21, if it is reset the game
-void Window::ShowPlayersCard(){
-    
-    Player_->RevealNextCard(); //first revealing the new card
-    QTimer::singleShot(BlinkDelay_,this,&Window::RefreshPlayerScore);//Refreshing the score value shown in window
-    //If now score is more than 21 Player is burst
-    if ((Player_->TotalScore_) > 21){//Player loses if the score is more than 21 and resets the game
-        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerLost); 
-    }
 }
 
 //Show dealers card and check if its not more than 21, if it is reset the game
@@ -243,10 +243,3 @@ void Window::GameDraw(){
     ScoreAfterGame();
     QTimer::singleShot(BlinkDelay_,this,&Window::GameDrawBlink);
 }
-
-
-
-
-
-
-    
