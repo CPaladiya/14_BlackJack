@@ -133,6 +133,8 @@ public:
     void FundRedTile(); //Tile to blink with Red color background
     void FundGreenTile(); //Tile to blink with Green color background
     void FundDefaultTile(); //Default color
+    void PlayerWonFundBlink(); //Player winning status blink
+    void PlayerLostFundBlink(); //Player loosing status blink
     void MessgaePromptGreenTile(); //Tile to blink with green color background
     void MessgaePromptRedTile(); //Tile to blink with green color background
     void MessgaePromptDefaultTile(); //Tile to blink with green color background

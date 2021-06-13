@@ -13,6 +13,7 @@ using namespace std;
 Card::Card(QWidget *parent) : 
     QLabel(parent), CardName_("TT"), CardValue_(0) {
 
+    //Loading card with blank image to set the size of the QLable, as game goes on, the blank card will be gone
     QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
     CardImageQLabel_ = new QLabel();//creating a new label
     //Defining variables to resize the image according to the size of the label itself

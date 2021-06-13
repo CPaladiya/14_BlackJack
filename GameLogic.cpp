@@ -161,7 +161,7 @@ void Window::CheckIfBlackJack(){
 void Window::StartTableSetupDealer(){
     ShowDealersCard(); //Showing dealers first card
     QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowDealersCard);//Showing Deakers Second card - closed
-    QTimer::singleShot(TimeInBetweenCards_*1.8,this,&Window::ShowHitNStayPrompt);//Showing Hit and stay button after the table has been setup
+    QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::ShowHitNStayPrompt);//Showing Hit and stay button after the table has been setup
 }
 
 //Show players card and check the score if its nore more than 21, if it is reset the game

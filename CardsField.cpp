@@ -131,18 +131,13 @@ void CardsField::FlipDealersCard(){
     TotalScore_ += ParticipantCards_[1]->CardValue_;
 }
 
-//Reload blank cards here while resetting the game to maintain the size of the QLabel
-void CardsField::ReloadBlankCards(){
-    for (int i=0; i<5; i++){
-        ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image
-    }
-}
-
-
 void CardsField::ResetCards(){
     //Fading out all the cards shown in screen
     for (int i=ParticipantLatestCardIndex_-1; i>=0; i--){
         ParticipantCards_[i]->FadeOutAnimation();
+        ParticipantCards_[i]->CardValue_ = 0;
+        //Making sure the card faded does not have any card value even though 
+        //its QLabel might have previously used cards still in it
     }
 
     TotalScore_ = 0; //setting total card score of participant to 0
@@ -158,10 +153,4 @@ void CardsField::ResetCards(){
                               "KC","KD","KH","KS"};
     CardDeck_.clear();
     CardDeck_ = NewDeck_;
-
-    //loading the blank Card now after cards faded out
-    QTimer::singleShot(1500,this,&CardsField::DoNothing);
-}
-
-void CardsField::DoNothing(){
 }
