@@ -94,12 +94,12 @@ QGroupBox *Window::DrawFundPrompt(QString Participant, int &FundVar, QString Fon
     //Adding fund for dealer if dealer
     if(Participant == "Dealer"){ 
         DealersFundInfoLabel_ = new QLabel();
-        SetDynamicHeading(DealersFundInfoLabel_,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        SetDynamicHeading(DealersFundInfoLabel_,FundVar, FontColor,16, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(DealersFundInfoLabel_,1,0);
     } 
     else if(Participant == "Player"){ 
         PlayersFundInfoLabel_ = new QLabel();
-        SetDynamicHeading(PlayersFundInfoLabel_,FundVar, FontColor,20, BackGroundColor);//setting up DealersFundInfoLabel label
+        SetDynamicHeading(PlayersFundInfoLabel_,FundVar, FontColor,16, BackGroundColor);//setting up DealersFundInfoLabel label
         InternalBox->addWidget(PlayersFundInfoLabel_,1,0);
     }//Adding fund for Player if Player
     else { cout << "There is an error at DrawFundPrompt Func!" << endl;}

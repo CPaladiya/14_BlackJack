@@ -94,12 +94,6 @@ public:
     void RefreshDealerScore(); //Refresh the score being shown in window for dealer
     void RefreshPlayersFund(); //Refreshing the fund shown in window for player
     void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
-    
-    //Game status functions
-    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
-    void PlayerWon(); //Changing funds of player and dealer if player won
-    void PlayerLost(); //Changing funds of player and dealer if player won
-    void GameDraw(); //Game draw if player and dealer has the same score
 
     //Hide and show various prompts
     void HideFirstBetPrompt(); //Hide First Bet prompt
@@ -112,7 +106,7 @@ public:
     //GameLogic Functions - Functions implemented to run the game
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void StartTableSetupPlayer(); //Setting up first two cards for player
-    void CheckIfBlackJack(); //After dealing the first two cards we will check if its a blackjack, if not move on the game
+    void CheckIfBlackJackOrBurst(); //After dealing the first two cards we will check if its a blackjack or burst, if not move on the game
     void StartTableSetupDealer(); //Setting up first two cards for Dealer
     void ShowPlayersCard(); //Showing next card of the player
     void ShowDealersCard(); //Showing next card of the dealer
@@ -120,7 +114,15 @@ public:
     void TurnDealersSecondCard(); //Turning dealers second card at the end of the game
     void EndGame(); //Ending the game once player has pressed "Stay"
     void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
+    void ScoreAfterGame(); //Refreshes score after game and hides/shows relevant prompts
     void ResetGame(); //Resetting the game once the game is over
+    void DoNothingForSecond(){} //Just a place holder to delay the showing of card for a second
+
+    //Game status functions
+    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
+    void PlayerWon(); //Changing funds of player and dealer if player won
+    void PlayerLost(); //Changing funds of player and dealer if player won
+    void GameDraw(); //Game draw if player and dealer has the same score
 
     //################## ------------  part of Blink.cpp ----- Blinking animations on score update ------------ ############# //
 
@@ -139,7 +141,9 @@ public:
     void MessgaePromptRedTile(); //Tile to blink with green color background
     void MessgaePromptDefaultTile(); //Tile to blink with green color background
     void PlayerWonBlink(); //Player winning status blink
+    void PlayerBlackJackBlink(); //Player winning black jack blink
     void PlayerLostBlink(); //Player loosing status blink
+    void GameDrawBlink(); //Game draw blink
 
 };
 
