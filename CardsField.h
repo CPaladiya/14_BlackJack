@@ -28,12 +28,12 @@ public:
     void ResetCards();//Resetting the card images to blank and getting new batch of 44 cards
     void ReloadBlankCards();//Reloading the blank images into card
     //i.e random number between 0 to 41. Later on 0 to however many card is available
-    void AnimateTitle(); //Animating the title of the cards field
-    void DoNothing();//Do nothing function to add delay in actions
 
     QGroupBox *CardsFieldQGroupBoxVar_; //QGroupBox variable of the instance
     vector<Card*> ParticipantCards_; //the cards of player/dealer is stored here
     QString WhoIsIt_; //who is this instance belongs to? "Player" or "Dealer"
+    QString titleSymbolsLeft_; //Left string of the title "Player or dealer"
+    QString titleSymbolsRight_;//Right string of the title "Player or dealer"
     QString DealerSecondCard_;//specifically a second car for dealer which will be revealed later on
     QLabel *TileTitle_; //stores the tile title layout
     QMutex mutex;

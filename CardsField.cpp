@@ -37,7 +37,6 @@ CardsField::CardsField(QString Participant,QWidget *parent):
     
     if (WhoIsIt_ == "Dealer"){ TileTitle_ = SetTileTitle("red", 22, "black");}
     else{TileTitle_ = SetTileTitle("white", 22, "black");}
-    
 
     ParticipantCardGrid_->addWidget(TileTitle_,0,0,1,5);
     ParticipantCardGrid_->addWidget(ParticipantCards_[0]->CardImageQLabel_,1,0,7,1);
@@ -64,9 +63,9 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
 
     QLabel *title = new QLabel(this); //creating new title for the tile
     //only set symbols if its a main tile
-    QString titleSymbolsLeft = " \u2660 \u2663 \u2665 \u2666               ";
-    QString titleSymbolsRight = "               \u2666 \u2665 \u2663 \u2660 ";
-    title->setText(titleSymbolsLeft+WhoIsIt_+titleSymbolsRight); //adding symbols around the name of the participants
+    titleSymbolsLeft_ = " \u2660 \u2663 \u2665 \u2666               ";
+    titleSymbolsRight_ = "               \u2666 \u2665 \u2663 \u2660 ";
+    title->setText(titleSymbolsLeft_+WhoIsIt_+titleSymbolsRight_); //adding symbols around the name of the participants
     //setting text to label
     title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
     title->setStyleSheet("background-color : "+ BackGroundColor +" ; font-size : "+ QString::number(FontSize) +"px; font-weight : bold; color : " + FontColor); //setting text format

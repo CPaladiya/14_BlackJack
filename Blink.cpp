@@ -2,16 +2,19 @@
 
 //Will set tile to yellow color background to player score
 void Window::PlayerScoreYellowTile(){
+
     PlayerScore_->setStyleSheet("background-color : yellow ; font-size : 60 px; font-weight : bold; color : black");
 }
 
 //Will set tile to yellow color background to dealer score
 void Window::DealerScoreYellowTile(){
+
     DealerScore_->setStyleSheet("background-color : yellow ; font-size : 60 px; font-weight : bold; color : black");
 }
 
 //Func will set tile to green color background to dealer score
 void Window::ScoreDefaultTile(){
+
     DealerScore_->setStyleSheet("background-color : black ; font-size : 60 px; font-weight : bold; color : red");
     PlayerScore_->setStyleSheet("background-color : black ; font-size : 60 px; font-weight : bold; color : white");
 }
@@ -52,6 +55,8 @@ void Window::PlayerWonFundBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::FundGreenTile);
     QTimer::singleShot(400,this,&Window::FundDefaultTile);
+    QTimer::singleShot(600,this,&Window::FundGreenTile);
+    QTimer::singleShot(800,this,&Window::FundDefaultTile);
     mutex_.unlock();
 }
 
@@ -60,6 +65,8 @@ void Window::PlayerLostFundBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::FundRedTile);
     QTimer::singleShot(400,this,&Window::FundDefaultTile);
+    QTimer::singleShot(600,this,&Window::FundRedTile);
+    QTimer::singleShot(800,this,&Window::FundDefaultTile);
     mutex_.unlock();
 }
 
@@ -84,6 +91,8 @@ void Window::PlayerWonBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 
@@ -93,6 +102,8 @@ void Window::PlayerBlackJackBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);    
     mutex_.unlock();
 }
 
@@ -102,6 +113,8 @@ void Window::PlayerLostBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::MessgaePromptRedTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptRedTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);    
     mutex_.unlock();
 }
 
@@ -111,6 +124,8 @@ void Window::GameDrawBlink(){
     mutex_.lock();
     QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 
