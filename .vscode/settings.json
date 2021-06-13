@@ -6,5 +6,6 @@
         "vector": "cpp",
         "thread": "cpp",
         "qgraphicsopacityeffect": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

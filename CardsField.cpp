@@ -14,6 +14,19 @@
 using namespace std;
 QTextStream out(stdout);
 
+//------------------#########----------Defining static variables---------#######--------------//
+
+vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","4C","4D","4H","4S",
+                                       "5C","5D","5H","5S","6C","6D","6H","6S",
+                                       "7C","7D","7H","7S","8C","8D","8H","8S",
+                                       "9C","9D","9H","9S","XC","XD","XH","XS",
+                                       "JC","JD","JH","JS","QC","QD","QH","QS",
+                                       "KC","KD","KH","KS"};
+//Static variable to store number of cards in the current deck
+int CardsField::TotalCardInCurrentDeck_{44};
+
+//------------------#########----------Constructor and Destructor---------#######--------------//
+
 CardsField::CardsField(QString Participant,QWidget *parent): 
     QGroupBox(parent),WhoIsIt_(Participant),TotalScore_(0),ParticipantLatestCardIndex_(0){
 
@@ -43,29 +56,16 @@ CardsField::~CardsField(){}
 //per player. In that case even if we have smallest 4 Card with value of 4,
 //we will have score of more than 20
 
-vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","4C","4D","4H","4S",
-                                       "5C","5D","5H","5S","6C","6D","6H","6S",
-                                       "7C","7D","7H","7S","8C","8D","8H","8S",
-                                       "9C","9D","9H","9S","XC","XD","XH","XS",
-                                       "JC","JD","JH","JS","QC","QD","QH","QS",
-                                       "KC","KD","KH","KS"};
-//Static variable to store number of cards in the current deck
-int CardsField::TotalCardInCurrentDeck_{44};
 
-//l0ading 5 blank cards for the player
-void CardsField::LoadCards(){
-    for(int i=0; i<5; i++){
-        ParticipantCards_.emplace_back(new Card());
-    }
-}
+//------------------#########----------Main Functions of the class---------#######--------------//
 
 //Function to form title of the tiles
 QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor){
 
     QLabel *title = new QLabel(this); //creating new title for the tile
     //only set symbols if its a main tile
-    QString titleSymbolsLeft = " \u2660 \u2663 \u2665 \u2666 ";
-    QString titleSymbolsRight = " \u2666 \u2665 \u2663 \u2660 ";
+    QString titleSymbolsLeft = " \u2660 \u2663 \u2665 \u2666               ";
+    QString titleSymbolsRight = "               \u2666 \u2665 \u2663 \u2660 ";
     title->setText(titleSymbolsLeft+WhoIsIt_+titleSymbolsRight); //adding symbols around the name of the participants
     //setting text to label
     title->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);//setting alignment of the label
@@ -74,6 +74,13 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
     return title;
 }
 
+//l0ading 5 blank cards for the player
+void CardsField::LoadCards(){
+    for(int i=0; i<5; i++){
+        ParticipantCards_.emplace_back(new Card());
+    }
+}
+//This will get a random index from the available number of cards
 int CardsField::GetRandomCardIndex(){
         
     //1.obtaining random index for new next card-------
@@ -87,6 +94,7 @@ int CardsField::GetRandomCardIndex(){
     return CardDeckRandomIndex;
 }
 
+//This will reveal the next card using the random index in the deck
 void CardsField::RevealNextCard(){
     
     int RandomCardIndexForNewCard = GetRandomCardIndex();
@@ -116,24 +124,24 @@ void CardsField::RevealNextCard(){
     //else{cout << "Participant index is more than 4!"<<endl;}
 }
 
+//the dealers second closed card revealed
 void CardsField::FlipDealersCard(){
     ParticipantCards_[1]->FadeOutAnimation();
     ParticipantCards_[1]->ReloadTrueCard(DealerSecondCard_);
     TotalScore_ += ParticipantCards_[1]->CardValue_;
 }
 
+//Reload blank cards here while resetting the game to maintain the size of the QLabel
 void CardsField::ReloadBlankCards(){
-
     for (int i=0; i<5; i++){
         ParticipantCards_[i]->ReloadTrueCard("TT"); //TT is the name of blank image
     }
-
 }
 
-void CardsField::ResetCards(){
 
+void CardsField::ResetCards(){
     //Fading out all the cards shown in screen
-    for (int i=ParticipantLatestCardIndex_; i>=0; i--){
+    for (int i=ParticipantLatestCardIndex_-1; i>=0; i--){
         ParticipantCards_[i]->FadeOutAnimation();
     }
 
@@ -141,7 +149,6 @@ void CardsField::ResetCards(){
     TotalCardInCurrentDeck_ = 44; //setting total cards in deck to 44 again
     ParticipantLatestCardIndex_ = 0; //moving latest showing card to 0
     
-
     //Vector will be used to repopulate CardDeck_ to reset deck for the current game
     vector<QString> NewDeck_ {"1C","1D","1H","1S","4C","4D","4H","4S",
                               "5C","5D","5H","5S","6C","6D","6H","6S",
@@ -153,6 +160,8 @@ void CardsField::ResetCards(){
     CardDeck_ = NewDeck_;
 
     //loading the blank Card now after cards faded out
-    QTimer::singleShot(1500,this,&CardsField::ReloadBlankCards);
+    QTimer::singleShot(1500,this,&CardsField::DoNothing);
+}
 
+void CardsField::DoNothing(){
 }

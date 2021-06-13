@@ -56,7 +56,8 @@ SOURCES       = BlackJack.cpp \
 		GameGUI.cpp \
 		Card.cpp \
 		CardsField.cpp \
-		GameLogic.cpp moc_GameGUI.cpp \
+		GameLogic.cpp \
+		Blink.cpp moc_GameGUI.cpp \
 		moc_Card.cpp \
 		moc_CardsField.cpp
 OBJECTS       = BlackJack.o \
@@ -64,6 +65,7 @@ OBJECTS       = BlackJack.o \
 		Card.o \
 		CardsField.o \
 		GameLogic.o \
+		Blink.o \
 		moc_GameGUI.o \
 		moc_Card.o \
 		moc_CardsField.o
@@ -148,7 +150,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		GameGUI.cpp \
 		Card.cpp \
 		CardsField.cpp \
-		GameLogic.cpp
+		GameLogic.cpp \
+		Blink.cpp
 QMAKE_TARGET  = 14_BlackJack
 DESTDIR       = 
 TARGET        = 14_BlackJack
@@ -329,7 +332,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents GameGUI.h Card.h CardsField.h $(DISTDIR)/
-	$(COPY_FILE) --parents BlackJack.cpp GameGUI.cpp Card.cpp CardsField.cpp GameLogic.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents BlackJack.cpp GameGUI.cpp Card.cpp CardsField.cpp GameLogic.cpp Blink.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -419,6 +422,11 @@ GameLogic.o: GameLogic.cpp GameGUI.h \
 		CardsField.h \
 		Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameLogic.o GameLogic.cpp
+
+Blink.o: Blink.cpp GameGUI.h \
+		CardsField.h \
+		Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Blink.o Blink.cpp
 
 moc_GameGUI.o: moc_GameGUI.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GameGUI.o moc_GameGUI.cpp

@@ -10,6 +10,7 @@
 #include <vector>
 #include <QTextStream>
 #include <QLabel>
+#include <QMutex>
 #include <QSpinBox>
 #include <iostream>
 #include <QTextStream>
@@ -37,8 +38,7 @@ public:
     //Functions to draw all the boxes in GUI
     void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
     void AddPromptToWindow(); //method to add all drawn prompts to game window
-    //draws the fund InfoLabel boxes for dealer and player
-    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);
+    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);    //draws the fund InfoLabel boxes for dealer and player
     void DrawScoreBoard();//draws the score board for current game
     void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
     void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
@@ -50,6 +50,7 @@ public:
     //CardsField Class two instances for each player and dealer
     CardsField *Player_;
     CardsField *Dealer_;
+    QMutex mutex_;
 
     //Group box variables ------------
     QGroupBox *DealersCardPrompt_; //variable to store Dealers card box
@@ -74,19 +75,44 @@ public:
     int DealersFund_; //Dealers fund
     int PlayersFund_; //Players fund
     int TimeInBetweenCards_; //setting time in beetween cards to showup in ms
+    int BlinkDelay_; //setting for blinking of scores/tiles after card is beggining to fade in
 
     //buttons and spinbox variables ---------------------
     QSpinBox *BetBox_;//variable to store Betbox where user can select the bet amount
     QPushButton *OkButton_; //variable to store Ok button for the first bet option
     QPushButton *HitButton_; //variable to store hit button
     QPushButton *StayButton_; //variable to store stay button
+    QPushButton *YesButton_; //Variable to store yes button for the next game
 
     //################## ------------  part of GameLogic.cpp ----- GUI Slots and functions ------------ ############# //
+    
+    //Refresh value function to update socors/Fund as game moves on
+    void ChangeBet(int NewBetValue); //Changing the current bet value using Betbox QSpinbox button
+    void ReducePlayersFundForBet(); //Reducing players fund by some amount
+    void RefreshCurrentBet(); //Refresh the current bet shown in window
+    void RefreshPlayerScore(); //Refresh the score being shown in window for player
+    void RefreshDealerScore(); //Refresh the score being shown in window for dealer
+    void RefreshPlayersFund(); //Refreshing the fund shown in window for player
+    void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
+    
+    //Game status functions
+    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
+    void PlayerWon(); //Changing funds of player and dealer if player won
+    void PlayerLost(); //Changing funds of player and dealer if player won
+    void GameDraw(); //Game draw if player and dealer has the same score
+
+    //Hide and show various prompts
+    void HideFirstBetPrompt(); //Hide First Bet prompt
+    void ShowFirstBetPrompt(); //Showing the first bet prompt
+    void HideHitNStayPrompt(); //Hiding the Hit and stay prompt
+    void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
+    void HideMessageBoxPrompt(); //Hide message box showing messages on game status
+    void ShowMessageBoxPrompt(); //show message box showing messages on game status
 
     //GameLogic Functions - Functions implemented to run the game
-    void CheckIfBlackJack(); //After dealing the first two cards we will check if its a blackjack, if not move on the game
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void StartTableSetupPlayer(); //Setting up first two cards for player
+    void CheckIfBlackJack(); //After dealing the first two cards we will check if its a blackjack, if not move on the game
     void StartTableSetupDealer(); //Setting up first two cards for Dealer
     void ShowPlayersCard(); //Showing next card of the player
     void ShowDealersCard(); //Showing next card of the dealer
@@ -95,45 +121,23 @@ public:
     void EndGame(); //Ending the game once player has pressed "Stay"
     void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
     void ResetGame(); //Resetting the game once the game is over
-    
-    //Refresh value function to update socors/Fund as game moves on
-    void ChangeBet(int NewBetValue); //Changing the current bet value using Betbox QSpinbox button
-    void ReducePlayersFundForBet(); //Reducing players fund by some amount
-    void RefreshPlayersFund(); //Refreshing the fund shown in window for player
-    void RefreshDealersFund(); //Refreshing the fund shown in window for Dealer
-    void RefreshCurrentBet(); //Refresh the current bet shown in window
-    void RefreshPlayerScore(); //Refresh the score being shown in window for player
-    void RefreshDealerScore(); //Refresh the score being shown in window for dealer
-
-    //Game status functions
-    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
-    void PlayerWon(); //Changing funds of player and dealer if player won
-    void PlayerLost(); //Changing funds of player and dealer if player won
-    void GameDraw(); //Game draw if player and dealer has the same score
-
-    //Hide and show various prompts
-    void HideHitNStayPrompt(); //Hiding the Hit and stay prompt
-    void ShowHitNStayPrompt(); //Showing the Hit and Stay Prompt
-    void HideFirstBetPrompt(); //Hide First Bet prompt
-    void ShowFirstBetPrompt(); //Showing the first bet prompt
-    void HideMessageBoxPrompt(); //Hide message box showing messages on game status
-    void ShowMessageBoxPrompt(); //show message box showing messages on game status
 
     //################## ------------  part of Blink.cpp ----- Blinking animations on score update ------------ ############# //
 
     //Blinking animation func for various tiles
     void PlayerScoreYellowTile(); //Tile to blink with yellow color backgound
-    void PlayerScoreDefaultTile(); //Tile to blink with Red color background
     void DealerScoreYellowTile(); //Tile to blink with yellow color backgound
-    void DealerScoreDefaultTile(); //Tile to blink with Red color background
+    void ScoreDefaultTile(); //Tile to blink for default color for score
+    void PlayerScoreUpdateBlink(); //Player score update blink
+    void DealerScoreUpdateBlink(); //Dealer score update blink
+    void FundRedTile(); //Tile to blink with Red color background
+    void FundGreenTile(); //Tile to blink with Green color background
+    void FundDefaultTile(); //Default color
     void MessgaePromptGreenTile(); //Tile to blink with green color background
     void MessgaePromptRedTile(); //Tile to blink with green color background
     void MessgaePromptDefaultTile(); //Tile to blink with green color background
-    void PlayerScoreUpdateBlink(); //Player score update blink
-    void DealerScoreUpdateBlink(); //Dealer score update blink
     void PlayerWonBlink(); //Player winning status blink
     void PlayerLostBlink(); //Player loosing status blink
-    void GameDrawBlink(); //Game draw blink
 
 };
 
