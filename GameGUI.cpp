@@ -13,7 +13,8 @@
 using namespace std;
 
 //constructor
-Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000), TimeInBetweenCards_(1000), BlinkDelay_(1000){
+Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000), 
+                                TimeInBetweenCards_(1000), BlinkDelay_(1000){
 
     //Drawing all the prompts required for game. 
     //i.e prompt means here, main QGroupBox widgets required for game
@@ -120,14 +121,14 @@ void Window::DrawScoreBoard(){
     InternalBox->addWidget(SetStaticHeading("Dealer's Score","red",16,"black"),0,0,1,3);
     DealerScore_ = new QLabel();
     //setting up DealerScore label
-    SetDynamicHeading(DealerScore_, InitialScore, "red",20,"black");
+    SetDynamicHeading(DealerScore_, InitialScore, "red",16,"black");
     InternalBox->addWidget(DealerScore_,0,3,1,1); 
     
     //creating static heading to show current score of the player
     InternalBox->addWidget(SetStaticHeading("Player's Score","white",16,"black"),1,0,1,3);
     PlayerScore_ = new QLabel();
     //setting up PlayerScore label
-    SetDynamicHeading(PlayerScore_, InitialScore, "white",20,"black");
+    SetDynamicHeading(PlayerScore_, InitialScore, "white",16,"black");
     InternalBox->addWidget(PlayerScore_,1,3,1,1);  
     
     ScoreBoardPrompt_->setLayout(InternalBox); //Adding grid to the group box
@@ -151,7 +152,7 @@ void Window::DrawFirstBetPrompt(){
     InternalBox->addWidget(BetBox_,2,0,1,2); //Adding second button to grid
     
     OkButton_ = new QPushButton("OK"); //adding ok button on the side
-    OkButton_->setStyleSheet("font-size : 25px; font-weight : bold; color : Green"); //formatting OK Button
+    OkButton_->setStyleSheet("font-size : 15px; font-weight : bold; color : Green"); //formatting OK Button
     InternalBox->addWidget(OkButton_,2,2,1,2); //adding okay button to the grid
     FirstBetPrompt_->setLayout(InternalBox);
 

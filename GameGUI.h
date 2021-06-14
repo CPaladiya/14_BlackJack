@@ -109,7 +109,7 @@ public:
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void StartTableSetupPlayer(); //Setting up first two cards for player
     void ShowPlayersCard(); //Showing next card of the player
-    void CheckIfBlackJackOrBurst(); //After dealing the first two cards we will check if its a blackjack or burst, if not move on the game
+    void CheckIfBlackJackOrBurstOrNext(); //After dealing the first two cards we will check if its a blackjack or burst, if not move on the game
     void StartTableSetupDealer(); //Setting up first two cards for Dealer
     void ShowDealersCard(); //Showing next card of the dealer
     void DealersTurn();//Now dealer will count his score

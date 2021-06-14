@@ -47,23 +47,27 @@ void Window::FundDefaultTile(){
     PlayersFundInfoLabel_->setStyleSheet("background-color : black ; font-size : 60 px; font-weight : bold; color : white");
 }
 
-//Player winning status blink
+//Player winning status blink - blinking 3 times with distance of 200 ms
 void Window::PlayerWonFundBlink(){
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::FundGreenTile);
-    QTimer::singleShot(400,this,&Window::FundDefaultTile);
-    QTimer::singleShot(600,this,&Window::FundGreenTile);
-    QTimer::singleShot(800,this,&Window::FundDefaultTile);
+    QTimer::singleShot(0,this,&Window::FundGreenTile);
+    QTimer::singleShot(200,this,&Window::FundDefaultTile);
+    QTimer::singleShot(400,this,&Window::FundGreenTile);
+    QTimer::singleShot(600,this,&Window::FundDefaultTile);
+    QTimer::singleShot(800,this,&Window::FundGreenTile);
+    QTimer::singleShot(1000,this,&Window::FundDefaultTile);
     mutex_.unlock();
 }
 
-//Player winning status blink
+//Player winning status blink - blinking 3 times with distance of 200 ms
 void Window::PlayerLostFundBlink(){
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::FundRedTile);
-    QTimer::singleShot(400,this,&Window::FundDefaultTile);
-    QTimer::singleShot(600,this,&Window::FundRedTile);
-    QTimer::singleShot(800,this,&Window::FundDefaultTile);
+    QTimer::singleShot(0,this,&Window::FundRedTile);
+    QTimer::singleShot(200,this,&Window::FundDefaultTile);
+    QTimer::singleShot(400,this,&Window::FundRedTile);
+    QTimer::singleShot(600,this,&Window::FundDefaultTile);
+    QTimer::singleShot(800,this,&Window::FundRedTile);
+    QTimer::singleShot(1000,this,&Window::FundDefaultTile);
     mutex_.unlock();
 }
 
@@ -86,10 +90,12 @@ void Window::MessgaePromptDefaultTile(){
 void Window::PlayerWonBlink(){
     MessageLabel_->setText("You Won "+QString::number(CurrentBet_)+"$!");
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
-    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 
@@ -97,10 +103,12 @@ void Window::PlayerWonBlink(){
 void Window::PlayerBlackJackBlink(){
     MessageLabel_->setText("Black Jack of "+QString::number(CurrentBet_*1.5)+"$!");
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
-    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);    
+    QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 
@@ -108,10 +116,12 @@ void Window::PlayerBlackJackBlink(){
 void Window::PlayerLostBlink(){
     MessageLabel_->setText("You Lost "+QString::number(CurrentBet_)+"$!");
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::MessgaePromptRedTile);
-    QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
-    QTimer::singleShot(600,this,&Window::MessgaePromptRedTile);
-    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);    
+    QTimer::singleShot(0,this,&Window::MessgaePromptRedTile);
+    QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(400,this,&Window::MessgaePromptRedTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptRedTile);
+    QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 
@@ -119,10 +129,12 @@ void Window::PlayerLostBlink(){
 void Window::GameDrawBlink(){
     MessageLabel_->setText("Game Draw!");
     mutex_.lock();
-    QTimer::singleShot(200,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(400,this,&Window::MessgaePromptDefaultTile);
-    QTimer::singleShot(600,this,&Window::MessgaePromptGreenTile);
-    QTimer::singleShot(800,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
+    QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
+    QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
     mutex_.unlock();
 }
 

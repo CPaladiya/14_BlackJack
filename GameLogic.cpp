@@ -100,7 +100,7 @@ void Window::StartTableSetupPlayer(){
     
     ShowPlayersCard();//Showing players first card
     QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowPlayersCard); //Showing player's second card after a second
-    QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::CheckIfBlackJackOrBurst);
+    QTimer::singleShot(TimeInBetweenCards_*2,this,&Window::CheckIfBlackJackOrBurstOrNext);
     //Checking if player has black jack if not move on to set up table for dealer!
 }
 
@@ -116,12 +116,12 @@ void Window::ShowPlayersCard(){
 }
 
 //Check if first two cards dealt has black jack for player, if not move on the game
-void Window::CheckIfBlackJackOrBurst(){
+void Window::CheckIfBlackJackOrBurstOrNext(){
     if(Player_->TotalScore_ ==21){
-        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerHasBlackJack);
+        PlayerHasBlackJack();
     }
     else if (Player_->TotalScore_ >21){
-        QTimer::singleShot(TimeInBetweenCards_,this,&Window::PlayerLost);
+        PlayerLost();
     }
     else{
         StartTableSetupDealer();
@@ -166,12 +166,12 @@ void Window::EndGame(){
                 ShowDealersCard();
             }
             else if(i>0){ //for the fourth card and fifth card to show after third we will just hold it for a second
-                QTimer::singleShot(TimeInBetweenCards_*(i+1),this,&Window::ShowDealersCard);
+                QTimer::singleShot(TimeInBetweenCards_,this,&Window::ShowDealersCard);
             }
             i++; // keeping track of how many cards we have shown so far after the first two
         }
     }
-    QTimer::singleShot(TimeInBetweenCards_*(i+1),this,&Window::CompareScoresAndMoveOn); //We will have to delay this function if there is multiple cards to show
+    QTimer::singleShot(TimeInBetweenCards_*i,this,&Window::CompareScoresAndMoveOn); //We will have to delay this function if there is multiple cards to show
 }
 
 //Compare delaer and palyer score and declare win/lose
