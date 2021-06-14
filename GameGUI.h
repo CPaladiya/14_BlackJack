@@ -11,6 +11,7 @@
 #include <QTextStream>
 #include <QLabel>
 #include <QMutex>
+#include <QSound>
 #include <QSpinBox>
 #include <iostream>
 #include <QTextStream>

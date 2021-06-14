@@ -38,12 +38,11 @@ CardsField::CardsField(QString Participant,QWidget *parent):
     if (WhoIsIt_ == "Dealer"){ TileTitle_ = SetTileTitle("red", 22, "black");}
     else{TileTitle_ = SetTileTitle("white", 22, "black");}
 
-    ParticipantCardGrid_->addWidget(TileTitle_,0,0,1,5);
+    ParticipantCardGrid_->addWidget(TileTitle_,0,0,1,4);
     ParticipantCardGrid_->addWidget(ParticipantCards_[0]->CardImageQLabel_,1,0,7,1);
     ParticipantCardGrid_->addWidget(ParticipantCards_[1]->CardImageQLabel_,1,1,7,1);
     ParticipantCardGrid_->addWidget(ParticipantCards_[2]->CardImageQLabel_,1,2,7,1);
     ParticipantCardGrid_->addWidget(ParticipantCards_[3]->CardImageQLabel_,1,3,7,1);
-    ParticipantCardGrid_->addWidget(ParticipantCards_[4]->CardImageQLabel_,1,4,7,1);
     CardsFieldQGroupBoxVar_->setLayout(ParticipantCardGrid_);
 
 }
@@ -75,7 +74,7 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
 
 //l0ading 5 blank cards for the player
 void CardsField::LoadCards(){
-    for(int i=0; i<5; i++){
+    for(int i=0; i<4; i++){
         ParticipantCards_.emplace_back(new Card());
     }
 }

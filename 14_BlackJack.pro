@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 14_BlackJack
 INCLUDEPATH += .
 QT += core gui
-QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings

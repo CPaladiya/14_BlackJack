@@ -19,7 +19,7 @@ Card::Card(QWidget *parent) :
     //Defining variables to resize the image according to the size of the label itself
     int LabelHeight = CardImageQLabel_->height(); 
     int LabelWidth = CardImageQLabel_->width();
-    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/5,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 }
 

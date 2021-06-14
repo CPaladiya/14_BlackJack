@@ -50,11 +50,11 @@ void Window::AddPromptToWindow(){
     GameGrid_->addWidget(Dealer_->CardsFieldQGroupBoxVar_,0,0,4,4); //Adding Cards Window for dealers
     GameGrid_->addWidget(Player_->CardsFieldQGroupBoxVar_,4,0,4,4); //Adding Cards Window for Players
     GameGrid_->addWidget(DealersFundPrompt_,0,4,2,1); //Adding Dealers Fund box
-    GameGrid_->addWidget(PlayersFundPrompt_,2,4,2,1); //Adding Players Fund box
-    GameGrid_->addWidget(ScoreBoardPrompt_,4,4,2,1); //Adding ScoreBoard Box for current game
-    GameGrid_->addWidget(MessageBoxPrompt_,6,4,2,1); //Adding message box prompt
-    GameGrid_->addWidget(FirstBetPrompt_,6,4,2,1); //Adding First bet prompt
-    GameGrid_->addWidget(HitNStayPrompt_,6,4,2,1); //Adding Hit and Stay prompt
+    GameGrid_->addWidget(ScoreBoardPrompt_,2,4,2,1); //Adding ScoreBoard Box for current game
+    GameGrid_->addWidget(MessageBoxPrompt_,4,4,2,1); //Adding message box prompt
+    GameGrid_->addWidget(FirstBetPrompt_,4,4,2,1); //Adding First bet prompt
+    GameGrid_->addWidget(HitNStayPrompt_,4,4,2,1); //Adding Hit and Stay prompt
+    GameGrid_->addWidget(PlayersFundPrompt_,6,4,2,1); //Adding Players Fund box
     
 
     //Setting the grid, its title and Size of the window

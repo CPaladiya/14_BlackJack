@@ -2,19 +2,16 @@
 
 //Will set tile to yellow color background to player score
 void Window::PlayerScoreYellowTile(){
-
     PlayerScore_->setStyleSheet("background-color : yellow ; font-size : 60 px; font-weight : bold; color : black");
 }
 
 //Will set tile to yellow color background to dealer score
 void Window::DealerScoreYellowTile(){
-
     DealerScore_->setStyleSheet("background-color : yellow ; font-size : 60 px; font-weight : bold; color : black");
 }
 
 //Func will set tile to green color background to dealer score
 void Window::ScoreDefaultTile(){
-
     DealerScore_->setStyleSheet("background-color : black ; font-size : 60 px; font-weight : bold; color : red");
     PlayerScore_->setStyleSheet("background-color : black ; font-size : 60 px; font-weight : bold; color : white");
 }
