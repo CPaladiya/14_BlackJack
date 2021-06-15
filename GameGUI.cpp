@@ -16,6 +16,9 @@ using namespace std;
 Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund_(100000),PlayersFund_(5000), 
                                 TimeInBetweenCards_(1000), BlinkDelay_(1000){
 
+    //Sound being played in the background and while end of each game based on the result
+    LoadSound();
+
     //Drawing all the prompts required for game. 
     //i.e prompt means here, main QGroupBox widgets required for game
     DrawAllPrompts(); 
@@ -26,10 +29,27 @@ Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund
 
     //Once all the widgets are drawn we will start the game now
     StartFirstGame();
-
 }
 
 Window::~Window(){}
+
+void Window::LoadSound(){
+    BackGSoundPlaylist_ = new QMediaPlaylist();
+    BackGSoundPlaylist_->addMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Song.mp3"));
+    BackGSoundPlaylist_->setPlaybackMode(QMediaPlaylist::Loop);
+
+    BackGSound_ = new QMediaPlayer();
+    BackGSound_->setPlaylist(BackGSoundPlaylist_);
+    BackGSound_->setVolume(70);
+    BackGSound_->play(); //Playing the sound with infinite loop
+
+    WonSound_= new QMediaPlayer();
+    WonSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Won.mp3"));
+    LostSound_= new QMediaPlayer();
+    LostSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Lost.mp3"));
+    DarwSound_= new QMediaPlayer();
+    DarwSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Draw.mp3"));
+}
 
 //Drawing all the required widgets and storing it in respective QGroupBox variables
 void Window::DrawAllPrompts(){

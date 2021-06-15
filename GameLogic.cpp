@@ -212,6 +212,7 @@ void Window::ResetGame(){
 void Window::PlayerHasBlackJack(){
     //since we have already reduced the bet amount from player if, it won
     // we will have to add 2.5 times of it
+    WonSound_->play();
     PlayersFund_+= CurrentBet_*2.5;
     DealersFund_-= CurrentBet_*1.5;
     ScoreAfterGame();
@@ -221,6 +222,7 @@ void Window::PlayerHasBlackJack(){
 
 //Update the fund for player and dealer if player won
 void Window::PlayerWon(){
+    WonSound_->play();
     PlayersFund_+= CurrentBet_*2;
     DealersFund_-= CurrentBet_;
     ScoreAfterGame();
@@ -230,6 +232,7 @@ void Window::PlayerWon(){
 
 //Update the fund for player and dealer if player lost
 void Window::PlayerLost(){
+    LostSound_->play();
     //we have already taken money from dealer so no need to deduct it anymore
     DealersFund_+= CurrentBet_;
     ScoreAfterGame();
@@ -239,6 +242,7 @@ void Window::PlayerLost(){
 
 //Update the fund for player and dealer if game is draw
 void Window::GameDraw(){
+    DarwSound_->play();
     PlayersFund_+= (CurrentBet_);
     ScoreAfterGame();
     QTimer::singleShot(BlinkDelay_,this,&Window::GameDrawBlink);

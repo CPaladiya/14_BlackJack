@@ -11,7 +11,8 @@
 #include <QTextStream>
 #include <QLabel>
 #include <QMutex>
-#include <QSound>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 #include <QSpinBox>
 #include <iostream>
 #include <QTextStream>
@@ -38,6 +39,7 @@ public:
     QLabel *SetStaticHeading(QString StringToShow, QString FontColor, int FontSize, QString BackGroundColor); //Setting labels whose values are static 
 
     //Functions to draw all the boxes in GUI
+    void LoadSound(); //Loading all the sounds for the game
     void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
     void AddPromptToWindow(); //method to add all drawn prompts to game window
     QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);    //draws the fund InfoLabel boxes for dealer and player
@@ -85,6 +87,15 @@ public:
     QPushButton *HitButton_; //variable to store hit button
     QPushButton *StayButton_; //variable to store stay button
     QPushButton *YesButton_; //Variable to store yes button for the next game
+
+    //QMediaPlayer to run background sounds in the game
+    QMediaPlaylist *BackGSoundPlaylist_; //Background sound playlist
+    QMediaPlayer *BackGSound_; //sound effect in background
+    QMediaPlayer *WonSound_; //Sound effect upon winning
+    QMediaPlayer *LostSound_; //Sound effect upon loosing
+    QMediaPlayer *DarwSound_; //sound effect upon game draw
+
+
 
     //################## ------------  part of GameLogic.cpp ----- GUI Slots and functions ------------ ############# //
     

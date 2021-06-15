@@ -5,7 +5,8 @@
         "iostream": "cpp",
         "vector": "cpp",
         "thread": "cpp",
-        "qgraphicsopacityeffect": "cpp"
+        "qgraphicsopacityeffect": "cpp",
+        "qtimer": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
