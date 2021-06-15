@@ -138,3 +138,14 @@ void Window::GameDrawBlink(){
     mutex_.unlock();
 }
 
+void Window::PlayWinningSound(){
+    WonSound_->play();
+}
+
+void Window::PlayLostSound(){
+    LostSound_->play();
+}
+
+void Window::PlayDrawSound(){
+    DrawSound_->play();
+}

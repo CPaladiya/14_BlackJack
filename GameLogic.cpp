@@ -222,7 +222,7 @@ void Window::PlayerHasBlackJack(){
 
 //Update the fund for player and dealer if player won
 void Window::PlayerWon(){
-    WonSound_->play();
+    QTimer::singleShot(BlinkDelay_*0.5,this,&Window::PlayWinningSound);
     PlayersFund_+= CurrentBet_*2;
     DealersFund_-= CurrentBet_;
     ScoreAfterGame();
@@ -232,7 +232,7 @@ void Window::PlayerWon(){
 
 //Update the fund for player and dealer if player lost
 void Window::PlayerLost(){
-    LostSound_->play();
+    PlayLostSound();
     //we have already taken money from dealer so no need to deduct it anymore
     DealersFund_+= CurrentBet_;
     ScoreAfterGame();
@@ -242,7 +242,7 @@ void Window::PlayerLost(){
 
 //Update the fund for player and dealer if game is draw
 void Window::GameDraw(){
-    DarwSound_->play();
+    QTimer::singleShot(BlinkDelay_,this,&Window::PlayDrawSound);
     PlayersFund_+= (CurrentBet_);
     ScoreAfterGame();
     QTimer::singleShot(BlinkDelay_,this,&Window::GameDrawBlink);

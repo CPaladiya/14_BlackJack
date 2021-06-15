@@ -47,8 +47,8 @@ void Window::LoadSound(){
     WonSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Won.mp3"));
     LostSound_= new QMediaPlayer();
     LostSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Lost.mp3"));
-    DarwSound_= new QMediaPlayer();
-    DarwSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Draw.mp3"));
+    DrawSound_= new QMediaPlayer();
+    DrawSound_->setMedia(QUrl::fromLocalFile("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/Draw.mp3"));
 }
 
 //Drawing all the required widgets and storing it in respective QGroupBox variables

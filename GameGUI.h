@@ -93,7 +93,7 @@ public:
     QMediaPlayer *BackGSound_; //sound effect in background
     QMediaPlayer *WonSound_; //Sound effect upon winning
     QMediaPlayer *LostSound_; //Sound effect upon loosing
-    QMediaPlayer *DarwSound_; //sound effect upon game draw
+    QMediaPlayer *DrawSound_; //sound effect upon game draw
 
 
 
@@ -157,6 +157,9 @@ public:
     void PlayerBlackJackBlink(); //Player winning black jack blink
     void PlayerLostBlink(); //Player loosing status blink
     void GameDrawBlink(); //Game draw blink
+    void PlayWinningSound(); //Function to play sound when player wins
+    void PlayLostSound(); //Function to play sound when player looses game
+    void PlayDrawSound(); //Function to play sound when the game is draw
 
 };
 
