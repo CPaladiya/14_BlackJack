@@ -22,7 +22,8 @@
 
 using namespace std;
 
-//class definition of Window object
+//class definition of Window object, the main object that will house all the other class
+//basically the window a player will play game in is instance of this class
 class Window : public QWidget{
 
     Q_OBJECT;
@@ -42,10 +43,10 @@ public:
     void LoadSound(); //Loading all the sounds for the game
     void DrawAllPrompts(); //method to draw all the prompts that has not yet added to windows
     void AddPromptToWindow(); //method to add all drawn prompts to game window
-    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor);    //draws the fund InfoLabel boxes for dealer and player
+    QGroupBox *DrawFundPrompt(QString Participant, int &FundVar, QString FontColor, QString BackGroundColor); //draws the fund InfoLabel boxes for dealer and player
     void DrawScoreBoard();//draws the score board for current game
-    void DrawHitNStayPrompt(); //draws gropbox and stores it to variable HitNStayPrompt_
-    void DrawFirstBetPrompt(); //draws gropbox and stores it to variable FirstBetPrompt_
+    void DrawHitNStayPrompt(); //draws groupbox and stores it to variable HitNStayPrompt_
+    void DrawFirstBetPrompt(); //draws groupbox and stores it to variable FirstBetPrompt_
     void DrawMessageBoxPrompt(); //draws the message box showing winning or loosing status of player
 
     //Main Game Grid variable that houses all the QGroupBox variables
@@ -54,6 +55,8 @@ public:
     //CardsField Class two instances for each player and dealer
     CardsField *Player_;
     CardsField *Dealer_;
+
+    //Instance of mutex used to make sure labels are only access one at a time
     QMutex mutex_;
 
     //Group box variables ------------
@@ -116,26 +119,25 @@ public:
     void HideMessageBoxPrompt(); //Hide message box showing messages on game status
     void ShowMessageBoxPrompt(); //show message box showing messages on game status
 
-    //GameLogic Functions - Functions implemented to run the game
+    //GameLogic Functions - this functions almost work in order - Functions implemented to run the game
     void StartFirstGame(); //Starting the game with showing first two cards for players
     void StartTableSetupPlayer(); //Setting up first two cards for player
     void ShowPlayersCard(); //Showing next card of the player
     void CheckIfBlackJackOrBurstOrNext(); //After dealing the first two cards we will check if its a blackjack or burst, if not move on the game
     void StartTableSetupDealer(); //Setting up first two cards for Dealer
     void ShowDealersCard(); //Showing next card of the dealer
-    void DealersTurn();//Now dealer will count his score
-    void TurnDealersSecondCard(); //Turning dealers second card at the end of the game
     void EndGame(); //Ending the game once player has pressed "Stay"
+    void DealersTurn();//Now dealer will count his score once we have EndGame() func run
+    void TurnDealersSecondCard(); //Turning dealers second card at the once dealersTunr() func has run
     void CompareScoresAndMoveOn(); //Function to compare scores and act accordingly
     void ScoreAfterGame(); //Refreshes score after game and hides/shows relevant prompts
     void ResetGame(); //Resetting the game once the game is over
-    void DoNothingForSecond(){} //Just a place holder to delay the showing of card for a second
 
     //Game status functions
-    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack
-    void PlayerWon(); //Changing funds of player and dealer if player won
-    void PlayerLost(); //Changing funds of player and dealer if player won
-    void GameDraw(); //Game draw if player and dealer has the same score
+    void PlayerHasBlackJack(); //Changing funds of player and dealer if player has a blackjack and setting up blinking
+    void PlayerWon(); //Changing funds of player and dealer if player won and setting up blinking
+    void PlayerLost(); //Changing funds of player and dealer if player won and setting up blinking
+    void GameDraw(); //Game draw if player and dealer has the same score and setting up blinking
 
     //################## ------------  part of Blink.cpp ----- Blinking animations on score update ------------ ############# //
 
