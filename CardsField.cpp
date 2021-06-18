@@ -48,16 +48,15 @@ CardsField::CardsField(QString Participant,QWidget *parent):
 }
 
 CardsField::~CardsField(){}
-
 //Defining a vector of CardDeck_, here we are adding 44 cards.
-// we have added 44 instead of 52 because we want max 5 card shown in worst case
-//per player. In that case even if we have smallest 4 Card with value of 4,
-//we will have score of more than 20
+//we have added 44 instead of 52 because we want max 4 card shown in worst case
+//per player, so we will have to remove small number cards just to make sure that game
+//does not require more cards than 4 otherwise it might crash
 
 
 //------------------#########----------Main Functions of the class---------#######--------------//
 
-//Function to form title of the tiles
+//Function to form title of the tiles, setting heading of the CardsField instance
 QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGroundColor){
 
     QLabel *title = new QLabel(this); //creating new title for the tile
@@ -72,7 +71,7 @@ QLabel *CardsField::SetTileTitle(QString FontColor, int FontSize, QString BackGr
     return title;
 }
 
-//l0ading 5 blank cards for the player
+//loading 4 blank cards for the player
 void CardsField::LoadCards(){
     for(int i=0; i<4; i++){
         ParticipantCards_.emplace_back(new Card());
@@ -84,8 +83,7 @@ int CardsField::GetRandomCardIndex(){
     //1.obtaining random index for new next card-------
     random_device rd; //obtaining a random number from hardware
     mt19937 generator(rd()); // seed the generator
-    int LastIndexOfCardDeck = TotalCardInCurrentDeck_-1;
-    out << "Last index of the card deck : " << TotalCardInCurrentDeck_<< endl;
+    int LastIndexOfCardDeck = TotalCardInCurrentDeck_-1; //Index is one smaller than total number of cards since it starts with 0
     uniform_int_distribution<> distribution(0,LastIndexOfCardDeck);
     int CardDeckRandomIndex = distribution(generator);
     TotalCardInCurrentDeck_--;//one card used so reduce the qty by 1
@@ -95,38 +93,35 @@ int CardsField::GetRandomCardIndex(){
 //This will reveal the next card using the random index in the deck
 void CardsField::RevealNextCard(){
     
-    int RandomCardIndexForNewCard = GetRandomCardIndex();
+    int RandomCardIndexForNewCard = GetRandomCardIndex(); //Getting the random index for CardDeck_ to pick a card
 
-    //1.Cheching if its dealers second card then it wold be closed card otherwise
-    //Reloading the new random card
+    //1.Cheching if its dealers second card then it would be closed card and we will save the QString name of the card in a variable to reveal later on
+    // otherwise reloading the new random card
     if(WhoIsIt_ == "Dealer" && ParticipantLatestCardIndex_ == 1){
-        DealerSecondCard_ = CardDeck_[RandomCardIndexForNewCard];
-        out << DealerSecondCard_ <<"Dealers Second Card" << endl;
-        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard("00");
+        DealerSecondCard_ = CardDeck_[RandomCardIndexForNewCard]; //Saving the actual Qstring name of the closed card
+        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard("00"); //Reloading the closed card just to show card closed
     }
     else{
-        QString NewCard = CardDeck_[RandomCardIndexForNewCard];
-        out << NewCard << endl;
-        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard);
+        QString NewCard = CardDeck_[RandomCardIndexForNewCard]; 
+        ParticipantCards_[ParticipantLatestCardIndex_]->ReloadTrueCard(NewCard); //Reloading the new random card with QString value
     }
     //2.Removing the card being used from current deck since its already used
     CardDeck_.erase(CardDeck_.begin()+RandomCardIndexForNewCard);
     
     //3.updating the latest score of the player-----------
     TotalScore_ += ParticipantCards_[ParticipantLatestCardIndex_]->CardValue_;
-    out <<  WhoIsIt_<<"'s current score :" <<TotalScore_<<endl; 
 
     //4.next card to reveal would be on the next position
-    //so moving latest card index by one
+    //so moving latest card index by one if the card position is less than 4
     if (ParticipantLatestCardIndex_<4) {ParticipantLatestCardIndex_++;}
-    //else{cout << "Participant index is more than 4!"<<endl;}
+    else{cout << "Participant index is more than 4!"<<endl;}
 }
 
 //the dealers second closed card revealed
 void CardsField::FlipDealersCard(){
-    ParticipantCards_[1]->FadeOutAnimation();
-    ParticipantCards_[1]->ReloadTrueCard(DealerSecondCard_);
-    TotalScore_ += ParticipantCards_[1]->CardValue_;
+    ParticipantCards_[1]->FadeOutAnimation(); //Fade out the shown dummy closed card
+    ParticipantCards_[1]->ReloadTrueCard(DealerSecondCard_); //Fade in the true second card using the value we stored in DealersSecondCard_ variable
+    TotalScore_ += ParticipantCards_[1]->CardValue_; //Recalculating the score of the dealer
 }
 
 void CardsField::ResetCards(){
