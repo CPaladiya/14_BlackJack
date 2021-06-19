@@ -2,3 +2,5 @@
 moc*
 *.stash
 *.o
+14_BlackJack
+Makefile
