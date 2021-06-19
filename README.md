@@ -2,6 +2,10 @@
 ## What is it?
 It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.</br>
 
+## How to run the game?
+
+## How to play the game?
+
 ## Files structure and its content
 Here is the list of different files and information on what they contain:
 <ul>
@@ -23,8 +27,10 @@ There are three different classes being used here.
 
 ## Before we go look at the activity table, let's see the variable layout!
 
-Here in the image, all the variables of <code>QGroupBox</code> and <code>QGridLayout</code> are placed in the GameGUI window. They hold relative values of class instance which may be refreshed as the game goes on. These are drawn and loaded with the constructor of <code>Window *window</code> object , as soon as the game is started. If more clarification is required look at the code between  </br>
+Here in the image, all the variables of <code>QGroupBox</code> and <code>QGridLayout</code> are placed in the GameGUI window. They hold relative values of class instance which may be refreshed as the game goes on. These are drawn and loaded with the constructor of <code>Window *window</code> object which owns the <code>QGridLayout *GameGrid_</code> variable, as soon as the game is started. If more clarification is required, please refer to the code snippet [here.](https://github.com/CPaladiya/14_BlackJack/blob/458e3597828f7f070d637ef643651e88f652a973/GameGUI.cpp#L77-L84)   This should provide basic idea on how and where these prompts are added.</br>
 
 ![](Image/VariableInGame.jpg) </br>
 
-https://github.com/CPaladiya/14_BlackJack/blob/458e3597828f7f070d637ef643651e88f652a973/GameGUI.cpp#L77-L84
+## UML Activity Flowchart of the game
+## Udacity requirement check list
+
