@@ -2,7 +2,11 @@
 ## What is it?
 It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.</br>
 
-## How to run the game?
+## Linux OS : Installation Requirements
+(1) <code>gcc 9.3.0</code> or above, if not already installed please follow the steps shown [here.](https://linuxize.com/post/how-to-install-gcc-on-ubuntu-20-04/)</br>
+(2) <code>cmake 3.20.4</code> or above, if not already installed please follow the steps shown [here.](https://cgold.readthedocs.io/en/latest/first-step/installation.html)</br>
+(3) <code>QMake 3.1</code> or above and <code>Qt 5.12.8</code> or above, if not already installed please follow the steps shown [here.](https://www.addictivetips.com/ubuntu-linux-tips/how-to-install-qt-5-on-ubuntu/)</br>
+(4) please run the command <code>sudo apt install libqt5multimedia5</code> in terminal to install multimedia package from Qt, required to produce the sound effets. </br>
 
 ## How to play the game?
 
