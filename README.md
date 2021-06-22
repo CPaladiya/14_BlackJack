@@ -9,6 +9,9 @@ It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.
 (4) please run the command <code>sudo apt install libqt5multimedia5</code> in terminal to install multimedia package from Qt, required to produce the sound effets. </br>
 
 ## How to play the game?
+(1) Please keep all the files as it is in the repo. Once, cloned in your local computer, open the terminal and nevigate to the source directory <code>14_BlackJAck</code>, then run <code>qmake && make && ./14_BlackJack</code> in your terminal.
+(2) First step will bring the window on your screen shown as below. Now, you will decide the amount you want to bet against house.
+
 
 ## Files structure and its content
 Here is the list of different files and information on what they contain:
@@ -35,6 +38,5 @@ Here in the image, all the variables of <code>QGroupBox</code> and <code>QGridLa
 
 ![](Image/VariableInGame.jpg) </br>
 
-## UML Activity Flowchart of the game
 ## Udacity requirement check list
 
