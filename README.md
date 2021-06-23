@@ -5,9 +5,9 @@ It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.
 
 ## Udacity requirement check list
 **README**</br>
-+ The installation directions and instructions to run and play the game are provided in clear details with required links - section (a). </br>
-+ Also, the file structure and what they content is explained in section (b). </br>
-+ Details on how to play this game is provided in section (d).</br>
++ The installation directions and instructions to run and play the game are provided in clear details with required links - **section (a)**. </br>
++ Also, the file structure and what they content is explained in **section (b)**. </br>
++ Details on how to play this game is provided in **section (d)**.</br>
 
 **Loops, Functions, I/O**</br>
 + Loops/Functions are used extensively. All the functions used are declared carefully in the respective header files.</br>
@@ -15,7 +15,7 @@ It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.
 + The user input is taken in terms of asking for pressing **Hit**, **Stay**, **Ok** and, **Yes** button which is then connected to various functions as shown [here.](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/GameLogic.cpp#L87-L95)
 
 **Object Oriented Programming**</br>
-+ Number of used classes and in which file they are located is explained within section (c).</br>
++ Number of used classes and in which file they are located is explained within **section (c)**. Also, the basic flow chart of the game logic is shown in **section (d)**</br>
 + Class constructors of class <code>Card</code> and <code>CardsField</code> uses initialization list. It can be seen [here](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/Card.cpp#L14) for the class <code>Card</code> and [here](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/CardsField.cpp#L30) for the class <code>CardsField</code> 
 + <code>Window</code> class owns objects of class <code>CardsField</code> instead of using inheritance, which can be seen [here](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/GameGUI.h#L56-L57). Similarly, <code>CardsField</code> class owns object of class <code>Cards</code> as [shown](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/CardsField.h#L36).
 + All the methods, variables and funcitons are named appropriately with detailed comments and information on the intended use.
@@ -49,9 +49,12 @@ There are three different classes being used here.
 
 Here in the image below, all the variables of <code>QGroupBox</code> and <code>QGridLayout</code> are placed in the GameGUI window. They hold relative values of class instance which may be refreshed as the game goes on. These are drawn and loaded with the constructor of <code>Window *window</code> object which owns the <code>QGridLayout *GameGrid_</code> variable, as soon as the game is started. If more clarification is required, please refer to the code snippet [here.](https://github.com/CPaladiya/14_BlackJack/blob/458e3597828f7f070d637ef643651e88f652a973/GameGUI.cpp#L77-L84)   This should provide basic idea on how and where these prompts are added.</br>
 
+<img src="Image/ImgeFlowChart.png" width="900"> </br>
+
+## (d) Basic FlowChart of the game logic
 <img src="Image/VariableInGame.jpg" width="600"> </br>
 
-## (d) How to play the game?
+## (e) How to play the game?
 (1) If you don't know the rules of the game BlackJack please watch [this](https://www.youtube.com/watch?v=qd5oc9hLrXg) video. It is pretty short and simple!</br>
 (2) Please keep all the files as it is in the repo. Once, cloned in your local computer, open the terminal and nevigate to the source directory <code>14_BlackJAck</code>, then run <code>qmake && make && ./14_BlackJack</code> in your terminal.</br>
 (3) First step will bring the window on your screen shown as below. Now, you will decide the amount you want to bet against house.</br>
