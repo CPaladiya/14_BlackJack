@@ -26,6 +26,7 @@ It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.
 (2) <code>cmake 3.20.4</code> or above, if not already installed please follow the steps shown [here.](https://cgold.readthedocs.io/en/latest/first-step/installation.html)</br>
 (3) <code>QMake 3.1</code> or above and <code>Qt 5.12.8</code> or above, if not already installed please follow the steps shown [here.](https://www.addictivetips.com/ubuntu-linux-tips/how-to-install-qt-5-on-ubuntu/)</br>
 (4) please run the command <code>sudo apt-get install qtmultimedia5-dev libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5</code> in terminal to install multimedia package from Qt, required to produce the sound effets. </br>
+(5) Please keep all the files as it is in the repo. Once, cloned in your local computer, open the terminal and nevigate to the source directory <code>14_BlackJAck</code>, then run <code>qmake && make && ./14_BlackJack</code> in your terminal.</br>
 
 
 ## (b) Files structure and its content
@@ -56,18 +57,17 @@ Here in the image below, all the variables of <code>QGroupBox</code> and <code>Q
 
 ## (e) How to play the game?
 (1) If you don't know the rules of the game BlackJack please watch [this](https://www.youtube.com/watch?v=qd5oc9hLrXg) video. It is pretty short and simple!</br>
-(2) Please keep all the files as it is in the repo. Once, cloned in your local computer, open the terminal and nevigate to the source directory <code>14_BlackJAck</code>, then run <code>qmake && make && ./14_BlackJack</code> in your terminal.</br>
-(3) First step will bring the window on your screen shown as below. Now, you will decide the amount you want to bet against house.</br>
+(2) First step will bring the window on your screen shown as below. Now, you will decide the amount you want to bet against house.</br>
 
 <img src="Image/FirstBet.png" width="600"> </br>
 
-(4) Now, one by one, four card will appear on your window. It will now change prompt to button **Hit** and **Stay**. As a player, now you will have to make your move by pressing one of the two buttons and try to maintain score of 21 or less. </br>
+(3) Now, one by one, four card will appear on your window. It will now change prompt to button **Hit** and **Stay**. As a player, now you will have to make your move by pressing one of the two buttons and try to maintain score of 21 or less. </br>
 
 <img src="Image/HitNStay.png" width="600"> </br>
 
-(5) Once, you have pressed **Stay** button, dealer will reveal the closed card and game will go on. Once, upon the completion of game, you will get message of wether you lost or won and by how much amount.
+(4) Once, you have pressed **Stay** button, dealer will reveal the closed card and game will go on. Once, upon the completion of game, you will get message of wether you lost or won and by how much amount.
 
 <img src="Image/LastPrompt.png" width="600"> </br>
 
-(6) Now, press **Yes** button and you will be directed to new game where the game will start with No.(3) again! </br>
-(7) In case when dealer or player get more than 21, or player have black Jack, the game will restart with No.(3) again.</br>
+(5) Now, press **Yes** button and you will be directed to new game where the game will start with No.(2) again! </br>
+(6) In case when dealer or player get more than 21, or player have black Jack, the game will restart with No.(2) again.</br>
