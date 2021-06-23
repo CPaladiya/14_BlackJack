@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = 14_BlackJack
 INCLUDEPATH += .
 QT += core gui
+CONFIG+=C++11
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 # The following define makes your compiler warn you if you use any
