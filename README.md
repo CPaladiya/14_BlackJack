@@ -3,16 +3,10 @@
 ## What is it?
 It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.</br>
 
-## Udacity requirement check list
 **README**</br>
 + The installation directions and instructions to run and play the game are provided in clear details with required links - **section (a)**. </br>
 + Also, the file structure and what they content is explained in **section (b)**. </br>
 + Details on how to play this game is provided in **section (d)**.</br>
-
-**Loops, Functions, I/O**</br>
-+ Loops/Functions are used extensively. All the functions used are declared carefully in the respective header files.</br>
-+ The program is using images of playing cards saved in project directory, which is done here at this [line](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/Card.cpp#L18) within file <code>card.cpp</code></br>
-+ The user input is taken in terms of asking for pressing **Hit**, **Stay**, **Ok** and, **Yes** button which is then connected to various functions as shown [here.](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/GameLogic.cpp#L87-L95)
 
 **Object Oriented Programming**</br>
 + Number of used classes and in which file they are located is explained within **section (c)**. Also, the basic flow chart of the game logic is shown in **section (d)**</br>
