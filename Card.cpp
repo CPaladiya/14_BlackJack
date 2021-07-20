@@ -13,14 +13,7 @@ using namespace std;
 //This class will show image in the QLabel, each card will have its own QLabel and its image
 Card::Card(QWidget *parent) : 
     QLabel(parent), CardName_("TT"), CardValue_(0) {
-
-    //Loading card with blank image to set the size of the QLable, as game goes on, the blank card will be replaced with real card image
-    QPixmap loadedImage("/home/cpaladiya/My_prog_projects/14_BlackJack/cards/"+CardName_+".png"); //loading the image
     CardImageQLabel_ = new QLabel();//creating a new label
-    //Defining variables to resize the image according to the size of the label itself
-    int LabelHeight = CardImageQLabel_->height(); 
-    int LabelWidth = CardImageQLabel_->width();
-    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth/4,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 }
 
@@ -38,7 +31,7 @@ void Card::ReloadTrueCard (QString NewCardQString){
     int LabelHeight = CardImageQLabel_->height(); //setting height and width of QLabel
     int LabelWidth = CardImageQLabel_->width();
     //Setting Pixmap to the QLabel
-    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    CardImageQLabel_->setPixmap(loadedImage.scaled(LabelWidth,LabelHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation)); //
 
     //Fade in animation for newly loaded card
     FadeInAnimation();
