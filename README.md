@@ -28,7 +28,7 @@ Here is the list of different files and information on what they contain:
 <ul>
 <li> <code>GameGUI.h</code>, Header file contains declaration of the class <code>Window</code> with functions responsible to draw and load widgets in main game window. It also contains declaration of the functions for game logic (defined in <code>GameLogic.cpp</code>), animation and sound effects (defined in <code>Blink.cpp</code>). </li>
 <li> <code>GameGUI.cpp</code>, file contains definitions of the class <code>Window</code> and functions responsible to draw and load widgets in window. </li>
-<li> <code>GameLogic.cpp</code>, file contains definitions of functions responsible to run the logic of the game **Black Jack**. </li>
+<li> <code>GameLogic.cpp</code>, file contains definitions of functions responsible to run the logic of the game Black Jack. </li>
 <li> <code>Blink.cpp</code>, file contains definitions of functions responsible for blinking and sound effects. </li>
 <li> <code>CardsField.h</code> and <code>CardsField.cpp</code>, file contains declaration and definition of class <code>CardsField</code>. It holds maximum 4 cards for individual participant and total score of an instance during the game. It also includes the Deck being used to get random cards out of it. </li>
 <li> <code>Cards.h</code> and <code>Cards.cpp</code>, file contains declaration and definition of class <code>Card</code>. It holds image and value of an individual Card instance, and functions to apply Fade-In Fade-Out animation effect. </li> </ul> </br>
