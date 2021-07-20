@@ -12,7 +12,7 @@ using namespace std;
 
 //This class will show image in the QLabel, each card will have its own QLabel and its image
 Card::Card(QWidget *parent) : 
-    QLabel(parent), CardName_("TT"), CardValue_(0) {
+    QLabel(parent), CardName_("00"), CardValue_(0) {
     CardImageQLabel_ = new QLabel();//creating a new label
 
 }
@@ -37,7 +37,7 @@ void Card::ReloadTrueCard (QString NewCardQString){
     FadeInAnimation();
     //refreshing the card value as per new card name.
     //storing the value of card .i.e 11 for Ace, 2 for 2 of Hearts and 10 for any face values
-    //For example, "1J.jpg", CardName_ would be "1J" and its value will be 1
+    //For example, "3D.jpg", CardName_ would be "3D" and its value will be 3
     RefreshCardValue();
 
 }
@@ -78,7 +78,7 @@ void Card::RefreshCardValue(){
     if (CardName_[0] == "1"){
         CardValue_ = 11; //if ace we will set card value to 11
     }
-    else if (CardName_[0] == "T" || CardName_[0] == "0" ){
+    else if (CardName_[0] == "0" ){
         CardValue_ = 0; //If dummy blank card or closed card, value will be 0
     }//Now, we will loop through all the number in CardValueNumber to see if the value CardName_[0] is in it, 
     //if it is not, it will return 0 which means false. Otherwise it would be a number other than 0
