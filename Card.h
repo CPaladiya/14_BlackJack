@@ -7,7 +7,8 @@
 #include <QTextStream>
 #include <QThread>
 
-//QTextStream out(stdout);
+/* This class will show image in the QLabel, each card will have its own QLabel and its image.
+It will store card name, value, and has functions for fade-in and fade-out effects*/
 
 class Card : public QLabel{
     

@@ -22,8 +22,10 @@
 
 using namespace std;
 
-//class definition of Window object, the main object that will house all the other class
-//basically the window a player will play game in is instance of this class
+/*class definition of Window object, the main object that will house all the other class
+ basically the window a player will play game in is instance of this class.
+ It also has func for the game logic, sound and visual effects*/
+
 class Window : public QWidget{
 
     Q_OBJECT;
@@ -55,9 +57,6 @@ public:
     //CardsField Class two instances for each player and dealer
     CardsField *Player_;
     CardsField *Dealer_;
-
-    //Instance of mutex used to make sure labels are only access one at a time
-    QMutex mutex_;
 
     //Group box variables ------------
     QGroupBox *DealersCardPrompt_; //variable to store Dealers card box

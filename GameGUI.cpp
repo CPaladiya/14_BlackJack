@@ -31,7 +31,12 @@ Window::Window(QWidget *parent) : QWidget(parent),CurrentBet_ (100), DealersFund
     StartFirstGame();
 }
 
-Window::~Window(){}
+Window::~Window(){
+    cout << "Destructor Called!"<<endl;
+    delete GameGrid_;
+    delete Player_;
+    delete Dealer_;
+}
 
 void Window::LoadSound(){
     

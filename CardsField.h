@@ -12,9 +12,12 @@
 
 using namespace std;
 
-//This class will hold cards for player and dealer, each will have its own instance
-//On the main screen while playing the game, where the card shows up that field is
-//instance of the CardsField class
+/*This class will hold cards for player and dealer, each will have its own instance
+ On the main screen while playing the game, where the card shows up that field is
+ instance of the CardsField class.
+ 
+ It stores socore for each player, holds cards in a vector also has random card generator and static variable for deck*/
+
 class CardsField : public QGroupBox{
 
     Q_OBJECT

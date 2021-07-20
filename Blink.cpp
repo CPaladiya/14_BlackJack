@@ -18,18 +18,14 @@ void Window::ScoreDefaultTile(){
 
 //Func to blink score tile when player's score is updated
 void Window::PlayerScoreUpdateBlink(){
-    mutex_.lock();
     QTimer::singleShot(100,this,&Window::PlayerScoreYellowTile);
     QTimer::singleShot(200,this,&Window::ScoreDefaultTile);
-    mutex_.unlock();
 }
 
 //Func to blink score tile when dealer's score is updated
 void Window::DealerScoreUpdateBlink(){
-    mutex_.lock();
     QTimer::singleShot(100,this,&Window::DealerScoreYellowTile);
     QTimer::singleShot(200,this,&Window::ScoreDefaultTile);
-    mutex_.unlock();
 }
 
 //Tile to blink with Red color background for players fund
@@ -49,26 +45,22 @@ void Window::FundDefaultTile(){
 
 //Player winning status blink - blinking 3 times with distance of 200 ms
 void Window::PlayerWonFundBlink(){
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::FundGreenTile);
     QTimer::singleShot(200,this,&Window::FundDefaultTile);
     QTimer::singleShot(400,this,&Window::FundGreenTile);
     QTimer::singleShot(600,this,&Window::FundDefaultTile);
     QTimer::singleShot(800,this,&Window::FundGreenTile);
     QTimer::singleShot(1000,this,&Window::FundDefaultTile);
-    mutex_.unlock();
 }
 
 //Player winning status blink - blinking 3 times with distance of 200 ms
 void Window::PlayerLostFundBlink(){
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::FundRedTile);
     QTimer::singleShot(200,this,&Window::FundDefaultTile);
     QTimer::singleShot(400,this,&Window::FundRedTile);
     QTimer::singleShot(600,this,&Window::FundDefaultTile);
     QTimer::singleShot(800,this,&Window::FundRedTile);
     QTimer::singleShot(1000,this,&Window::FundDefaultTile);
-    mutex_.unlock();
 }
 
 //Tile to blink with green color background for status of the game
@@ -89,53 +81,45 @@ void Window::MessgaePromptDefaultTile(){
 //Tile to blink when player wins
 void Window::PlayerWonBlink(){
     MessageLabel_->setText("You Won "+QString::number(CurrentBet_)+"$!");
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
-    mutex_.unlock();
 }
 
 //Tile to blink when player wins blackjack
 void Window::PlayerBlackJackBlink(){
     MessageLabel_->setText("Black Jack of "+QString::number(CurrentBet_*1.5)+"$!");
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
-    mutex_.unlock();
 }
 
 //Tile to blink when player loses
 void Window::PlayerLostBlink(){
     MessageLabel_->setText("You Lost "+QString::number(CurrentBet_)+"$!");
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::MessgaePromptRedTile);
     QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptRedTile);
     QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(800,this,&Window::MessgaePromptRedTile);
     QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
-    mutex_.unlock();
 }
 
 //Tile to blink when game is draw
 void Window::GameDrawBlink(){
     MessageLabel_->setText("Game Draw!");
-    mutex_.lock();
     QTimer::singleShot(0,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(200,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(400,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(600,this,&Window::MessgaePromptDefaultTile);
     QTimer::singleShot(800,this,&Window::MessgaePromptGreenTile);
     QTimer::singleShot(1000,this,&Window::MessgaePromptDefaultTile);
-    mutex_.unlock();
 }
 
 void Window::PlayWinningSound(){

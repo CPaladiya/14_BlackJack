@@ -16,6 +16,11 @@ QTextStream out(stdout);
 
 //------------------#########----------Defining static variables---------#######--------------//
 
+//Defining a vector of CardDeck_, here we are adding 44 cards.
+//we have added 44 instead of 52 because we want max 4 card shown in worst case
+//per player, so we will have to remove small number cards just to make sure that game
+//does not require more cards than 4 otherwise it might crash
+
 vector<QString> CardsField::CardDeck_ {"1C","1D","1H","1S","4C","4D","4H","4S",
                                        "5C","5D","5H","5S","6C","6D","6H","6S",
                                        "7C","7D","7H","7S","8C","8D","8H","8S",
@@ -48,10 +53,6 @@ CardsField::CardsField(QString Participant,QWidget *parent):
 }
 
 CardsField::~CardsField(){}
-//Defining a vector of CardDeck_, here we are adding 44 cards.
-//we have added 44 instead of 52 because we want max 4 card shown in worst case
-//per player, so we will have to remove small number cards just to make sure that game
-//does not require more cards than 4 otherwise it might crash
 
 
 //------------------#########----------Main Functions of the class---------#######--------------//

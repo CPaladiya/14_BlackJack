@@ -10,7 +10,6 @@
 
 using namespace std;
 
-//This class will show image in the QLabel, each card will have its own QLabel and its image
 Card::Card(QWidget *parent) : 
     QLabel(parent), CardName_("00"), CardValue_(0) {
     CardImageQLabel_ = new QLabel();//creating a new label
