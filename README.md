@@ -3,16 +3,10 @@
 ## What is it?
 It is a GUI based card game called ***Black Jack*** developed using C++ and Qt5.</br>
 
-## Udacity requirement check list
 **README**</br>
 + The installation directions and instructions to run and play the game are provided in clear details with required links - **section (a)**. </br>
 + Also, the file structure and what they content is explained in **section (b)**. </br>
 + Details on how to play this game is provided in **section (d)**.</br>
-
-**Loops, Functions, I/O**</br>
-+ Loops/Functions are used extensively. All the functions used are declared carefully in the respective header files.</br>
-+ The program is using images of playing cards saved in project directory, which is done here at this [line](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/Card.cpp#L18) within file <code>card.cpp</code></br>
-+ The user input is taken in terms of asking for pressing **Hit**, **Stay**, **Ok** and, **Yes** button which is then connected to various functions as shown [here.](https://github.com/CPaladiya/14_BlackJack/blob/8437c359d456a40f564d95338796d64d77054d05/GameLogic.cpp#L87-L95)
 
 **Object Oriented Programming**</br>
 + Number of used classes and in which file they are located is explained within **section (c)**. Also, the basic flow chart of the game logic is shown in **section (d)**</br>
@@ -34,7 +28,7 @@ Here is the list of different files and information on what they contain:
 <ul>
 <li> <code>GameGUI.h</code>, Header file contains declaration of the class <code>Window</code> with functions responsible to draw and load widgets in main game window. It also contains declaration of the functions for game logic (defined in <code>GameLogic.cpp</code>), animation and sound effects (defined in <code>Blink.cpp</code>). </li>
 <li> <code>GameGUI.cpp</code>, file contains definitions of the class <code>Window</code> and functions responsible to draw and load widgets in window. </li>
-<li> <code>GameLogic.cpp</code>, file contains definitions of functions responsible to run the logic of the game **Black Jack**. </li>
+<li> <code>GameLogic.cpp</code>, file contains definitions of functions responsible to run the logic of the game Black Jack. </li>
 <li> <code>Blink.cpp</code>, file contains definitions of functions responsible for blinking and sound effects. </li>
 <li> <code>CardsField.h</code> and <code>CardsField.cpp</code>, file contains declaration and definition of class <code>CardsField</code>. It holds maximum 4 cards for individual participant and total score of an instance during the game. It also includes the Deck being used to get random cards out of it. </li>
 <li> <code>Cards.h</code> and <code>Cards.cpp</code>, file contains declaration and definition of class <code>Card</code>. It holds image and value of an individual Card instance, and functions to apply Fade-In Fade-Out animation effect. </li> </ul> </br>

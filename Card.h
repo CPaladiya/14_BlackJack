@@ -24,7 +24,7 @@ public:
     
     //Var of the Card class
     QLabel *CardImageQLabel_; //Main QLabel of the instance
-    QString CardName_; //storing the name of the card i.e "1J" from "1J.PNG"
+    QString CardName_; //storing the name of the card i.e "JS" from "JS.PNG" - Jack of Spades
     int CardValue_; //storing the value of card .i.e 11 for Ace, 2 for 2 of Hearts and 10 for any face values
 
 };
